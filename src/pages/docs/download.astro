@@ -30,6 +30,7 @@ brew install pgdesigner</code></pre>
     <tr><td>Linux</td><td>amd64</td><td><code>pgdesigner-linux-amd64.tar.gz</code></td></tr>
     <tr><td>Linux</td><td>arm64</td><td><code>pgdesigner-linux-arm64.tar.gz</code></td></tr>
     <tr><td>Windows</td><td>amd64</td><td><code>pgdesigner-windows-amd64.zip</code></td></tr>
+    <tr><td>Windows</td><td>arm64</td><td><code>pgdesigner-windows-arm64.zip</code></td></tr>
   </tbody>
 </table>
 
@@ -59,7 +60,7 @@ docker run --rm -v $(pwd):/work ghcr.io/vmkteam/pgdesigner:latest lint /work/sch
 
 <h2>Build from source</h2>
 
-<p>Requires Go 1.25+ and pnpm:</p>
+<p>Requires Go 1.24+ and pnpm:</p>
 
 <pre><code>git clone https://github.com/vmkteam/pgdesigner.git
 cd pgdesigner
