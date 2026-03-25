@@ -1,0 +1,87 @@
+---
+// @ts-ignore
+import { Icon } from "astro-icon/components";
+
+const features = [
+  {
+    title: "Visual ERD Canvas",
+    description: "See your entire schema at a glance. Drag, zoom, auto-layout. Tested on 120+ tables with smooth performance.",
+    icon: "bx:bxs-edit",
+    href: "/features/erd",
+  },
+  {
+    title: "Generate SQL",
+    description: "Production-ready DDL from your model. 15-phase dependency sort. 99.7% round-trip fidelity on 630+ tables.",
+    icon: "bx:bxs-data",
+    href: "/features/generate",
+  },
+  {
+    title: "Diff & ALTER Engine",
+    description: "Two schemas in, safe migration out. Hazard warnings: DELETES_DATA, TABLE_REWRITE, TABLE_RECREATE, BACKFILL_REQUIRED.",
+    icon: "bx:bxs-analyse",
+    href: "/features/diff",
+  },
+  {
+    title: "75 Lint Rules",
+    description: "Catch FK mismatches, missing indexes, naming issues, antipatterns. 15 rules with autofix.",
+    icon: "bx:bxs-check-shield",
+    href: "/features/lint",
+  },
+  {
+    title: "Sample Data Generator",
+    description: "Populate your database in one command. FK-aware, 40+ name heuristics, reproducible with seed.",
+    icon: "bx:bxs-spreadsheet",
+    href: "/features/sampledata",
+  },
+  {
+    title: "Import Anything",
+    description: "PDD, DBS, DM2, SQL, live PostgreSQL. Migrate from any tool in minutes.",
+    icon: "bx:bxs-cloud-download",
+    href: "/features/import",
+  },
+  {
+    title: "Git-Friendly Format",
+    description: ".pgd XML optimized for clean single-line diffs. Split-model for large schemas. Near-zero merge conflicts.",
+    icon: "bx:bxl-git",
+    href: "/features/git",
+  },
+  {
+    title: "PG18 Full Spec",
+    description: "Partitions, temporal constraints, virtual generated columns, IDENTITY. 70+ data types.",
+    icon: "bx:bxs-server",
+    href: "/features/erd",
+  },
+  {
+    title: "CLI for CI/CD",
+    description: "pgdesigner lint, diff, generate, testdata in your pipeline. Zero dependencies, single binary.",
+    icon: "bx:bxs-terminal",
+    href: "/features/cli",
+  },
+];
+---
+
+<div class="mt-16 md:mt-0">
+  <h2 class="text-4xl lg:text-5xl font-bold lg:tracking-tight text-heading">
+    Visual ERD, DDL Generator, Schema Diff &amp; Lint
+  </h2>
+  <p class="text-lg mt-4 text-muted max-w-2xl">
+    PG-specialized. Git-friendly format. Diff/ALTER engine. Modern visual UI.
+    No other tool has all four.
+  </p>
+</div>
+
+<div class="grid sm:grid-cols-2 md:grid-cols-3 mt-16 gap-12">
+  {
+    features.map((item) => (
+      <a href={item.href} class="group flex gap-4 items-start">
+        <div class="mt-1 bg-blue-500/20 rounded-lg p-2 w-8 h-8 shrink-0 flex items-center justify-center">
+          <Icon class="text-accent-text w-4 h-4" name={item.icon} />
+        </div>
+        <div>
+          <h3 class="font-semibold text-lg text-heading group-hover:text-accent-text transition-colors">{item.title}</h3>
+          <p class="text-muted mt-2 leading-relaxed text-sm">{item.description}</p>
+        </div>
+      </a>
+    ))
+  }
+</div>

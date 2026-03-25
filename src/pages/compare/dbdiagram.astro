@@ -1,0 +1,127 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Subnav from "@/components/subnav.astro";
+import { comparePages } from "@/data/navigation";
+---
+
+<Layout
+  title="PgDesigner vs dbdiagram.io — Comparison"
+  description="Compare PgDesigner and dbdiagram.io for PostgreSQL schema design. Offline-first vs SaaS. One-time $19 vs $9/mo. Diff engine, 75 lint rules, sample data vs DBML cloud diagrams.">
+
+  <Subnav items={comparePages} />
+
+  <Container>
+    <div class="max-w-3xl mx-auto pt-16 pb-24">
+      <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-heading">
+        PgDesigner vs dbdiagram.io
+      </h1>
+      <p class="mt-4 text-lg text-body">dbdiagram.io is a popular SaaS diagramming tool using DBML — a text-based DSL for database schemas. Fast to start, no install. Here's how PgDesigner differs.</p>
+
+      <div class="mt-12 prose max-w-none
+        prose-headings:text-heading prose-headings:font-semibold
+        prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
+        prose-p:text-body prose-p:leading-relaxed
+        prose-li:text-body
+        prose-strong:text-heading
+        prose-a:text-accent-text prose-a:no-underline hover:prose-a:underline
+        prose-table:text-sm
+        prose-th:text-heading prose-th:font-semibold prose-th:px-3 prose-th:pb-3
+        prose-td:px-3 prose-td:py-2 prose-td:text-body
+        prose-thead:border-border-default prose-tr:border-border-default">
+
+        <h2>Feature comparison</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th style="text-align:center">PgDesigner</th>
+              <th style="text-align:center">dbdiagram.io</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Offline / local</td><td style="text-align:center">Yes (single binary)</td><td style="text-align:center">No (SaaS, cloud storage)</td></tr>
+            <tr><td>Database focus</td><td style="text-align:center">PostgreSQL only</td><td style="text-align:center">PG, MySQL (generic DBML)</td></tr>
+            <tr><td>Schema format</td><td style="text-align:center">.pgd XML (git-friendly)</td><td style="text-align:center">DBML (text DSL)</td></tr>
+            <tr><td>Visual ERD editor</td><td style="text-align:center">Yes (drag & drop)</td><td style="text-align:center">Yes (code → diagram)</td></tr>
+            <tr><td>Diff/ALTER engine</td><td style="text-align:center">Yes (6 hazard codes)</td><td style="text-align:center">No</td></tr>
+            <tr><td>Schema lint</td><td style="text-align:center">75 rules, 15 autofix</td><td style="text-align:center">No</td></tr>
+            <tr><td>Sample data generator</td><td style="text-align:center">Yes (30 heuristics)</td><td style="text-align:center">No</td></tr>
+            <tr><td>Import SQL scripts</td><td style="text-align:center">Yes (PG parser + live DB)</td><td style="text-align:center">Yes (PG, MySQL scripts)</td></tr>
+            <tr><td>Export SQL</td><td style="text-align:center">Yes (15-phase DDL)</td><td style="text-align:center">Yes (basic DDL)</td></tr>
+            <tr><td>CLI for CI/CD</td><td style="text-align:center">Yes</td><td style="text-align:center">No</td></tr>
+            <tr><td>VS Code extension</td><td style="text-align:center">No</td><td style="text-align:center">Yes (DBML preview)</td></tr>
+            <tr><td>Data stays local</td><td style="text-align:center">Yes (your disk)</td><td style="text-align:center">No (their servers)</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Pricing</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th style="text-align:center">PgDesigner</th>
+              <th style="text-align:center">dbdiagram.io</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Free tier</td><td style="text-align:center">Non-commercial, unlimited</td><td style="text-align:center">10 diagrams (<strong>public only</strong>)</td></tr>
+            <tr><td>Individual</td><td style="text-align:center"><strong>$19</strong> one-time</td><td style="text-align:center">$9/mo ($108/yr)</td></tr>
+            <tr><td>Team</td><td style="text-align:center"><strong>$49</strong> one-time (5 devs)</td><td style="text-align:center">$9/mo per user</td></tr>
+            <tr><td>1 year cost (5 devs)</td><td style="text-align:center">$49</td><td style="text-align:center">$540</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>Important:</strong> dbdiagram.io free-tier diagrams are public — anyone with the link can see your schema. Private diagrams require a paid plan.</p>
+
+        <h2>Where dbdiagram.io is stronger</h2>
+
+        <ul>
+          <li><strong>Instant start</strong> — open browser, type DBML, see diagram. No download, no account needed for public diagrams</li>
+          <li><strong>DBML format</strong> — text-based DSL that's easy to type, version, and share. VS Code extension for inline preview</li>
+          <li><strong>Quick prototyping</strong> — fastest way to sketch a schema for a new project</li>
+          <li><strong>Team collaboration</strong> — real-time cloud editing with shared diagrams</li>
+          <li><strong>Export options</strong> — SQL, PDF, PNG for documentation</li>
+        </ul>
+
+        <h2>Where PgDesigner is stronger</h2>
+
+        <ul>
+          <li><strong>Data stays local</strong> — your schema never leaves your machine. Critical for security/compliance</li>
+          <li><strong>Diff & migrations</strong> — compare schemas → safe ALTER SQL with hazard warnings. dbdiagram.io has no diff engine</li>
+          <li><strong>75 lint rules</strong> — structural errors, best practices, antipatterns with autofix. dbdiagram.io has no validation</li>
+          <li><strong>Sample data generator</strong> — FK-aware, 30 heuristics, seeded. Not available in dbdiagram.io</li>
+          <li><strong>PostgreSQL depth</strong> — 70+ types, partitions, IDENTITY, domains, temporal. DBML supports basic types only</li>
+          <li><strong>One-time pricing</strong> — $19 once vs $108/yr. Over 2 years: $19 vs $216</li>
+          <li><strong>CLI for CI/CD</strong> — lint, diff, generate in your pipeline. dbdiagram.io is UI-only</li>
+          <li><strong>Live DB reverse engineering</strong> — connect to PostgreSQL, extract full schema. dbdiagram.io imports SQL text only</li>
+        </ul>
+
+        <h2>Honest assessment</h2>
+
+        <p>dbdiagram.io is the fastest way to sketch a database schema — open browser, type DBML, share the link. For quick prototyping and team communication, it's excellent. PgDesigner is for the next step: when you need production-grade DDL, safe migrations, schema quality checks, and a local-first workflow. If your schema lives in a single DBML file and you never need ALTER scripts — dbdiagram.io is fine. If you deploy to PostgreSQL and need migrations, linting, and CI/CD — PgDesigner.</p>
+
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-border-default">
+        <p class="text-sm font-semibold text-heading mb-3">Related</p>
+        <div class="flex flex-wrap gap-2">
+          <a href="/features/git" class="text-sm text-accent-text hover:underline">Git-Friendly Format →</a>
+          <a href="/features/diff" class="text-sm text-accent-text hover:underline">Diff & ALTER →</a>
+          <a href="/pricing" class="text-sm text-accent-text hover:underline">Pricing →</a>
+        </div>
+      </div>
+
+      <div class="mt-16 flex gap-4">
+        <a href="/docs/download" class="inline-flex items-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-500 transition-colors">
+          Download PgDesigner
+        </a>
+        <a href="/features" class="inline-flex items-center rounded-lg border border-border-default px-5 py-2.5 text-sm font-semibold text-body hover:bg-surface-alt/50 transition-colors">
+          View All Features
+        </a>
+      </div>
+    </div>
+  </Container>
+</Layout>

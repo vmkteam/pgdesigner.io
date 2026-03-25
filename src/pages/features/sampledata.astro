@@ -1,0 +1,103 @@
+---
+import FeatureLayout from "@/layouts/FeatureLayout.astro";
+---
+<FeatureLayout
+  title="PostgreSQL Sample Data Generator"
+  description="Generate realistic, FK-aware sample data for PostgreSQL. 30 name heuristics, 35+ type mappings, seeded reproducibility, circular FK handling. CLI and API. Free download."
+  subtitle="Populate your dev database in one command — realistic values, correct FK order, reproducible with seed."
+>
+
+<div class="not-prose -mx-4 sm:mx-0 mt-2 mb-10">
+  <div class="rounded-xl overflow-hidden border border-border-default shadow-2xl img-zoom">
+    <picture class="hidden dark:block">
+      <source srcset="/images/sampledata-dark.webp" type="image/webp" />
+      <img src="/images/sampledata-dark.png" alt="PgDesigner sample data generation dialog showing INSERT statements with realistic values in dark theme" loading="eager" width="1280" height="800" class="w-full" />
+    </picture>
+    <picture class="block dark:hidden">
+      <source srcset="/images/sampledata-light.webp" type="image/webp" />
+      <img src="/images/sampledata-light.png" alt="PgDesigner sample data generation dialog showing INSERT statements with realistic values in light theme" loading="eager" width="1280" height="800" class="w-full" />
+    </picture>
+  </div>
+</div>
+
+<h2>Why not just INSERT random values?</h2>
+
+<p>Because <code>INSERT INTO users (email) VALUES ('abc123')</code> doesn't look like real data. And if you have 15 tables with foreign keys, you need to insert parents before children, handle circular references, and respect UNIQUE constraints. PgDesigner does all of this automatically.</p>
+
+<h2>How it works</h2>
+
+<div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 mb-8">
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <h3 class="text-sm font-semibold text-heading mb-1">FK dependency sort</h3>
+    <p class="text-sm text-muted">Kahn's topological sort on the FK graph. Parent tables are always populated first. Deterministic ordering with lexicographic tie-breaking.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <h3 class="text-sm font-semibold text-heading mb-1">3-level column mapping</h3>
+    <p class="text-sm text-muted">Per-column override → name heuristic (30 patterns) → type fallback (35+ types). The first match wins.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <h3 class="text-sm font-semibold text-heading mb-1">Circular FK handling</h3>
+    <p class="text-sm text-muted">Cycles detected in topo sort → broken FK columns get NULL → deferred UPDATE patches them after all INSERTs. Self-references: first 30% get NULL as root nodes.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <h3 class="text-sm font-semibold text-heading mb-1">Batch INSERT</h3>
+    <p class="text-sm text-muted">100-row batches by default. Wrapped in BEGIN/COMMIT transaction. OVERRIDING SYSTEM VALUE for identity columns.</p>
+  </div>
+</div>
+
+<h2>30 name heuristics — realistic values from column names</h2>
+
+<p>Column named <code>email</code>? You get <code>john.doe@example.com</code>. Column named <code>price</code>? You get <code>29.99</code>. Timestamps are coherent: <code>updated_at</code> is always after <code>created_at</code> within the same row.</p>
+
+<table>
+  <thead>
+    <tr><th>Pattern</th><th>Example value</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>email</code>, <code>*_email</code></td><td>alice.smith@example.com</td></tr>
+    <tr><td><code>phone</code>, <code>*_phone</code></td><td>+1-555-0123</td></tr>
+    <tr><td><code>first_name</code></td><td>Alice</td></tr>
+    <tr><td><code>last_name</code></td><td>Johnson</td></tr>
+    <tr><td><code>username</code>, <code>login</code></td><td>alice_j</td></tr>
+    <tr><td><code>password</code></td><td>aB3$xK9mP2q!</td></tr>
+    <tr><td><code>city</code>, <code>country</code>, <code>address</code></td><td>San Francisco, US, 123 Main St</td></tr>
+    <tr><td><code>price</code>, <code>cost</code>, <code>amount</code></td><td>29.99</td></tr>
+    <tr><td><code>url</code>, <code>link</code>, <code>href</code></td><td>https://example.com/path</td></tr>
+    <tr><td><code>created_at</code></td><td>2024-03-15 14:30:00+00</td></tr>
+    <tr><td><code>updated_at</code></td><td>created_at + 1–720 hours</td></tr>
+    <tr><td><code>title</code>, <code>subject</code></td><td>Five-word generated sentence</td></tr>
+    <tr><td><code>description</code>, <code>body</code>, <code>content</code></td><td>Paragraph of realistic text</td></tr>
+    <tr><td><code>slug</code>, <code>alias</code></td><td>random-word-pair</td></tr>
+    <tr><td><code>*avatar*</code>, <code>*image*</code>, <code>*photo*</code></td><td>picsum.photos URL</td></tr>
+    <tr><td><code>status_id</code></td><td>1 (references status tables)</td></tr>
+    <tr><td><code>sort_order</code>, <code>position</code></td><td>Auto-incrementing</td></tr>
+  </tbody>
+</table>
+
+<p>Status tables (<code>statuses</code>, <code>*_status</code>) get well-known values: <code>1=enabled</code>, <code>2=disabled</code>, <code>3=deleted</code>.</p>
+
+<h2>35+ type mappings</h2>
+
+<p>Every PostgreSQL type gets a sensible default: <code>uuid</code> → UUID v4, <code>jsonb</code> → <code>'{"{}"}'</code>, <code>inet</code> → IP address, <code>point</code> → coordinates, <code>int4range</code> → range literal, <code>tsvector</code> → text search vector. Enums pick a random label. Domains resolve to their base type. Arrays generate 1–3 elements.</p>
+
+<p>Partition-aware: for <code>PARTITION BY RANGE</code> and <code>PARTITION BY LIST</code>, generated values fall within valid partition bounds.</p>
+
+<h2>CLI</h2>
+
+<pre><code>pgdesigner testdata schema.pgd
+pgdesigner testdata -seed 42 schema.pgd
+pgdesigner testdata -rows 100 schema.pgd
+pgdesigner testdata -tables users,orders schema.pgd
+pgdesigner testdata -o testdata.sql schema.pgd</code></pre>
+
+<p>Pipe into <code>psql</code> or save with <code>-o</code>. Seed ensures identical output across runs — useful for test fixtures in CI.</p>
+
+<div class="not-prose mt-12 pt-8 border-t border-border-default">
+  <p class="text-sm font-semibold text-heading mb-3">Related</p>
+  <div class="flex flex-wrap gap-2">
+    <a href="/features/import" class="text-sm text-accent-text hover:underline">Import & Convert →</a>
+    <a href="/features/cli" class="text-sm text-accent-text hover:underline">CLI for CI/CD →</a>
+    <a href="/docs/cli" class="text-sm text-accent-text hover:underline">CLI Reference →</a>
+  </div>
+</div>
+</FeatureLayout>

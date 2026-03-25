@@ -1,0 +1,97 @@
+---
+import FeatureLayout from "@/layouts/FeatureLayout.astro";
+---
+<FeatureLayout
+  title="PgDesigner CLI for CI/CD"
+  description="Single binary CLI for PostgreSQL schema management: generate DDL, diff schemas, lint with 75 rules, generate test data, import from any source. Zero dependencies."
+  subtitle="Single binary, zero dependencies. Lint, diff, generate, and seed — all from your terminal or CI pipeline."
+>
+
+<h2>Six commands, one binary</h2>
+
+<pre><code>pgdesigner schema.pgd                           # open in browser UI
+pgdesigner generate -o schema.sql schema.pgd    # DDL to file
+pgdesigner diff old.pgd new.pgd                 # ALTER SQL to stdout
+pgdesigner lint -f json schema.pgd              # lint with JSON output
+pgdesigner testdata -seed 42 schema.pgd         # reproducible test data
+pgdesigner convert schema.pdd -o project.pgd    # import from other formats</code></pre>
+
+<p>Every command accepts <code>.pgd</code>, <code>.pdd</code>, <code>.dbs</code>, <code>.dm2</code>, <code>.sql</code>, or a PostgreSQL connection string as input.</p>
+
+<h2>Plug into your CI pipeline</h2>
+
+<div class="not-prose space-y-4 mt-6 mb-8">
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <p class="text-xs font-semibold text-accent-text mb-2">Lint on every PR</p>
+<pre class="text-sm"><code>- name: Validate schema
+  run: pgdesigner lint -s error schema.pgd</code></pre>
+    <p class="text-xs text-muted mt-2">Exit code 1 if errors found → blocks the merge.</p>
+  </div>
+
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <p class="text-xs font-semibold text-accent-text mb-2">Generate migration on schema change</p>
+<pre class="text-sm"><code>- name: Generate migration
+  run: |
+    pgdesigner diff -f sql old.pgd new.pgd > migration.sql
+    cat migration.sql</code></pre>
+  </div>
+
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <p class="text-xs font-semibold text-accent-text mb-2">Seed test database</p>
+<pre class="text-sm"><code>- name: Seed test data
+  run: |
+    pgdesigner generate schema.pgd | psql $DATABASE_URL
+    pgdesigner testdata -seed 42 -rows 100 schema.pgd | psql $DATABASE_URL</code></pre>
+  </div>
+</div>
+
+<h2>Command reference</h2>
+
+<table>
+  <thead>
+    <tr><th>Command</th><th>Flags</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>generate</code></td><td><code>-o</code></td><td>Full DDL to stdout or file</td></tr>
+    <tr><td><code>diff</code></td><td><code>-f sql|json</code></td><td>Compare two schemas → ALTER SQL or JSON</td></tr>
+    <tr><td><code>lint</code></td><td><code>-f text|json</code>, <code>-s</code>, <code>-fix</code></td><td>Validate schema, auto-fix issues</td></tr>
+    <tr><td><code>testdata</code></td><td><code>-seed</code>, <code>-rows</code>, <code>-tables</code>, <code>-o</code></td><td>Generate realistic INSERT statements</td></tr>
+    <tr><td><code>convert</code></td><td><code>-o</code></td><td>Import from .pdd/.dbs/.dm2/.sql/DSN</td></tr>
+  </tbody>
+</table>
+
+<h2>Exit codes</h2>
+
+<table>
+  <thead>
+    <tr><th style="text-align:center">Code</th><th>Meaning</th></tr>
+  </thead>
+  <tbody>
+    <tr><td style="text-align:center"><code>0</code></td><td>Success (no lint errors, no diff changes)</td></tr>
+    <tr><td style="text-align:center"><code>1</code></td><td>Lint errors found or diff has changes</td></tr>
+    <tr><td style="text-align:center"><code>2</code></td><td>File not found or parse error</td></tr>
+  </tbody>
+</table>
+
+<h2>Cross-platform, zero dependencies</h2>
+
+<p>Single statically-linked binary. No runtime dependencies — no Go, no Node, no Python. Works on:</p>
+
+<ul>
+  <li><strong>macOS</strong> — amd64 + arm64, signed and notarized</li>
+  <li><strong>Linux</strong> — amd64 + arm64</li>
+  <li><strong>Windows</strong> — amd64</li>
+</ul>
+
+<pre><code>curl -L https://github.com/vmkteam/pgdesigner/releases/latest/download/pgdesigner-linux-amd64.tar.gz | tar xz
+./pgdesigner lint schema.pgd</code></pre>
+
+<div class="not-prose mt-12 pt-8 border-t border-border-default">
+  <p class="text-sm font-semibold text-heading mb-3">Related</p>
+  <div class="flex flex-wrap gap-2">
+    <a href="/docs/cli" class="text-sm text-accent-text hover:underline">CLI Reference →</a>
+    <a href="/features/diff" class="text-sm text-accent-text hover:underline">Diff & ALTER →</a>
+    <a href="/features/lint" class="text-sm text-accent-text hover:underline">Schema Linter →</a>
+  </div>
+</div>
+</FeatureLayout>

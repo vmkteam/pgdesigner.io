@@ -1,0 +1,130 @@
+---
+import DocsLayout from "@/layouts/DocsLayout.astro";
+---
+<DocsLayout
+  title="Lint Rules Reference — PostgreSQL Schema Validation"
+  description="Complete reference for all 75 PgDesigner lint rules: 32 errors, 21 warnings, 13 info checks. Every rule code, description, and autofix status. FK mismatches, missing indexes, naming conventions, antipatterns.">
+
+  <p>
+    PgDesigner validates your schema against 75 built-in lint rules grouped into three severity levels.
+    <strong>Errors</strong> block DDL generation. <strong>Warnings</strong> indicate valid but likely
+    problematic constructs. <strong>Info</strong> rules are suggestions for best practices. Rules marked
+    as fixable can be resolved automatically using the autofix action.
+  </p>
+
+  <h2>Errors (E)</h2>
+  <p>32 rules — block DDL generation.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Description</th>
+        <th>Fixable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>E001</td><td>object has an empty name</td><td>—</td></tr>
+      <tr><td>E002</td><td>identifier exceeds 63 chars</td><td>—</td></tr>
+      <tr><td>E003</td><td>duplicate table in schema</td><td>—</td></tr>
+      <tr><td>E004</td><td>duplicate column in table</td><td>—</td></tr>
+      <tr><td>E005</td><td>duplicate index name in schema</td><td>—</td></tr>
+      <tr><td>E006</td><td>duplicate constraint name in table</td><td>—</td></tr>
+      <tr><td>E007</td><td>PK references unknown column</td><td>—</td></tr>
+      <tr><td>E008</td><td>FK references unknown local column</td><td>—</td></tr>
+      <tr><td>E009</td><td>FK references unknown table</td><td>—</td></tr>
+      <tr><td>E010</td><td>FK references unknown target column</td><td>—</td></tr>
+      <tr><td>E011</td><td>index references unknown column</td><td>—</td></tr>
+      <tr><td>E012</td><td>index references unknown table</td><td>—</td></tr>
+      <tr><td>E013</td><td>UNIQUE references unknown column</td><td>—</td></tr>
+      <tr><td>E014</td><td>enum has no labels</td><td>—</td></tr>
+      <tr><td>E015</td><td>duplicate enum label</td><td>—</td></tr>
+      <tr><td>E016</td><td>composite type has no fields</td><td>—</td></tr>
+      <tr><td>E017</td><td>table has no columns</td><td>—</td></tr>
+      <tr><td>E018</td><td>unknown data type</td><td>—</td></tr>
+      <tr><td>E019</td><td>INCLUDE references unknown column</td><td>—</td></tr>
+      <tr><td>E020</td><td>duplicate schema name</td><td>—</td></tr>
+      <tr><td>E021</td><td>FK has no columns</td><td>—</td></tr>
+      <tr><td>E022</td><td>partition key references unknown column</td><td>—</td></tr>
+      <tr><td>E023</td><td>trigger references unknown table</td><td>—</td></tr>
+      <tr><td>E024</td><td>policy references unknown table</td><td>—</td></tr>
+      <tr><td>E025</td><td>invalid sequence type</td><td>—</td></tr>
+      <tr><td>E026</td><td>EXCLUDE references unknown column</td><td>—</td></tr>
+      <tr><td>E027</td><td>domain base type unknown</td><td>—</td></tr>
+      <tr><td>E028</td><td>function has no body</td><td>—</td></tr>
+      <tr><td>E029</td><td>function has no language</td><td>—</td></tr>
+      <tr><td>E030</td><td>view has no query</td><td>—</td></tr>
+      <tr><td>E031</td><td>table has multiple identity columns (PG allows only one)</td><td>—</td></tr>
+      <tr><td>E032</td><td>PK/UNIQUE must include all partition key columns</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Warnings (W)</h2>
+  <p>21 rules — DDL is valid but a problem likely exists.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Description</th>
+        <th>Fixable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>W001</td><td>FK column type mismatch</td><td>—</td></tr>
+      <tr><td>W002</td><td>FK columns have no matching index</td><td>Yes</td></tr>
+      <tr><td>W003</td><td>circular FK dependency</td><td>—</td></tr>
+      <tr><td>W004</td><td>table has no primary key</td><td>Yes</td></tr>
+      <tr><td>W005</td><td>duplicate index columns</td><td>Yes</td></tr>
+      <tr><td>W007</td><td>naming convention violation</td><td>—</td></tr>
+      <tr><td>W008</td><td>partitioned table has no children</td><td>—</td></tr>
+      <tr><td>W009</td><td>orphan partition</td><td>—</td></tr>
+      <tr><td>W010</td><td>identity column has default</td><td>Yes</td></tr>
+      <tr><td>W011</td><td>generated column has default</td><td>Yes</td></tr>
+      <tr><td>W012</td><td>PK column is nullable</td><td>Yes</td></tr>
+      <tr><td>W013</td><td>sequence has no owned-by</td><td>—</td></tr>
+      <tr><td>W014</td><td>layout references unknown table</td><td>—</td></tr>
+      <tr><td>W015</td><td>FK uses NO ACTION default</td><td>Yes</td></tr>
+      <tr><td>W016</td><td>FK to non-unique column</td><td>—</td></tr>
+      <tr><td>W017</td><td>overlapping index (prefix)</td><td>Yes</td></tr>
+      <tr><td>W018</td><td>duplicate FK</td><td>Yes</td></tr>
+      <tr><td>W019</td><td>self-referencing FK with NOT NULL</td><td>—</td></tr>
+      <tr><td>W020</td><td>reserved word as identifier</td><td>—</td></tr>
+      <tr><td>W021</td><td>feature requires newer PostgreSQL version</td><td>—</td></tr>
+      <tr><td>W022</td><td>partition bound overlaps with sibling</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Info (I)</h2>
+  <p>13 rules — suggestions for best practices.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Description</th>
+        <th>Fixable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>I001</td><td>prefer text over char(n)</td><td>Yes</td></tr>
+      <tr><td>I003</td><td>prefer numeric over money</td><td>Yes</td></tr>
+      <tr><td>I004</td><td>prefer identity over serial</td><td>Yes</td></tr>
+      <tr><td>I005</td><td>prefer timestamptz</td><td>Yes</td></tr>
+      <tr><td>I006</td><td>timetz is rarely useful</td><td>Yes</td></tr>
+      <tr><td>I007</td><td>prefer triggers over rules</td><td>—</td></tr>
+      <tr><td>I009</td><td>prefer jsonb over json</td><td>Yes</td></tr>
+      <tr><td>I012</td><td>text/varchar PK</td><td>—</td></tr>
+      <tr><td>I013</td><td>too many indexes (&gt;10)</td><td>—</td></tr>
+      <tr><td>I016</td><td>index on boolean column</td><td>—</td></tr>
+      <tr><td>I017</td><td>PK column does not follow &lt;singularTable&gt;Id convention</td><td>—</td></tr>
+      <tr><td>I018</td><td>table name does not match plural/singular convention</td><td>—</td></tr>
+      <tr><td>I019</td><td>partitioned table has more than 100 partitions</td><td>—</td></tr>
+    </tbody>
+  </table>
+
+<div class="not-prose mt-10 pt-6 border-t border-border-default">
+  <p class="text-sm font-semibold text-heading mb-2">See also</p>
+  <ul class="text-sm space-y-1">
+    <li><a href="/features/lint" class="text-accent-text hover:underline">Schema Linter — feature overview</a></li>
+    <li><a href="/docs/cli" class="text-accent-text hover:underline">CLI Reference (lint command)</a></li>
+  </ul>
+</div>
+</DocsLayout>

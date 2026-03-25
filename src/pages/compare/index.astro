@@ -1,0 +1,65 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import { comparePages } from "@/data/navigation";
+import Subnav from "@/components/subnav.astro";
+
+const competitors = [
+  {
+    name: "pgModeler",
+    tagline: "The most established PG visual modeler — but no hazard detection, poor git diffs, $49.90.",
+    href: "/compare/pgmodeler",
+  },
+  {
+    name: "DrawDB",
+    tagline: "Popular browser-based ERD — but generic (not PG-specific), no diff, no lint, no CLI.",
+    href: "/compare/drawdb",
+  },
+  {
+    name: "Atlas",
+    tagline: "Schema-as-code with HCL — but no visual editor, views/functions locked behind Pro.",
+    href: "/compare/atlas",
+  },
+  {
+    name: "dbdiagram.io",
+    tagline: "Quick SaaS diagramming — but no ALTER generation, no offline, vendor lock-in.",
+    href: "/compare/dbdiagram",
+  },
+];
+---
+
+<Layout title="Compare PgDesigner — PostgreSQL Schema Tools" description="Compare PgDesigner with pgModeler, DrawDB, Atlas, and dbdiagram.io. Feature tables, pricing comparison, and honest assessments for each PostgreSQL schema tool.">
+  <Subnav items={comparePages} />
+
+  <Container>
+    <div class="max-w-3xl mx-auto pt-16 pb-24">
+      <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-heading">
+        Compare
+      </h1>
+      <p class="mt-4 text-lg text-body">
+        See how PgDesigner stacks up against the alternatives.
+      </p>
+
+      <div class="mt-12 flex flex-col gap-4">
+        {competitors.map(({ name, tagline, href }) => (
+          <a
+            href={href}
+            class="group flex items-center justify-between p-6 rounded-xl border border-border-default hover:border-border-default hover:bg-surface-alt/30 transition-all">
+            <div>
+              <h2 class="text-lg font-semibold text-heading group-hover:text-accent-text transition-colors">
+                PgDesigner vs {name}
+              </h2>
+              <p class="text-sm text-muted mt-1">{tagline}</p>
+            </div>
+            <span class="text-faint group-hover:text-muted transition-colors text-xl ml-4">&rarr;</span>
+          </a>
+        ))}
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-border-default flex flex-wrap gap-4">
+        <a href="/pricing" class="text-sm text-accent-text hover:underline">View Pricing →</a>
+        <a href="/features" class="text-sm text-accent-text hover:underline">All Features →</a>
+      </div>
+    </div>
+  </Container>
+</Layout>

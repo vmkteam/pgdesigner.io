@@ -1,0 +1,110 @@
+---
+import FeatureLayout from "@/layouts/FeatureLayout.astro";
+---
+<FeatureLayout
+  title="PostgreSQL DDL Generator"
+  description="Generate production-ready PostgreSQL DDL from your visual schema model. 15-phase dependency sort, 99.7% round-trip fidelity on 630+ tables. CLI and UI. Free download."
+  subtitle="Production-ready SQL from your schema — with every dependency resolved in the right order."
+>
+
+<div class="not-prose -mx-4 sm:mx-0 mt-2 mb-10">
+  <div class="rounded-xl overflow-hidden border border-border-default shadow-2xl img-zoom">
+    <picture class="hidden dark:block">
+      <source srcset="/images/generate-dark.webp" type="image/webp" />
+      <img src="/images/generate-dark.png" alt="PgDesigner Generate Database DDL Preview dialog showing CREATE TABLE SQL with constraints for AdventureWorks in dark theme" loading="eager" width="1280" height="800" class="w-full" />
+    </picture>
+    <picture class="block dark:hidden">
+      <source srcset="/images/generate-light.webp" type="image/webp" />
+      <img src="/images/generate-light.png" alt="PgDesigner Generate Database DDL Preview dialog showing CREATE TABLE SQL with constraints for AdventureWorks in light theme" loading="eager" width="1280" height="800" class="w-full" />
+    </picture>
+  </div>
+</div>
+
+<h2>Why not just write SQL by hand?</h2>
+
+<p>With 10 tables it's fine. With 68 tables, 69 foreign keys, and a mix of enums, domains, views, functions, and RLS policies —
+the order matters. One misplaced <code>CREATE</code> and your script fails. PgDesigner resolves all of this automatically.</p>
+
+<h2>15-phase dependency sort</h2>
+
+<p>DDL is generated in the correct execution order — not alphabetical, but topological. Each phase handles a specific object type, so foreign keys never reference tables that don't exist yet.</p>
+
+<div class="not-prose grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 mb-8">
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <p class="text-xs font-semibold text-accent-text mb-2">Phase 1–6</p>
+    <ol class="text-sm text-body space-y-1 list-decimal list-inside">
+      <li>Roles</li>
+      <li>Schemas</li>
+      <li>Extensions</li>
+      <li>Types (enum, composite)</li>
+      <li>Domains</li>
+      <li>Sequences</li>
+    </ol>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <p class="text-xs font-semibold text-accent-text mb-2">Phase 7–10</p>
+    <ol class="text-sm text-body space-y-1 list-decimal list-inside" start="7">
+      <li>Tables + PK + CHECK</li>
+      <li>Storage settings</li>
+      <li>Indexes</li>
+      <li>Foreign keys</li>
+    </ol>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <p class="text-xs font-semibold text-accent-text mb-2">Phase 11–15</p>
+    <ol class="text-sm text-body space-y-1 list-decimal list-inside" start="11">
+      <li>Views / MatViews</li>
+      <li>Functions / Triggers</li>
+      <li>RLS policies</li>
+      <li>Comments</li>
+      <li>Grants / privileges</li>
+    </ol>
+  </div>
+</div>
+
+<p>Foreign keys are always emitted as <code>ALTER TABLE</code> after all tables are created. Materialized views are sorted by their own inter-dependencies. Identity columns use inline <code>GENERATED ALWAYS AS IDENTITY</code> — not separate <code>ALTER</code> statements like <code>pg_dump</code>.</p>
+
+<h2>99.7% round-trip fidelity — proven on 630+ tables</h2>
+
+<p>We don't just claim accuracy — we test it. The full round-trip cycle:</p>
+
+<pre><code>SQL → PGD → DDL → PostgreSQL → pg_dump → PGD → diff = zero changes</code></pre>
+
+<div class="not-prose grid grid-cols-3 gap-4 mt-6 mb-8">
+  <div class="text-center p-4 rounded-lg bg-surface-alt border border-border-default">
+    <span class="text-2xl font-bold text-heading tabular-nums">630+</span>
+    <p class="text-xs text-muted mt-1">tables tested</p>
+  </div>
+  <div class="text-center p-4 rounded-lg bg-surface-alt border border-border-default">
+    <span class="text-2xl font-bold text-heading tabular-nums">901</span>
+    <p class="text-xs text-muted mt-1">FK matched exactly</p>
+  </div>
+  <div class="text-center p-4 rounded-lg bg-surface-alt border border-border-default">
+    <span class="text-2xl font-bold text-heading tabular-nums">99.7%</span>
+    <p class="text-xs text-muted mt-1">fidelity</p>
+  </div>
+</div>
+
+<p>Tested on 6 real databases: Chinook, Northwind, Pagila, Airlines, AdventureWorks, and a synthetic 120+ table schema. All are included as sample projects.</p>
+
+<h2>CLI — generate from the terminal</h2>
+
+<pre><code>pgdesigner generate schema.pgd
+pgdesigner generate schema.pgd > schema.sql
+pgdesigner generate schema.pgd --table users</code></pre>
+
+<p>Pipe it into <code>psql</code>, commit it to git, or use it in your CI pipeline. Zero dependencies — single binary.</p>
+
+<h2>UI — preview before you generate</h2>
+
+<p>Press <kbd>Ctrl</kbd>+<kbd>G</kbd> to open the Generate DDL dialog. You get a full SQL preview with syntax highlighting, copy to clipboard, and save to file — all before a single statement hits your database.</p>
+
+<div class="not-prose mt-12 pt-8 border-t border-border-default">
+  <p class="text-sm font-semibold text-heading mb-3">Related</p>
+  <div class="flex flex-wrap gap-2">
+    <a href="/features/diff" class="text-sm text-accent-text hover:underline">Diff & ALTER →</a>
+    <a href="/features/erd" class="text-sm text-accent-text hover:underline">Visual ERD →</a>
+    <a href="/docs/cli" class="text-sm text-accent-text hover:underline">CLI Reference →</a>
+  </div>
+</div>
+</FeatureLayout>

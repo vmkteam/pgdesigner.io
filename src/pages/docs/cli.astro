@@ -1,0 +1,133 @@
+---
+import DocsLayout from "@/layouts/DocsLayout.astro";
+---
+<DocsLayout
+  title="CLI Reference — PgDesigner PostgreSQL Tools"
+  description="Complete PgDesigner CLI reference: generate DDL, diff schemas, lint with 75 rules, generate test data, import from .pdd/.dbs/.dm2/.sql. All commands, flags, exit codes, and examples.">
+
+<h2>Usage</h2>
+
+<pre><code>pgdesigner [command] [flags] &lt;file&gt;</code></pre>
+
+<p>Input files: <code>.pgd</code>, <code>.pdd</code>, <code>.dbs</code>, <code>.dm2</code>, <code>.sql</code>, or a PostgreSQL connection string.</p>
+
+<h2>Commands</h2>
+
+<h3>pgdesigner (no command)</h3>
+
+<p>Opens the visual editor in your default browser.</p>
+
+<pre><code>pgdesigner schema.pgd</code></pre>
+
+<h3>generate</h3>
+
+<p>Generate production-ready DDL from a schema file.</p>
+
+<pre><code>pgdesigner generate schema.pgd
+pgdesigner generate -o schema.sql schema.pgd</code></pre>
+
+<table>
+  <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>-o</code></td><td>stdout</td><td>Output .sql file</td></tr>
+  </tbody>
+</table>
+
+<h3>diff</h3>
+
+<p>Compare two schemas and generate ALTER SQL.</p>
+
+<pre><code>pgdesigner diff old.pgd new.pgd
+pgdesigner diff -f json old.pgd new.pgd</code></pre>
+
+<table>
+  <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>-f</code></td><td><code>sql</code></td><td>Output format: <code>sql</code> or <code>json</code></td></tr>
+  </tbody>
+</table>
+
+<h3>lint</h3>
+
+<p>Validate schema against 75 rules.</p>
+
+<pre><code>pgdesigner lint schema.pgd
+pgdesigner lint -f json schema.pgd
+pgdesigner lint -s error schema.pgd
+pgdesigner lint -fix schema.pgd</code></pre>
+
+<table>
+  <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>-f</code></td><td><code>text</code></td><td>Output format: <code>text</code> or <code>json</code></td></tr>
+    <tr><td><code>-s</code></td><td><code>info</code></td><td>Minimum severity: <code>error</code>, <code>warning</code>, <code>info</code></td></tr>
+    <tr><td><code>-fix</code></td><td><code>false</code></td><td>Auto-fix fixable issues and save</td></tr>
+  </tbody>
+</table>
+
+<h3>testdata</h3>
+
+<p>Generate realistic INSERT statements.</p>
+
+<pre><code>pgdesigner testdata schema.pgd
+pgdesigner testdata -seed 42 -rows 100 schema.pgd
+pgdesigner testdata -tables users,orders -o seed.sql schema.pgd</code></pre>
+
+<table>
+  <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>-o</code></td><td>stdout</td><td>Output .sql file</td></tr>
+    <tr><td><code>-seed</code></td><td><code>0</code> (random)</td><td>Random seed for reproducibility</td></tr>
+    <tr><td><code>-rows</code></td><td><code>50</code></td><td>Rows per table</td></tr>
+    <tr><td><code>-tables</code></td><td>all</td><td>Comma-separated table names</td></tr>
+  </tbody>
+</table>
+
+<h3>convert</h3>
+
+<p>Import from other formats or live database.</p>
+
+<pre><code>pgdesigner convert schema.pdd -o project.pgd
+pgdesigner convert schema.sql -o project.pgd
+pgdesigner convert "postgres://localhost/mydb" -o project.pgd</code></pre>
+
+<table>
+  <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>-o</code></td><td>input name + .pgd</td><td>Output .pgd file</td></tr>
+  </tbody>
+</table>
+
+<p>Supported inputs: <code>.pdd</code> (MicroOLAP), <code>.dbs</code> (DbSchema), <code>.dm2</code> (Toad), <code>.sql</code> (pg_dump), PostgreSQL connection string.</p>
+
+<h2>Exit codes</h2>
+
+<table>
+  <thead><tr><th style="text-align:center">Code</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td style="text-align:center"><code>0</code></td><td>Success (no lint errors, no diff changes)</td></tr>
+    <tr><td style="text-align:center"><code>1</code></td><td>Lint errors found or diff has changes</td></tr>
+    <tr><td style="text-align:center"><code>2</code></td><td>File not found or parse error</td></tr>
+  </tbody>
+</table>
+
+<h2>Platforms</h2>
+
+<p>Single statically-linked binary. No runtime dependencies.</p>
+
+<ul>
+  <li>macOS amd64 + arm64 (signed, notarized)</li>
+  <li>Linux amd64 + arm64</li>
+  <li>Windows amd64</li>
+</ul>
+
+<div class="not-prose mt-10 pt-6 border-t border-border-default">
+  <p class="text-sm font-semibold text-heading mb-2">See also</p>
+  <ul class="text-sm space-y-1">
+    <li><a href="/features/diff" class="text-accent-text hover:underline">Diff & ALTER engine</a></li>
+    <li><a href="/features/lint" class="text-accent-text hover:underline">Schema Linter (75 rules)</a></li>
+    <li><a href="/features/sampledata" class="text-accent-text hover:underline">Sample Data Generator</a></li>
+    <li><a href="/docs/download" class="text-accent-text hover:underline">Download PgDesigner</a></li>
+  </ul>
+</div>
+</DocsLayout>

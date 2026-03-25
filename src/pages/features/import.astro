@@ -1,0 +1,78 @@
+---
+import FeatureLayout from "@/layouts/FeatureLayout.astro";
+---
+<FeatureLayout
+  title="Import & Reverse Engineer PostgreSQL Schemas"
+  description="Import PostgreSQL schemas from MicroOLAP PDD, DbSchema DBS, Toad DM2, plain SQL, or a live database via pg_catalog introspection. One command to convert any source to .pgd."
+  subtitle="Coming from another tool? Connect to a live database? One command converts any source into a PgDesigner project."
+>
+
+<h2>Five sources, one output</h2>
+
+<p>PgDesigner reads schemas from five different sources and converts them into its native <code>.pgd</code> format. The conversion is lossless — tables, columns, indexes, foreign keys, constraints, enums, domains, sequences, views, functions, triggers, and comments are all preserved.</p>
+
+<div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 mb-8">
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <p class="text-xs font-semibold text-accent-text mb-1">MicroOLAP Database Designer</p>
+    <p class="text-sm text-muted"><code>.pdd</code> — native XML format. MicroOLAP hasn't been updated since 2021, but your projects aren't lost.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <p class="text-xs font-semibold text-accent-text mb-1">DbSchema</p>
+    <p class="text-sm text-muted"><code>.dbs</code> — XML-based schema files from DbSchema.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <p class="text-xs font-semibold text-accent-text mb-1">Toad Data Modeler</p>
+    <p class="text-sm text-muted"><code>.dm2</code> — XML format from Quest Toad Data Modeler.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <p class="text-xs font-semibold text-accent-text mb-1">Plain SQL / pg_dump</p>
+    <p class="text-sm text-muted"><code>.sql</code> — any PostgreSQL DDL file, including <code>pg_dump</code> output. Parsed with the real PG17 parser (via WebAssembly).</p>
+  </div>
+</div>
+
+<h2>Reverse engineering from a live database</h2>
+
+<p>Pass a PostgreSQL connection string instead of a file path. PgDesigner connects to your database and introspects the full schema via <code>pg_catalog</code> queries:</p>
+
+<pre><code>pgdesigner convert "postgres://user:pass@localhost:5432/mydb" -o project.pgd</code></pre>
+
+<p>What gets extracted:</p>
+<ul>
+  <li>Tables, columns (types, defaults, identity, nullable, storage, compression, comments)</li>
+  <li>Indexes (btree, hash, gin, gist, brin — with INCLUDE columns)</li>
+  <li>Foreign keys, primary keys, UNIQUE, CHECK, EXCLUDE constraints</li>
+  <li>Enums, domains, composite types, ranges</li>
+  <li>Sequences (with ownership)</li>
+  <li>Views and materialized views</li>
+  <li>Functions and triggers</li>
+  <li>RLS policies</li>
+  <li>Partitions (RANGE, LIST, HASH — with bounds)</li>
+  <li>Comments on all object types</li>
+</ul>
+
+<h2>CLI</h2>
+
+<pre><code>pgdesigner convert schema.pdd -o project.pgd
+pgdesigner convert schema.dbs -o project.pgd
+pgdesigner convert schema.dm2 -o project.pgd
+pgdesigner convert schema.sql -o project.pgd
+pgdesigner convert "postgres://localhost:5432/mydb" -o project.pgd</code></pre>
+
+<p>The <code>-o</code> flag sets the output file. Without it, PgDesigner uses the input filename with a <code>.pgd</code> extension.</p>
+
+<h2>Migrating from MicroOLAP?</h2>
+
+<p>MicroOLAP Database Designer for PostgreSQL hasn't been updated since July 2021. If you have <code>.pdd</code> project files, PgDesigner reads them natively — no intermediate steps, no data loss. Convert and open in the visual editor in seconds:</p>
+
+<pre><code>pgdesigner convert myproject.pdd -o myproject.pgd
+pgdesigner myproject.pgd</code></pre>
+
+<div class="not-prose mt-12 pt-8 border-t border-border-default">
+  <p class="text-sm font-semibold text-heading mb-3">Related</p>
+  <div class="flex flex-wrap gap-2">
+    <a href="/features/erd" class="text-sm text-accent-text hover:underline">Visual ERD →</a>
+    <a href="/features/generate" class="text-sm text-accent-text hover:underline">DDL Generation →</a>
+    <a href="/compare/pgmodeler" class="text-sm text-accent-text hover:underline">vs pgModeler →</a>
+  </div>
+</div>
+</FeatureLayout>

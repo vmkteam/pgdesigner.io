@@ -1,0 +1,120 @@
+---
+import FeatureLayout from "@/layouts/FeatureLayout.astro";
+---
+<FeatureLayout
+  title="PostgreSQL Schema Diff & Migrations"
+  description="Compare two PostgreSQL schemas and generate safe ALTER SQL with hazard detection. Warns about data loss, table rewrites, and exclusive locks before you deploy. CLI and UI."
+  subtitle="Two schemas in, safe ALTER migration out — with hazard warnings before anything hits production."
+>
+
+<div class="not-prose -mx-4 sm:mx-0 mt-2 mb-10">
+  <div class="rounded-xl overflow-hidden border border-border-default shadow-2xl img-zoom">
+    <picture class="hidden dark:block">
+      <source srcset="/images/diff-dark.webp" type="image/webp" />
+      <img src="/images/diff-dark.png" alt="PgDesigner Diff dialog showing unsaved changes with DROP, ADD, ALTER badges and hazard warnings (DELETES_DATA, TABLE_REWRITE) in dark theme" loading="eager" width="1280" height="800" class="w-full" />
+    </picture>
+    <picture class="block dark:hidden">
+      <source srcset="/images/diff-light.webp" type="image/webp" />
+      <img src="/images/diff-light.png" alt="PgDesigner Diff dialog showing unsaved changes with DROP, ADD, ALTER badges and hazard warnings (DELETES_DATA, TABLE_REWRITE) in light theme" loading="eager" width="1280" height="800" class="w-full" />
+    </picture>
+  </div>
+</div>
+
+<h2>Stop writing ALTER by hand</h2>
+
+<p>Every migration tool generates <code>ALTER TABLE</code>. Few tell you that your <code>ALTER COLUMN TYPE</code> will lock the table for 20 minutes, or that <code>ADD COLUMN NOT NULL</code> without a <code>DEFAULT</code> will fail on existing rows. PgDesigner does both — generates the SQL <em>and</em> warns you about the risks.</p>
+
+<h2>How the diff engine works</h2>
+
+<p>Give it two <code>.pgd</code> models — old and new. The engine computes every structural change and emits safe <code>ALTER</code> statements in the correct dependency order.</p>
+
+<div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 mb-8">
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <h3 class="text-sm font-semibold text-heading mb-1">Phase 1 — DROP</h3>
+    <p class="text-sm text-muted">Reverse dependency order: FK → indexes → columns → tables. Nothing breaks because dependents are removed first.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <h3 class="text-sm font-semibold text-heading mb-1">Phase 2 — CREATE / ALTER</h3>
+    <p class="text-sm text-muted">Forward dependency order: enums → tables → columns → PK → indexes → FK. References always exist before they're needed.</p>
+  </div>
+</div>
+
+<h2>Four ways to diff</h2>
+
+<div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 mb-8">
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <p class="text-xs font-semibold text-accent-text mb-1">Model vs Model</p>
+    <p class="text-sm text-muted">Edit your <code>.pgd</code>, get the migration script instantly.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <p class="text-xs font-semibold text-accent-text mb-1">DB vs Model</p>
+    <p class="text-sm text-muted"><code>pg_dump</code> → convert → compare with your model.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <p class="text-xs font-semibold text-accent-text mb-1">Git versions</p>
+    <p class="text-sm text-muted">Two versions of <code>.pgd</code> from git history → ALTER patch.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <p class="text-xs font-semibold text-accent-text mb-1">Live preview</p>
+    <p class="text-sm text-muted">Press <kbd>Ctrl</kbd>+<kbd>D</kbd> to see ALTER SQL for unsaved changes.</p>
+  </div>
+</div>
+
+<h2>Hazard detection — know the risks before you deploy</h2>
+
+<p>Every generated <code>ALTER</code> is analyzed for operational hazards. The diff engine emits a comment with the hazard level and code directly before the SQL statement.</p>
+
+<div class="not-prose space-y-2 mt-6 mb-8">
+  <div class="flex items-start gap-3 rounded-lg bg-red-500/5 border border-red-500/20 p-3">
+    <span class="shrink-0 text-xs font-mono font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded">DELETES_DATA</span>
+    <span class="text-sm text-body">DROP TABLE, DROP COLUMN — permanent data loss, requires confirmation</span>
+  </div>
+  <div class="flex items-start gap-3 rounded-lg bg-red-500/5 border border-red-500/20 p-3">
+    <span class="shrink-0 text-xs font-mono font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded">TABLE_RECREATE</span>
+    <span class="text-sm text-body">Adding, removing, or changing PARTITION BY strategy — requires full table rebuild</span>
+  </div>
+  <div class="flex items-start gap-3 rounded-lg bg-yellow-500/5 border border-yellow-500/20 p-3">
+    <span class="shrink-0 text-xs font-mono font-bold text-yellow-400 bg-yellow-500/10 px-2 py-0.5 rounded">TABLE_REWRITE</span>
+    <span class="text-sm text-body">ALTER COLUMN TYPE with incompatible cast — may rewrite the entire table on disk</span>
+  </div>
+  <div class="flex items-start gap-3 rounded-lg bg-yellow-500/5 border border-yellow-500/20 p-3">
+    <span class="shrink-0 text-xs font-mono font-bold text-yellow-400 bg-yellow-500/10 px-2 py-0.5 rounded">BACKFILL_REQUIRED</span>
+    <span class="text-sm text-body">ADD COLUMN NOT NULL without DEFAULT or IDENTITY — existing rows have no value</span>
+  </div>
+  <div class="flex items-start gap-3 rounded-lg bg-yellow-500/5 border border-yellow-500/20 p-3">
+    <span class="shrink-0 text-xs font-mono font-bold text-yellow-400 bg-yellow-500/10 px-2 py-0.5 rounded">DETACH_PARTITION</span>
+    <span class="text-sm text-body">Partition removed from list — will be detached from the parent table</span>
+  </div>
+  <div class="flex items-start gap-3 rounded-lg bg-blue-500/5 border border-blue-500/20 p-3">
+    <span class="shrink-0 text-xs font-mono font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded">REATTACH_PARTITION</span>
+    <span class="text-sm text-body">Partition bounds changed — DETACH then re-ATTACH with new bounds</span>
+  </div>
+</div>
+
+<p>Compatible type casts (<code>varchar(N)</code> → <code>varchar(M)</code>, <code>integer</code> → <code>bigint</code>, <code>smallint</code> → <code>integer</code>) are recognized as safe and don't trigger <code>TABLE_REWRITE</code>.</p>
+
+<h2>Smart rename detection</h2>
+
+<p>Renamed an index or foreign key? PgDesigner compares the structural definition (table, columns, method) — not just the name.
+If the structure is identical, it skips the drop+add cycle. Only actual structural changes trigger recreation.</p>
+
+<h2>What gets diffed</h2>
+
+<p>Tables (including comment and PARTITION BY), columns (type, nullable, default, identity with sequence options, comment, compression, storage), indexes, FK, PK, UNIQUE, CHECK constraints, enum values (ADD VALUE), and partitions (CREATE, DETACH, re-ATTACH on bound change). Views and functions diff is planned for Phase 2.</p>
+
+<h2>CLI</h2>
+
+<pre><code>pgdesigner diff old.pgd new.pgd
+pgdesigner diff old.pgd new.pgd -o migration.sql</code></pre>
+
+<p>Press <kbd>Ctrl</kbd>+<kbd>D</kbd> in the UI for a live diff preview with hazard badges — red for dangerous, yellow for warnings.</p>
+
+<div class="not-prose mt-12 pt-8 border-t border-border-default">
+  <p class="text-sm font-semibold text-heading mb-3">Related</p>
+  <div class="flex flex-wrap gap-2">
+    <a href="/features/generate" class="text-sm text-accent-text hover:underline">DDL Generation →</a>
+    <a href="/features/lint" class="text-sm text-accent-text hover:underline">Schema Linter →</a>
+    <a href="/docs/cli" class="text-sm text-accent-text hover:underline">CLI Reference →</a>
+  </div>
+</div>
+</FeatureLayout>

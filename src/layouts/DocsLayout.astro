@@ -1,0 +1,35 @@
+---
+import Layout from "./Layout.astro";
+import Container from "@/components/container.astro";
+import Subnav from "@/components/subnav.astro";
+import { docsPages } from "@/data/navigation";
+
+interface Props {
+  title?: string;
+  description?: string;
+  frontmatter?: { title: string; description: string };
+}
+
+const frontmatter = Astro.props.frontmatter || Astro.props;
+const { title, description } = frontmatter;
+---
+
+<Layout title={title} description={description}>
+  <Subnav items={docsPages} />
+
+  <Container>
+    <div class="max-w-3xl mx-auto pt-12 pb-24">
+      <h1 class="text-3xl lg:text-4xl font-bold tracking-tight text-heading">
+        {title}
+      </h1>
+
+      <div class="mt-8 prose max-w-none
+        prose-h2:text-xl prose-h2:mt-10 prose-h2:mb-3
+        prose-h3:text-base prose-h3:mt-6 prose-h3:mb-2
+        prose-p:leading-relaxed
+        prose-headings:font-semibold">
+        <slot />
+      </div>
+    </div>
+  </Container>
+</Layout>

@@ -1,0 +1,102 @@
+---
+import DocsLayout from "@/layouts/DocsLayout.astro";
+---
+<DocsLayout
+  title="Quick Start — PostgreSQL Schema Designer"
+  description="Get started with PgDesigner in 5 minutes. Install via brew, create tables with visual ERD, generate production-ready SQL, lint your schema, and commit to git.">
+
+<p>This guide takes you from zero to a working schema in 5 minutes.</p>
+
+<h2>1. Install</h2>
+
+<pre><code>brew tap vmkteam/tap
+brew install pgdesigner</code></pre>
+
+<p>Or <a href="/docs/download">download the binary</a> for your platform.</p>
+
+<h2>2. Open the visual editor</h2>
+
+<pre><code>pgdesigner</code></pre>
+
+<p>This starts a local server and opens the ERD editor in your browser. You'll see an empty canvas.</p>
+
+<h2>3. Create your first table</h2>
+
+<ol>
+  <li>Click the <strong>+T</strong> button in the toolbar (or click on the canvas)</li>
+  <li>A new table appears with an auto-generated <code>id bigint</code> primary key</li>
+  <li>Double-click the table name to rename it (e.g., <code>users</code>)</li>
+  <li>Click the table to open the <strong>Table Editor</strong></li>
+  <li>Add columns: <code>email varchar(255)</code>, <code>created_at timestamptz</code></li>
+</ol>
+
+<h2>4. Add a second table with a foreign key</h2>
+
+<ol>
+  <li>Create another table (e.g., <code>orders</code>)</li>
+  <li>Click the <strong>+FK</strong> button in the toolbar</li>
+  <li>Click <code>orders</code>, then click <code>users</code></li>
+  <li>PgDesigner auto-creates a <code>user_id bigint</code> column in <code>orders</code> with a foreign key constraint</li>
+</ol>
+
+<div class="not-prose mt-6 mb-8">
+  <div class="rounded-xl overflow-hidden border border-border-default shadow-xl img-zoom">
+    <picture class="hidden dark:block">
+      <source srcset="/images/quickstart-dark.webp" type="image/webp" />
+      <img src="/images/quickstart-dark.png" alt="PgDesigner ERD canvas with users and orders tables connected by fk_orders_user_id foreign key in dark theme" loading="lazy" width="1280" height="800" class="w-full" />
+    </picture>
+    <picture class="block dark:hidden">
+      <source srcset="/images/quickstart-light.webp" type="image/webp" />
+      <img src="/images/quickstart-light.png" alt="PgDesigner ERD canvas with users and orders tables connected by fk_orders_user_id foreign key in light theme" loading="lazy" width="1280" height="800" class="w-full" />
+    </picture>
+  </div>
+</div>
+
+<h2>5. Generate SQL</h2>
+
+<p>Press <kbd>Ctrl</kbd>+<kbd>G</kbd> (or menu → Database → Generate DDL):</p>
+
+<pre><code>CREATE TABLE "public"."users" (
+  "id" bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
+  "email" varchar(255) NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT now(),
+  CONSTRAINT "pk_users" PRIMARY KEY ("id")
+);
+
+CREATE TABLE "public"."orders" (
+  "id" bigint NOT NULL GENERATED ALWAYS AS IDENTITY,
+  "user_id" bigint NOT NULL,
+  CONSTRAINT "pk_orders" PRIMARY KEY ("id")
+);
+
+ALTER TABLE "public"."orders"
+  ADD CONSTRAINT "fk_orders_user_id" FOREIGN KEY ("user_id")
+  REFERENCES "public"."users" ("id");
+</code></pre>
+
+<p>Copy the SQL, save to file, or pipe it directly to <code>psql</code>.</p>
+
+<h2>6. Lint your schema</h2>
+
+<p>Press <kbd>Ctrl</kbd>+<kbd>L</kbd> to check for issues. PgDesigner runs 75 rules and reports errors, warnings, and suggestions.</p>
+
+<h2>7. Save and commit</h2>
+
+<p>Your schema is saved as a <code>.pgd</code> file. Add it to your git repository:</p>
+
+<pre><code>git add myproject.pgd
+git commit -m "Initial schema: users + orders"</code></pre>
+
+<p>From now on, every schema change produces a clean single-line diff in your pull requests.</p>
+
+<h2>Next steps</h2>
+
+<ul>
+  <li><a href="/features/erd">Visual ERD Canvas</a> — learn about auto-layout, minimap, keyboard shortcuts</li>
+  <li><a href="/features/generate">DDL Generation</a> — 15-phase dependency sort, round-trip fidelity</li>
+  <li><a href="/features/diff">Diff & ALTER Engine</a> — compare schemas, hazard detection</li>
+  <li><a href="/features/lint">75 Lint Rules</a> — structural errors, best practices, antipatterns</li>
+  <li><a href="/docs/cli">CLI Reference</a> — all commands and flags</li>
+</ul>
+
+</DocsLayout>

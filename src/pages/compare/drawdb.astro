@@ -1,0 +1,112 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Subnav from "@/components/subnav.astro";
+import { comparePages } from "@/data/navigation";
+---
+
+<Layout
+  title="PgDesigner vs DrawDB — PostgreSQL ERD Tool Comparison"
+  description="Compare PgDesigner and DrawDB for PostgreSQL schema design. PG-specialized vs generic multi-database. Diff engine, 75 lint rules, sample data vs free browser-based ERD.">
+
+  <Subnav items={comparePages} />
+
+  <Container>
+    <div class="max-w-3xl mx-auto pt-16 pb-24">
+      <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-heading">
+        PgDesigner vs DrawDB
+      </h1>
+      <p class="mt-4 text-lg text-body">DrawDB is a popular open-source browser-based ERD editor with 37k+ GitHub stars. It's free, fast to start, and supports 4 databases. Here's how PgDesigner differs.</p>
+
+      <div class="mt-12 prose max-w-none
+        prose-headings:text-heading prose-headings:font-semibold
+        prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
+        prose-p:text-body prose-p:leading-relaxed
+        prose-li:text-body
+        prose-strong:text-heading
+        prose-a:text-accent-text prose-a:no-underline hover:prose-a:underline
+        prose-table:text-sm
+        prose-th:text-heading prose-th:font-semibold prose-th:px-3 prose-th:pb-3
+        prose-td:px-3 prose-td:py-2 prose-td:text-body
+        prose-thead:border-border-default prose-tr:border-border-default">
+
+        <h2>Feature comparison</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th style="text-align:center">PgDesigner</th>
+              <th style="text-align:center">DrawDB</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Database focus</td><td style="text-align:center">PostgreSQL only</td><td style="text-align:center">MySQL, PG, SQLite, MSSQL</td></tr>
+            <tr><td>Visual ERD editor</td><td style="text-align:center">Yes</td><td style="text-align:center">Yes</td></tr>
+            <tr><td>DDL export</td><td style="text-align:center">Yes (15-phase sort)</td><td style="text-align:center">Yes (multi-dialect)</td></tr>
+            <tr><td>Diff/ALTER engine</td><td style="text-align:center">Yes (6 hazard codes)</td><td style="text-align:center">No</td></tr>
+            <tr><td>Schema lint</td><td style="text-align:center">75 rules, 15 autofix</td><td style="text-align:center">Basic validation</td></tr>
+            <tr><td>Sample data generator</td><td style="text-align:center">Yes (30 heuristics)</td><td style="text-align:center">No</td></tr>
+            <tr><td>Reverse engineering</td><td style="text-align:center">Yes (live DB + SQL import)</td><td style="text-align:center">DDL import only</td></tr>
+            <tr><td>Git-friendly format</td><td style="text-align:center">Yes (.pgd XML, split-model)</td><td style="text-align:center">No (JSON blob)</td></tr>
+            <tr><td>PG-specific types</td><td style="text-align:center">70+ types, partitions, IDENTITY, temporal</td><td style="text-align:center">Basic PG types</td></tr>
+            <tr><td>CLI for CI/CD</td><td style="text-align:center">Yes</td><td style="text-align:center">No</td></tr>
+            <tr><td>Offline / self-hosted</td><td style="text-align:center">Yes (single binary)</td><td style="text-align:center">Yes (Docker / static)</td></tr>
+            <tr><td>Price</td><td style="text-align:center">$19 (free non-commercial)</td><td style="text-align:center">Free (AGPL-3.0)</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Different tools for different jobs</h2>
+
+        <p>DrawDB is a <strong>general-purpose diagramming tool</strong> — great for quick ERD sketches, multi-database projects, and teams that need a free browser-based editor. PgDesigner is a <strong>PostgreSQL-specialized workbench</strong> — built for teams that need production-grade DDL, safe migrations, and schema quality checks.</p>
+
+        <h2>Where DrawDB is stronger</h2>
+
+        <ul>
+          <li><strong>Multi-database</strong> — supports MySQL, PostgreSQL, SQLite, and MSSQL in one tool</li>
+          <li><strong>Completely free</strong> — AGPL-3.0, no commercial license needed</li>
+          <li><strong>Zero friction start</strong> — open the browser, start designing. No download, no account</li>
+          <li><strong>37k+ GitHub stars</strong> — large community, active development</li>
+          <li><strong>Real-time validation</strong> — detects circular references, orphaned tables, duplicate columns as you design</li>
+          <li><strong>Templates</strong> — pre-built schema templates to start faster</li>
+        </ul>
+
+        <h2>Where PgDesigner is stronger</h2>
+
+        <ul>
+          <li><strong>PostgreSQL depth</strong> — 70+ types, partitions (RANGE/LIST/HASH), temporal constraints, virtual generated columns, IDENTITY, domains, composite types. DrawDB supports basic PG types</li>
+          <li><strong>Diff & migrations</strong> — compare two schemas → safe ALTER SQL with 6 hazard warnings. DrawDB has no diff engine</li>
+          <li><strong>75 lint rules</strong> — FK type mismatches, missing indexes, naming conventions, antipatterns. 15 with autofix. DrawDB has basic validation</li>
+          <li><strong>Sample data generator</strong> — FK-aware, 30 name heuristics, seeded. DrawDB has no data generation</li>
+          <li><strong>Live database reverse engineering</strong> — connect via pg_catalog, extract full schema. DrawDB imports DDL text only</li>
+          <li><strong>Git-friendly format</strong> — single-line diffs, split-model. DrawDB's JSON blob changes entirely on every save</li>
+          <li><strong>CLI for CI/CD</strong> — lint, diff, generate, testdata in your pipeline. DrawDB is UI-only</li>
+          <li><strong>Round-trip tested</strong> — 99.7% fidelity on 630+ tables. DrawDB doesn't publish accuracy metrics</li>
+        </ul>
+
+        <h2>Honest assessment</h2>
+
+        <p>If you need a quick, free ERD editor that works with MySQL and PostgreSQL — DrawDB is excellent. If your production database is PostgreSQL and you need migrations, linting, and a CI/CD workflow — PgDesigner is purpose-built for that. The $19 price reflects the depth: diff engine, hazard detection, 75 lint rules, and sample data generation that DrawDB doesn't offer.</p>
+
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-border-default">
+        <p class="text-sm font-semibold text-heading mb-3">Related</p>
+        <div class="flex flex-wrap gap-2">
+          <a href="/features/erd" class="text-sm text-accent-text hover:underline">Visual ERD →</a>
+          <a href="/features/lint" class="text-sm text-accent-text hover:underline">Schema Linter →</a>
+          <a href="/pricing" class="text-sm text-accent-text hover:underline">Pricing →</a>
+        </div>
+      </div>
+
+      <div class="mt-16 flex gap-4">
+        <a href="/docs/download" class="inline-flex items-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-500 transition-colors">
+          Download PgDesigner
+        </a>
+        <a href="/features" class="inline-flex items-center rounded-lg border border-border-default px-5 py-2.5 text-sm font-semibold text-body hover:bg-surface-alt/50 transition-colors">
+          View All Features
+        </a>
+      </div>
+    </div>
+  </Container>
+</Layout>

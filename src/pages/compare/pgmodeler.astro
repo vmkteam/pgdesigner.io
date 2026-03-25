@@ -1,0 +1,126 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Subnav from "@/components/subnav.astro";
+import { comparePages } from "@/data/navigation";
+---
+
+<Layout
+  title="PgDesigner vs pgModeler — Feature Comparison"
+  description="Detailed comparison of PgDesigner and pgModeler: features, pricing, git workflow, hazard detection, lint rules. Both are PostgreSQL-specialized — here's how they differ.">
+
+  <Subnav items={comparePages} />
+
+  <Container>
+    <div class="max-w-3xl mx-auto pt-16 pb-24">
+      <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-heading">
+        PgDesigner vs pgModeler
+      </h1>
+      <p class="mt-4 text-lg text-body">pgModeler is the most established PostgreSQL visual modeler — 19 years of development, backed by Nullptr Labs. Both tools are PG-specialized. Here's where they differ.</p>
+
+      <div class="mt-12 prose max-w-none
+        prose-headings:text-heading prose-headings:font-semibold
+        prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
+        prose-p:text-body prose-p:leading-relaxed
+        prose-li:text-body
+        prose-strong:text-heading
+        prose-a:text-accent-text prose-a:no-underline hover:prose-a:underline
+        prose-table:text-sm
+        prose-th:text-heading prose-th:font-semibold prose-th:px-3 prose-th:pb-3
+        prose-td:px-3 prose-td:py-2 prose-td:text-body
+        prose-thead:border-border-default prose-tr:border-border-default">
+
+        <h2>Feature comparison</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th style="text-align:center">PgDesigner</th>
+              <th style="text-align:center">pgModeler</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>PostgreSQL version</td><td style="text-align:center">PG18 full spec</td><td style="text-align:center">PG18 initial (v1.2.2+)</td></tr>
+            <tr><td>UI</td><td style="text-align:center">Browser-based</td><td style="text-align:center">Qt desktop</td></tr>
+            <tr><td>Git-friendly diffs</td><td style="text-align:center">Yes (single-line XML)</td><td style="text-align:center">Plus only (split model)</td></tr>
+            <tr><td>Diff/ALTER engine</td><td style="text-align:center">Yes</td><td style="text-align:center">Yes</td></tr>
+            <tr><td>Hazard detection</td><td style="text-align:center">Yes (6 hazard codes)</td><td style="text-align:center">No</td></tr>
+            <tr><td>Schema lint</td><td style="text-align:center">75 rules, 15 autofix</td><td style="text-align:center">Basic validation</td></tr>
+            <tr><td>Sample data generator</td><td style="text-align:center">Yes (30 heuristics)</td><td style="text-align:center">No</td></tr>
+            <tr><td>Reverse engineering</td><td style="text-align:center">Yes (pg_catalog)</td><td style="text-align:center">Yes</td></tr>
+            <tr><td>Import PDD/DBS/DM2</td><td style="text-align:center">Yes</td><td style="text-align:center">No</td></tr>
+            <tr><td>Views/functions diff</td><td style="text-align:center">Planned (Phase 2)</td><td style="text-align:center">Yes</td></tr>
+            <tr><td>SSH tunneling</td><td style="text-align:center">No</td><td style="text-align:center">Plus only</td></tr>
+            <tr><td>Plugin system</td><td style="text-align:center">No</td><td style="text-align:center">Yes</td></tr>
+            <tr><td>CLI</td><td style="text-align:center">Yes (single binary)</td><td style="text-align:center">Yes (requires Qt)</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Pricing</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th style="text-align:center">PgDesigner</th>
+              <th style="text-align:center">pgModeler</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Individual</td><td style="text-align:center"><strong>$19</strong> one-time</td><td style="text-align:center">From $49.90</td></tr>
+            <tr><td>Free tier</td><td style="text-align:center">Non-commercial, forever</td><td style="text-align:center">Build from source (GPLv3)</td></tr>
+            <tr><td>Updates</td><td style="text-align:center">$9/yr renewal</td><td style="text-align:center">3/6-month or perpetual license</td></tr>
+            <tr><td>Binaries</td><td style="text-align:center">GitHub Releases (public)</td><td style="text-align:center">Paid download only</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Where pgModeler is stronger</h2>
+
+        <ul>
+          <li><strong>Maturity</strong> — 19 years of development, battle-tested in production at scale</li>
+          <li><strong>Views and functions diff</strong> — pgModeler diffs views, functions, triggers. PgDesigner has this planned for Phase 2</li>
+          <li><strong>Plugin system</strong> — custom extensions without modifying core code</li>
+          <li><strong>SSH tunneling</strong> — connect to remote databases through SSH (Plus edition)</li>
+          <li><strong>Database administration</strong> — built-in SQL execution and data browsing</li>
+        </ul>
+
+        <h2>Where PgDesigner is stronger</h2>
+
+        <ul>
+          <li><strong>Hazard detection</strong> — 6 hazard codes (DELETES_DATA, TABLE_REWRITE, TABLE_RECREATE, BACKFILL_REQUIRED, DETACH_PARTITION, REATTACH_PARTITION) warn you before risky ALTER statements</li>
+          <li><strong>75 lint rules with autofix</strong> — vs basic validation in pgModeler</li>
+          <li><strong>Git-friendly by default</strong> — single-line diffs in the free version. pgModeler's split model is Plus-only</li>
+          <li><strong>Sample data generator</strong> — FK-aware, 30 name heuristics, reproducible with seed</li>
+          <li><strong>Import from 5 sources</strong> — MicroOLAP .pdd, DbSchema .dbs, Toad .dm2, SQL, live DB</li>
+          <li><strong>Browser-based UI</strong> — no installation, opens on any OS</li>
+          <li><strong>Price</strong> — $19 vs $49.90+, with free non-commercial forever</li>
+          <li><strong>Zero-dependency binary</strong> — single static binary vs Qt dependency chain</li>
+        </ul>
+
+        <h2>Honest assessment</h2>
+
+        <p>pgModeler is the more mature tool. If you need views/functions diff, SSH tunneling, or a plugin system today — pgModeler is the better choice. PgDesigner's strengths are in the DBA-focused workflow: hazard detection, deep linting, sample data generation, and a git-native format. If your team reviews schema changes in PRs, PgDesigner fits that workflow better.</p>
+
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-border-default">
+        <p class="text-sm font-semibold text-heading mb-3">Related</p>
+        <div class="flex flex-wrap gap-2">
+          <a href="/features/diff" class="text-sm text-accent-text hover:underline">Diff & ALTER →</a>
+          <a href="/features/lint" class="text-sm text-accent-text hover:underline">Schema Linter →</a>
+          <a href="/pricing" class="text-sm text-accent-text hover:underline">Pricing →</a>
+        </div>
+      </div>
+
+      <div class="mt-16 flex gap-4">
+        <a href="/docs/download" class="inline-flex items-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-500 transition-colors">
+          Download PgDesigner
+        </a>
+        <a href="/features" class="inline-flex items-center rounded-lg border border-border-default px-5 py-2.5 text-sm font-semibold text-body hover:bg-surface-alt/50 transition-colors">
+          View All Features
+        </a>
+      </div>
+    </div>
+  </Container>
+</Layout>

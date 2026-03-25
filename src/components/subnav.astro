@@ -1,0 +1,33 @@
+---
+import Container from "@/components/container.astro";
+
+interface Props {
+  items: { label: string; href: string }[];
+}
+
+const { items } = Astro.props;
+const currentPath = Astro.url.pathname.replace(/\/$/, "");
+---
+
+<div class="border-b border-border-default bg-surface/80 backdrop-blur-md">
+  <Container>
+    <nav class="flex gap-1 py-2 overflow-x-auto scrollbar-hide justify-center">
+      {items.map(({ label, href }) => {
+        const isActive = currentPath === href;
+        return (
+          <a
+            href={href}
+            class:list={[
+              "px-3 py-1.5 text-sm font-medium rounded-md whitespace-nowrap transition-colors",
+              isActive
+                ? "bg-surface-alt/60 text-heading"
+                : "text-muted hover:text-heading hover:bg-surface-alt/40",
+            ]}
+            aria-current={isActive ? "page" : undefined}>
+            {label}
+          </a>
+        );
+      })}
+    </nav>
+  </Container>
+</div>

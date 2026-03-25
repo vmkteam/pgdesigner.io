@@ -1,0 +1,105 @@
+---
+import FeatureLayout from "@/layouts/FeatureLayout.astro";
+---
+<FeatureLayout
+  title="PostgreSQL Schema Linter"
+  description="Validate your PostgreSQL schema with 75 lint rules — 32 errors, 21 warnings, 13 antipattern checks. 15 rules with one-click autofix. CLI with JSON output for CI/CD."
+  subtitle="75 rules catch structural errors, best-practice violations, and PostgreSQL antipatterns — before they reach production."
+>
+
+<div class="not-prose -mx-4 sm:mx-0 mt-2 mb-10">
+  <div class="rounded-xl overflow-hidden border border-border-default shadow-2xl img-zoom">
+    <picture class="hidden dark:block">
+      <source srcset="/images/lint-dark.webp" type="image/webp" />
+      <img src="/images/lint-dark.png" alt="PgDesigner Check Diagram showing 34 lint issues — 0 errors, 23 warnings, 11 info with fix buttons on Northwind database in dark theme" loading="eager" width="1280" height="800" class="w-full" />
+    </picture>
+    <picture class="block dark:hidden">
+      <source srcset="/images/lint-light.webp" type="image/webp" />
+      <img src="/images/lint-light.png" alt="PgDesigner Check Diagram showing 34 lint issues — 0 errors, 23 warnings, 11 info with fix buttons on Northwind database in light theme" loading="eager" width="1280" height="800" class="w-full" />
+    </picture>
+  </div>
+</div>
+
+<h2>Why lint your schema?</h2>
+
+<p>A missing index on a foreign key slows every JOIN. A <code>char(n)</code> column wastes space. A <code>serial</code> instead of <code>identity</code> creates hidden sequences. These aren't bugs — they're design debt that compounds over time. PgDesigner checks for all of them automatically.</p>
+
+<h2>75 rules across three severity levels</h2>
+
+<div class="not-prose grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 mb-8">
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-red-500/15 text-red-400 text-xs font-bold">32</span>
+      <span class="text-sm font-semibold text-heading">Errors</span>
+    </div>
+    <p class="text-xs text-muted leading-relaxed">Structural integrity — FK to missing table, duplicate names, PK column not found, unknown types, empty enums, multiple identity columns.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-yellow-500/15 text-yellow-400 text-xs font-bold">21</span>
+      <span class="text-sm font-semibold text-heading">Warnings</span>
+    </div>
+    <p class="text-xs text-muted leading-relaxed">Best practices — FK type mismatch, missing FK index, circular FK, no primary key, overlapping indexes, reserved words, PG version compatibility.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-blue-500/15 text-blue-400 text-xs font-bold">13</span>
+      <span class="text-sm font-semibold text-heading">Info</span>
+    </div>
+    <p class="text-xs text-muted leading-relaxed">Antipatterns — char(n) → text, serial → identity, money → numeric, json → jsonb, timestamp → timestamptz, text PKs, too many indexes.</p>
+  </div>
+</div>
+
+<h2>15 rules with one-click autofix</h2>
+
+<p>Don't just find problems — fix them. PgDesigner can automatically resolve 15 common issues:</p>
+
+<ul>
+  <li><strong>Missing FK index</strong> — creates a btree index on FK columns</li>
+  <li><strong>No primary key</strong> — adds an identity integer PK column</li>
+  <li><strong>Duplicate / overlapping indexes</strong> — drops the redundant one</li>
+  <li><strong>char(n) → text</strong>, <strong>money → numeric</strong>, <strong>serial → identity</strong>, <strong>json → jsonb</strong>, <strong>timestamp → timestamptz</strong>, <strong>timetz → time</strong></li>
+  <li><strong>FK NO ACTION → RESTRICT</strong>, <strong>identity with default</strong>, <strong>generated with default</strong>, <strong>nullable PK column</strong>, <strong>duplicate FK</strong></li>
+</ul>
+
+<p>In the UI, click the fix button next to any fixable issue. In the CLI, run <code>pgdesigner lint -fix schema.pgd</code> to apply all fixes at once.</p>
+
+<h2>10x more rules than alternatives</h2>
+
+<table>
+  <thead>
+    <tr><th>Tool</th><th style="text-align:center">Rules</th><th>Scope</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>PgDesigner</strong></td><td style="text-align:center"><strong>75</strong></td><td>Schema model validation</td></tr>
+    <tr><td>Squawk</td><td style="text-align:center">~20</td><td>Migration SQL linting</td></tr>
+    <tr><td>pglinter</td><td style="text-align:center">6</td><td>Live DB</td></tr>
+    <tr><td>schemalint</td><td style="text-align:center">4</td><td>Live DB</td></tr>
+    <tr><td>Atlas</td><td style="text-align:center">3</td><td>Schema-as-code</td></tr>
+  </tbody>
+</table>
+
+<p>Squawk focuses on runtime migration hazards (locks, rewrites). PgDesigner validates the schema <em>model</em> — catching structural and design issues before any SQL is generated.</p>
+
+<h2>CLI — lint in your pipeline</h2>
+
+<pre><code>pgdesigner lint schema.pgd
+pgdesigner lint -f json schema.pgd
+pgdesigner lint -s error schema.pgd
+pgdesigner lint -fix schema.pgd</code></pre>
+
+<p>Exit code 1 if any errors are found — plug it into CI and block merges with broken schemas. Use <code>-f json</code> for machine-readable output, <code>-s error</code> to filter by severity.</p>
+
+<h2>UI — navigate and fix</h2>
+
+<p>Press <kbd>Ctrl</kbd>+<kbd>L</kbd> to open Check Diagram. Results are grouped by severity — click any issue to navigate to the problematic object. Autofix button appears next to fixable rules. You can ignore rules per table or globally in project settings.</p>
+
+<div class="not-prose mt-12 pt-8 border-t border-border-default">
+  <p class="text-sm font-semibold text-heading mb-3">Related</p>
+  <div class="flex flex-wrap gap-2">
+    <a href="/features/diff" class="text-sm text-accent-text hover:underline">Diff & ALTER →</a>
+    <a href="/features/git" class="text-sm text-accent-text hover:underline">Git-Friendly Format →</a>
+    <a href="/docs/lint-rules" class="text-sm text-accent-text hover:underline">Lint Rules Reference →</a>
+  </div>
+</div>
+</FeatureLayout>

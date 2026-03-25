@@ -1,0 +1,133 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Subnav from "@/components/subnav.astro";
+import { comparePages } from "@/data/navigation";
+---
+
+<Layout
+  title="PgDesigner vs Atlas — Visual Designer vs Schema-as-Code"
+  description="Compare PgDesigner and Atlas for PostgreSQL schema management. Visual ERD vs HCL schema-as-code. One-time $19 vs $9/dev/mo. 75 lint rules vs Pro-only governance.">
+
+  <Subnav items={comparePages} />
+
+  <Container>
+    <div class="max-w-3xl mx-auto pt-16 pb-24">
+      <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-heading">
+        PgDesigner vs Atlas
+      </h1>
+      <p class="mt-4 text-lg text-body">Atlas by Ariga is a schema-as-code tool supporting 15+ databases. PgDesigner is a visual PostgreSQL-specialized designer. They solve the same problem — schema management — with fundamentally different approaches.</p>
+
+      <div class="mt-12 prose max-w-none
+        prose-headings:text-heading prose-headings:font-semibold
+        prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4
+        prose-p:text-body prose-p:leading-relaxed
+        prose-li:text-body
+        prose-strong:text-heading
+        prose-a:text-accent-text prose-a:no-underline hover:prose-a:underline
+        prose-table:text-sm
+        prose-th:text-heading prose-th:font-semibold prose-th:px-3 prose-th:pb-3
+        prose-td:px-3 prose-td:py-2 prose-td:text-body
+        prose-thead:border-border-default prose-tr:border-border-default">
+
+        <h2>Feature comparison</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th style="text-align:center">PgDesigner</th>
+              <th style="text-align:center">Atlas CE</th>
+              <th style="text-align:center">Atlas Pro</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Visual ERD editor</td><td style="text-align:center">Yes</td><td style="text-align:center">No (CLI only)</td><td style="text-align:center">No</td></tr>
+            <tr><td>Database focus</td><td style="text-align:center">PostgreSQL only</td><td style="text-align:center">PG, MySQL, SQLite, MSSQL</td><td style="text-align:center">15+ databases</td></tr>
+            <tr><td>Schema format</td><td style="text-align:center">.pgd XML (visual)</td><td style="text-align:center">HCL / SQL</td><td style="text-align:center">HCL / SQL / ORM</td></tr>
+            <tr><td>Diff/ALTER engine</td><td style="text-align:center">Yes</td><td style="text-align:center">Yes</td><td style="text-align:center">Yes</td></tr>
+            <tr><td>Hazard detection</td><td style="text-align:center">6 codes</td><td style="text-align:center">Basic</td><td style="text-align:center">Migration linting</td></tr>
+            <tr><td>Schema lint rules</td><td style="text-align:center">75 (15 autofix)</td><td style="text-align:center">Limited</td><td style="text-align:center">Policy & governance</td></tr>
+            <tr><td>Sample data generator</td><td style="text-align:center">Yes (30 heuristics)</td><td style="text-align:center">No</td><td style="text-align:center">Seed data (v1.1+)</td></tr>
+            <tr><td>Security as Code (RLS)</td><td style="text-align:center">DDL generation</td><td style="text-align:center">No</td><td style="text-align:center">Yes (v1.1+)</td></tr>
+            <tr><td>CI/CD integration</td><td style="text-align:center">CLI + scripts</td><td style="text-align:center">CLI</td><td style="text-align:center">Native (GitHub, GitLab)</td></tr>
+            <tr><td>Drift detection</td><td style="text-align:center">No</td><td style="text-align:center">No</td><td style="text-align:center">Yes</td></tr>
+            <tr><td>Schema monitoring</td><td style="text-align:center">No</td><td style="text-align:center">No</td><td style="text-align:center">Yes</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Pricing: one-time vs recurring</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th style="text-align:center">PgDesigner</th>
+              <th style="text-align:center">Atlas</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Individual</td><td style="text-align:center"><strong>$19</strong> one-time</td><td style="text-align:center">$9/dev/mo</td></tr>
+            <tr><td>CI/CD</td><td style="text-align:center">Included</td><td style="text-align:center">$59/project/mo</td></tr>
+            <tr><td>Per database</td><td style="text-align:center">Included</td><td style="text-align:center">$39/DB/mo (3+ DBs)</td></tr>
+            <tr><td>Team of 5, 1yr</td><td style="text-align:center"><strong>$49</strong> total</td><td style="text-align:center">$540+/yr minimum</td></tr>
+            <tr><td>Free tier</td><td style="text-align:center">Non-commercial, forever</td><td style="text-align:center">Starter (limited)</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Different philosophies</h2>
+
+        <p><strong>Atlas</strong> is code-first: define schema in HCL or SQL, run CLI, integrate with CI/CD pipelines. It's a DevOps tool — great for teams that manage schemas alongside infrastructure-as-code (Terraform-like workflow).</p>
+
+        <p><strong>PgDesigner</strong> is visual-first: design in browser UI, see ERD diagrams, click to generate SQL. It's a designer's tool — great for teams that review schemas visually and want to see the ERD before writing migrations.</p>
+
+        <h2>Where Atlas is stronger</h2>
+
+        <ul>
+          <li><strong>Multi-database</strong> — 15+ databases including MySQL, SQL Server, ClickHouse, Snowflake, Oracle</li>
+          <li><strong>Native CI/CD</strong> — GitHub Actions, GitLab CI, Terraform provider built-in</li>
+          <li><strong>Schema monitoring</strong> — drift detection, audit trails, change history (Pro)</li>
+          <li><strong>Security as Code</strong> — roles, permissions, RLS policies as version-controlled code (Pro, v1.1+)</li>
+          <li><strong>ORM integration</strong> — 16 ORM loaders across 6 languages (GORM, Ent, Django, SQLAlchemy...)</li>
+          <li><strong>Atlas Copilot</strong> — AI assistance for schema design (Pro)</li>
+          <li><strong>Enterprise features</strong> — SSO, air-gapped deployment, audit log forwarding</li>
+        </ul>
+
+        <h2>Where PgDesigner is stronger</h2>
+
+        <ul>
+          <li><strong>Visual ERD</strong> — interactive canvas, auto-layout, minimap. Atlas has no visual editor</li>
+          <li><strong>Price</strong> — $19 one-time vs $9/dev/mo + $59/CI/mo + $39/DB/mo. For a team of 5 with 1 CI project: $49 vs $540+/yr</li>
+          <li><strong>75 lint rules</strong> — structural errors, best practices, antipatterns. All in free tier. Atlas CE has limited linting</li>
+          <li><strong>Sample data generator</strong> — FK-aware, 30 heuristics, seeded. Atlas has no equivalent in CE</li>
+          <li><strong>PostgreSQL depth</strong> — 70+ types, partitions, temporal, IDENTITY, domains. Atlas abstracts PG behind multi-DB HCL</li>
+          <li><strong>Import from legacy tools</strong> — MicroOLAP .pdd, DbSchema .dbs, Toad .dm2</li>
+          <li><strong>No vendor lock-in</strong> — .pgd is XML, readable by any text editor. No cloud account required</li>
+        </ul>
+
+        <h2>Honest assessment</h2>
+
+        <p>Atlas is a more comprehensive platform — CI/CD, monitoring, drift detection, multi-database. If you manage schemas across multiple database engines with a DevOps workflow, Atlas Pro is hard to beat. PgDesigner is a focused PostgreSQL tool — visual design, deep linting, sample data — at a fraction of the cost. If PostgreSQL is your only database and you want a visual workflow with one-time pricing, PgDesigner is the better fit.</p>
+
+      </div>
+
+      <div class="mt-12 pt-8 border-t border-border-default">
+        <p class="text-sm font-semibold text-heading mb-3">Related</p>
+        <div class="flex flex-wrap gap-2">
+          <a href="/features/diff" class="text-sm text-accent-text hover:underline">Diff & ALTER →</a>
+          <a href="/features/cli" class="text-sm text-accent-text hover:underline">CLI for CI/CD →</a>
+          <a href="/pricing" class="text-sm text-accent-text hover:underline">Pricing →</a>
+        </div>
+      </div>
+
+      <div class="mt-16 flex gap-4">
+        <a href="/docs/download" class="inline-flex items-center rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-blue-500 transition-colors">
+          Download PgDesigner
+        </a>
+        <a href="/features" class="inline-flex items-center rounded-lg border border-border-default px-5 py-2.5 text-sm font-semibold text-body hover:bg-surface-alt/50 transition-colors">
+          View All Features
+        </a>
+      </div>
+    </div>
+  </Container>
+</Layout>

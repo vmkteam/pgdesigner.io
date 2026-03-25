@@ -1,0 +1,90 @@
+---
+import Container from "@/components/container.astro";
+---
+
+<Container>
+  <main class="grid lg:grid-cols-2 place-items-center pt-16 pb-8 md:pt-12 md:pb-24 gap-8">
+    <div>
+      <h1 class="text-4xl lg:text-5xl xl:text-6xl font-bold lg:tracking-tight xl:tracking-tighter text-heading">
+        Visual PostgreSQL Schema Designer
+      </h1>
+      <p class="text-lg mt-4 text-muted max-w-xl">
+        Visual ERD diagrams, DDL generation, schema diff &amp; safe ALTER migrations for PostgreSQL.
+      </p>
+      <p class="text-sm mt-2 text-faint max-w-lg">
+        Visual ERD editor with production-ready DDL generation, schema diff, safe ALTER migrations, and 75 lint rules.
+      </p>
+      <div class="mt-6 flex flex-col sm:flex-row gap-3">
+        <a
+          href="/docs/download"
+          class="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white hover:bg-blue-500 hover:shadow-[0_0_24px_rgba(37,99,235,0.35)] transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
+          Download Free
+        </a>
+        <a
+          href="https://github.com/vmkteam/pgdesigner"
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center justify-center gap-2 rounded-lg border border-border-default px-6 py-3 text-sm font-semibold text-body hover:bg-surface-alt transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">
+          View on GitHub
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div class="mt-8 grid grid-cols-4 gap-4 sm:flex sm:gap-6 sm:items-center">
+        <div class="flex flex-col">
+          <span class="text-xl font-bold text-heading tabular-nums">630+</span>
+          <span class="text-[10px] uppercase tracking-wider text-faint">tables tested</span>
+        </div>
+        <div class="hidden sm:block w-px h-8 bg-border-default"></div>
+        <div class="flex flex-col">
+          <span class="text-xl font-bold text-heading tabular-nums">99.7%</span>
+          <span class="text-[10px] uppercase tracking-wider text-faint">fidelity</span>
+        </div>
+        <div class="hidden sm:block w-px h-8 bg-border-default"></div>
+        <div class="flex flex-col">
+          <span class="text-xl font-bold text-heading tabular-nums">75</span>
+          <span class="text-[10px] uppercase tracking-wider text-faint">lint rules</span>
+        </div>
+        <div class="hidden sm:block w-px h-8 bg-border-default"></div>
+        <div class="flex flex-col">
+          <span class="text-xl font-bold text-heading tabular-nums">$19</span>
+          <span class="text-[10px] uppercase tracking-wider text-faint">one-time</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ERD Screenshot -->
+    <div class="w-full md:order-1">
+      <div class="rounded-xl overflow-hidden border border-border-default shadow-2xl shadow-black/20 dark:shadow-black/50 dark:shadow-[0_25px_80px_rgba(0,0,0,0.5),0_0_60px_rgba(37,99,235,0.1)] hover:shadow-[0_25px_80px_rgba(0,0,0,0.3),0_0_80px_rgba(37,99,235,0.08)] dark:hover:shadow-[0_25px_80px_rgba(0,0,0,0.5),0_0_80px_rgba(37,99,235,0.15)] transition-shadow duration-300">
+        <picture class="hidden dark:block">
+          <source
+            srcset="/images/dark-1x.webp 1x, /images/dark-2x.webp 2x"
+            type="image/webp"
+          />
+          <img
+            src="/images/dark.png"
+            alt="PgDesigner — ERD diagram of chinook database"
+            class="w-full h-auto"
+            width="1109"
+            height="857"
+            loading="eager"
+          />
+        </picture>
+        <picture class="block dark:hidden">
+          <source
+            srcset="/images/light-1x.webp 1x, /images/light-2x.webp 2x"
+            type="image/webp"
+          />
+          <img
+            src="/images/light.png"
+            alt="PgDesigner — ERD diagram of chinook database"
+            class="w-full h-auto"
+            width="1109"
+            height="857"
+            loading="eager"
+          />
+        </picture>
+      </div>
+    </div>
+  </main>
+</Container>

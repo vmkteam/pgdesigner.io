@@ -1,0 +1,23 @@
+---
+import Container from "@/components/container.astro";
+---
+
+<footer class="mt-20 border-t border-border-default py-6">
+  <Container>
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 max-w-4xl mx-auto">
+      <nav class="flex flex-wrap gap-x-6 gap-y-1 text-sm">
+        <a href="/features" class="text-muted hover:text-heading transition-colors">Features</a>
+        <a href="/compare" class="text-muted hover:text-heading transition-colors">Compare</a>
+        <a href="/pricing" class="text-muted hover:text-heading transition-colors">Pricing</a>
+        <a href="/docs/quickstart" class="text-muted hover:text-heading transition-colors">Docs</a>
+        <a href="/docs/download" class="text-muted hover:text-heading transition-colors">Download</a>
+        <a href="/blog" class="text-muted hover:text-heading transition-colors">Blog</a>
+        <a href="https://github.com/vmkteam/pgdesigner" target="_blank" rel="noopener" class="text-muted hover:text-heading transition-colors">GitHub</a>
+        <a href="mailto:support@pgdesigner.io" class="text-muted hover:text-heading transition-colors">Contact</a>
+      </nav>
+      <p class="text-sm text-faint whitespace-nowrap">
+        &copy; {new Date().getFullYear()} PgDesigner by vmkteam
+      </p>
+    </div>
+  </Container>
+</footer>

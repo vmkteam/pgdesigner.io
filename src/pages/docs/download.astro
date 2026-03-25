@@ -1,0 +1,94 @@
+---
+import DocsLayout from "@/layouts/DocsLayout.astro";
+---
+<DocsLayout
+  title="Download PgDesigner — PostgreSQL Schema Designer"
+  description="Download PgDesigner for macOS, Linux, or Windows. Single statically-linked binary, zero dependencies. Install via Homebrew or download from GitHub Releases. Free for non-commercial use.">
+
+<h2>Homebrew (macOS / Linux)</h2>
+
+<p>The fastest way to install and keep PgDesigner up to date:</p>
+
+<pre><code>brew tap vmkteam/tap
+brew install pgdesigner</code></pre>
+
+<p>Update to the latest version:</p>
+
+<pre><code>brew upgrade pgdesigner</code></pre>
+
+<h2>GitHub Releases</h2>
+
+<p>Download the binary for your platform from <a href="https://github.com/vmkteam/pgdesigner/releases">GitHub Releases</a>:</p>
+
+<table>
+  <thead>
+    <tr><th>Platform</th><th>Architecture</th><th>File</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>macOS</td><td>Apple Silicon (arm64)</td><td><code>pgdesigner-darwin-arm64.tar.gz</code></td></tr>
+    <tr><td>macOS</td><td>Intel (amd64)</td><td><code>pgdesigner-darwin-amd64.tar.gz</code></td></tr>
+    <tr><td>Linux</td><td>amd64</td><td><code>pgdesigner-linux-amd64.tar.gz</code></td></tr>
+    <tr><td>Linux</td><td>arm64</td><td><code>pgdesigner-linux-arm64.tar.gz</code></td></tr>
+    <tr><td>Windows</td><td>amd64</td><td><code>pgdesigner-windows-amd64.zip</code></td></tr>
+  </tbody>
+</table>
+
+<h3>Install from tarball</h3>
+
+<pre><code># Linux / macOS
+curl -L https://github.com/vmkteam/pgdesigner/releases/latest/download/pgdesigner-linux-amd64.tar.gz | tar xz
+sudo mv pgdesigner /usr/local/bin/
+
+# Verify
+pgdesigner --version</code></pre>
+
+<h2>Docker</h2>
+
+<p>Run PgDesigner in a container — useful for CI/CD pipelines and headless environments:</p>
+
+<pre><code># Pull the latest image
+docker pull ghcr.io/vmkteam/pgdesigner:latest
+
+# Run with a local project directory
+docker run --rm -v $(pwd):/work -p 8080:8080 ghcr.io/vmkteam/pgdesigner:latest
+
+# Lint only (no UI)
+docker run --rm -v $(pwd):/work ghcr.io/vmkteam/pgdesigner:latest lint /work/schema.pgd</code></pre>
+
+<p>Available tags: <code>latest</code>, <code>x.y.z</code> (specific version). Images are published for <code>linux/amd64</code> and <code>linux/arm64</code>.</p>
+
+<h2>Build from source</h2>
+
+<p>Requires Go 1.25+ and pnpm:</p>
+
+<pre><code>git clone https://github.com/vmkteam/pgdesigner.git
+cd pgdesigner
+make build</code></pre>
+
+<p>The binary is at <code>./bin/pgdesigner</code>. Source builds are licensed under PolyForm Noncommercial — commercial use requires a <a href="/pricing">purchased license</a>.</p>
+
+<h2>System requirements</h2>
+
+<ul>
+  <li><strong>OS:</strong> macOS 12+, Linux (any — static binary, no glibc dependency), Windows 10+</li>
+  <li><strong>Disk:</strong> ~30 MB for the binary</li>
+  <li><strong>Browser:</strong> Chrome, Firefox, Safari, Edge (for the UI)</li>
+  <li><strong>Dependencies:</strong> None — single statically-linked binary</li>
+</ul>
+
+<h2>macOS Gatekeeper</h2>
+
+<p>Purchased binaries are signed and notarized by Apple — they open without warnings. If you build from source, macOS may show "unidentified developer". To allow:</p>
+
+<pre><code>xattr -d com.apple.quarantine pgdesigner</code></pre>
+
+<p>Or: System Settings → Privacy & Security → Allow.</p>
+
+<div class="not-prose mt-10 pt-6 border-t border-border-default">
+  <p class="text-sm font-semibold text-heading mb-2">See also</p>
+  <ul class="text-sm space-y-1">
+    <li><a href="/docs/quickstart" class="text-accent-text hover:underline">Quickstart guide</a></li>
+    <li><a href="/pricing" class="text-accent-text hover:underline">Pricing & licenses</a></li>
+  </ul>
+</div>
+</DocsLayout>

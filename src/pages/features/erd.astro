@@ -1,0 +1,122 @@
+---
+import FeatureLayout from "@/layouts/FeatureLayout.astro";
+---
+<FeatureLayout
+  title="Visual ERD Diagram Editor"
+  description="Free visual PostgreSQL ERD tool with interactive canvas, auto-layout, minimap, FK edge routing, and dark/light theme. Drag-and-drop 120+ tables smoothly. Download for macOS, Linux, Windows."
+  subtitle="Design your entire PostgreSQL schema visually — drag tables, trace foreign keys, and auto-arrange layouts for 120+ tables without breaking a sweat."
+>
+
+<!-- Hero screenshot: ERD canvas (theme-aware) -->
+<div class="not-prose -mx-4 sm:mx-0 mt-2 mb-10">
+  <div class="rounded-xl overflow-hidden border border-border-default shadow-2xl img-zoom">
+    <picture class="hidden dark:block">
+      <source srcset="/images/erd-dark.webp" type="image/webp" />
+      <img src="/images/erd-dark.png" alt="PgDesigner ERD canvas showing the AdventureWorks database with 68 tables and foreign key relationships in dark theme" loading="eager" width="1280" height="800" class="w-full" />
+    </picture>
+    <picture class="block dark:hidden">
+      <source srcset="/images/erd-light.webp" type="image/webp" />
+      <img src="/images/erd-light.png" alt="PgDesigner ERD canvas showing the AdventureWorks database with 68 tables and foreign key relationships in light theme" loading="eager" width="1280" height="800" class="w-full" />
+    </picture>
+  </div>
+</div>
+
+<h2>Why another ERD tool?</h2>
+
+<p>Most database diagramming tools are either generic (DrawDB, dbdiagram.io) or stuck in the desktop era (pgModeler, MicroOLAP).
+PgDesigner is built exclusively for PostgreSQL and runs in the browser — with the depth of a desktop app and the speed of a modern web UI.</p>
+
+<h2>Interactive canvas that keeps up with you</h2>
+
+<p>Every table, column, index, and foreign key is visible and editable directly on the diagram. No switching between tabs or dialogs — the canvas <em>is</em> the editor.</p>
+
+<div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 mb-8">
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <h3 class="text-sm font-semibold text-heading mb-1">Drag & Drop</h3>
+    <p class="text-sm text-muted">Move tables freely. Pan with middle-click or trackpad. Zoom with scroll wheel or shortcuts.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <h3 class="text-sm font-semibold text-heading mb-1">Auto-Layout</h3>
+    <p class="text-sm text-muted">One click arranges all tables — no overlaps, FK relationships respected. Works on 120+ tables.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <h3 class="text-sm font-semibold text-heading mb-1">Minimap</h3>
+    <p class="text-sm text-muted">Navigate large schemas without losing context. The minimap shows your viewport position in real time.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <h3 class="text-sm font-semibold text-heading mb-1">FK Edge Routing</h3>
+    <p class="text-sm text-muted">Foreign keys render as directed edges with smart path routing. Click any edge to see the full FK definition.</p>
+  </div>
+</div>
+
+<h2>See every detail at a glance</h2>
+
+<p>Each table node shows column names with types (<code>bigint</code>, <code>text</code>, <code>timestamptz</code>),
+inline <strong>PK</strong> / <strong>FK</strong> / <strong>UNIQUE</strong> badges, nullable markers, and a column count in the header.
+Click any table to open the Table Editor with full column details, constraints, indexes, foreign keys, DDL preview, and lint results.</p>
+
+<!-- Table Editor screenshot (theme-aware) -->
+<div class="not-prose -mx-4 sm:mx-0 mt-6 mb-8">
+  <div class="rounded-xl overflow-hidden border border-border-default shadow-xl img-zoom">
+    <picture class="hidden dark:block">
+      <source srcset="/images/table-editor-dark.webp" type="image/webp" />
+      <img src="/images/table-editor-dark.png" alt="PgDesigner Table Editor showing production.document columns, types, and properties in dark theme" loading="lazy" width="1280" height="800" class="w-full" />
+    </picture>
+    <picture class="block dark:hidden">
+      <source srcset="/images/table-editor-light.webp" type="image/webp" />
+      <img src="/images/table-editor-light.png" alt="PgDesigner Table Editor showing production.document columns, types, and properties in light theme" loading="lazy" width="1280" height="800" class="w-full" />
+    </picture>
+  </div>
+</div>
+
+<h2>Handles real production schemas</h2>
+
+<p>PgDesigner is tested on 6 real-world databases. The largest has 120+ tables and 150+ foreign keys — canvas stays smooth.</p>
+
+<table>
+  <thead>
+    <tr><th>Database</th><th style="text-align:center">Tables</th><th style="text-align:center">FK</th><th style="text-align:center">Performance</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Chinook</td><td style="text-align:center">11</td><td style="text-align:center">11</td><td style="text-align:center">Instant</td></tr>
+    <tr><td>Northwind</td><td style="text-align:center">14</td><td style="text-align:center">13</td><td style="text-align:center">Instant</td></tr>
+    <tr><td>Pagila</td><td style="text-align:center">15</td><td style="text-align:center">12</td><td style="text-align:center">Instant</td></tr>
+    <tr><td>Airlines</td><td style="text-align:center">8</td><td style="text-align:center">6</td><td style="text-align:center">Instant</td></tr>
+    <tr><td>AdventureWorks</td><td style="text-align:center">68</td><td style="text-align:center">69</td><td style="text-align:center">Smooth</td></tr>
+    <tr><td><strong>Synthetic</strong></td><td style="text-align:center"><strong>120+</strong></td><td style="text-align:center"><strong>150+</strong></td><td style="text-align:center"><strong>Smooth</strong></td></tr>
+  </tbody>
+</table>
+
+<p>All 6 databases are included as sample projects in the download — open one and start exploring.</p>
+
+<h2>Find anything in seconds</h2>
+
+<p>The <strong>Object Tree</strong> gives you a hierarchical view: schemas → tables → columns, indexes, and foreign keys.
+Need to jump somewhere fast? <kbd>Ctrl</kbd>+<kbd>F</kbd> opens Go To — type any table, column, or index name and you're there.
+Click a table to open the Table Editor. Double-click a name to rename inline.</p>
+
+<h2>Create without writing SQL</h2>
+
+<p>Build your schema directly on the canvas. Click to place a table (auto-generates PK). Click two tables to create a foreign key — the FK column and constraint appear automatically. Need a many-to-many? Click table A, then B — PgDesigner creates the junction table with composite PK and both FKs.</p>
+
+<h3>Keyboard Shortcuts</h3>
+
+<div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
+  <div class="kbd-card"><div class="flex gap-1 shrink-0"><kbd>Ctrl</kbd><kbd>=</kbd><span class="text-faint mx-0.5">/</span><kbd>-</kbd></div><span class="text-sm text-body">Zoom in / out</span></div>
+  <div class="kbd-card"><div class="flex gap-1 shrink-0"><kbd>Ctrl</kbd><kbd>0</kbd></div><span class="text-sm text-body">Reset zoom</span></div>
+  <div class="kbd-card"><div class="flex gap-1 shrink-0"><kbd>Ctrl</kbd><kbd>F</kbd></div><span class="text-sm text-body">Go To (search)</span></div>
+  <div class="kbd-card"><div class="flex gap-1 shrink-0"><kbd>Ctrl</kbd><kbd>G</kbd></div><span class="text-sm text-body">Generate DDL</span></div>
+  <div class="kbd-card"><div class="flex gap-1 shrink-0"><kbd>Ctrl</kbd><kbd>D</kbd></div><span class="text-sm text-body">Diff schemas</span></div>
+  <div class="kbd-card"><div class="flex gap-1 shrink-0"><kbd>Ctrl</kbd><kbd>L</kbd></div><span class="text-sm text-body">Lint schema</span></div>
+  <div class="kbd-card sm:col-span-2"><div class="flex gap-1 shrink-0"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>D</kbd></div><span class="text-sm text-body">Toggle dark / light</span></div>
+</div>
+
+<div class="not-prose mt-12 pt-8 border-t border-border-default">
+  <p class="text-sm font-semibold text-heading mb-3">Related</p>
+  <div class="flex flex-wrap gap-2">
+    <a href="/features/generate" class="text-sm text-accent-text hover:underline">DDL Generation →</a>
+    <a href="/features/diff" class="text-sm text-accent-text hover:underline">Diff & ALTER →</a>
+    <a href="/docs/quickstart" class="text-sm text-accent-text hover:underline">Quickstart →</a>
+  </div>
+</div>
+</FeatureLayout>

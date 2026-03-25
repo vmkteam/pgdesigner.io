@@ -1,0 +1,133 @@
+---
+import { SEO } from "astro-seo";
+import Footer from "@/components/footer.astro";
+import Navbar from "@/components/navbar/navbar.astro";
+// Inter font loaded via global.css with font-display: optional (no FOUT)
+import "../styles/global.css";
+
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+
+const resolvedImageWithDomain = new URL(
+  "/opengraph.jpg",
+  Astro.site
+).toString();
+
+const { title, description } = Astro.props;
+
+const makeTitle = title
+  ? title + " | PgDesigner"
+  : "PgDesigner — Visual PostgreSQL Schema Designer";
+
+const seoDescription = description || "Design PostgreSQL schemas visually. Generate production-ready SQL. Compare schemas with safe ALTER migrations. 75 lint rules. Free for non-commercial use.";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="generator" content={Astro.generator} />
+    <script is:inline>
+      const theme = localStorage.getItem("theme");
+      if (theme === "light") {
+        document.documentElement.classList.remove("dark");
+      } else {
+        document.documentElement.classList.add("dark");
+      }
+    </script>
+
+    <SEO
+      title={makeTitle}
+      description={seoDescription}
+      canonical={canonicalURL}
+      twitter={{
+        card: "summary_large_image",
+      }}
+      openGraph={{
+        basic: {
+          url: canonicalURL,
+          type: "website",
+          title: makeTitle,
+          image: resolvedImageWithDomain,
+        },
+        image: {
+          alt: "PgDesigner — Visual PostgreSQL Schema Designer",
+        },
+      }}
+    />
+    <script type="application/ld+json" is:inline>
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "PgDesigner",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "macOS, Windows, Linux",
+        "description": "Visual PostgreSQL schema designer with ERD editor, DDL generation, schema diff, ALTER migrations, 75 lint rules, and CLI.",
+        "url": "https://pgdesigner.io",
+        "offers": [
+          {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Free for non-commercial use"
+          },
+          {
+            "@type": "Offer",
+            "price": "19",
+            "priceCurrency": "USD",
+            "description": "Individual license, one-time payment"
+          }
+        ],
+        "screenshot": "https://pgdesigner.io/images/light.png",
+        "softwareVersion": "1.0",
+        "author": {
+          "@type": "Organization",
+          "name": "vmkteam",
+          "url": "https://github.com/vmkteam"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "vmkteam",
+        "url": "https://github.com/vmkteam",
+        "logo": "https://pgdesigner.io/favicon.svg"
+      }
+    ]
+    </script>
+  </head>
+  <body class="bg-surface text-body antialiased">
+    <Navbar />
+    <slot />
+    <Footer />
+    <style is:global>
+      img {
+        content-visibility: auto;
+      }
+    </style>
+    <script is:inline>
+      document.addEventListener('click', (e) => {
+        const zoom = e.target.closest('.img-zoom');
+        if (!zoom) return;
+        const img = zoom.querySelector('img');
+        if (!img) return;
+        const overlay = document.createElement('div');
+        overlay.className = 'img-zoom-overlay';
+        overlay.innerHTML = '<img src="' + img.src + '" alt="' + (img.alt || '') + '">';
+        overlay.addEventListener('click', () => overlay.remove());
+        document.addEventListener('keydown', function esc(e) {
+          if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', esc); }
+        });
+        document.body.appendChild(overlay);
+      });
+    </script>
+  </body>
+</html>

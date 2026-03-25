@@ -1,0 +1,117 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+import Subnav from "@/components/subnav.astro";
+import { featurePages } from "@/data/navigation";
+import { Icon } from "astro-icon/components";
+
+const groups = [
+  {
+    title: "Design",
+    subtitle: "Visual schema design with full PostgreSQL 18 support.",
+    features: [
+      {
+        title: "Visual ERD Canvas",
+        description: "See your entire schema at a glance. Drag, zoom, auto-layout. Tested on 120+ tables.",
+        icon: "bx:bxs-edit",
+        href: "/features/erd",
+      },
+      {
+        title: "Import & Convert",
+        description: "PDD, DBS, DM2, SQL, live PostgreSQL. Migrate from any tool in minutes.",
+        icon: "bx:bxs-cloud-download",
+        href: "/features/import",
+      },
+    ],
+  },
+  {
+    title: "Generate & Migrate",
+    subtitle: "From model to production SQL, safe migrations, and test data.",
+    features: [
+      {
+        title: "DDL Generation",
+        description: "Production-ready SQL from your model. 15-phase dependency sort. 99.7% round-trip fidelity.",
+        icon: "bx:bxs-data",
+        href: "/features/generate",
+      },
+      {
+        title: "Diff & ALTER Engine",
+        description: "Two schemas in, safe migration out. Hazard warnings for locks, data loss, and rewrites.",
+        icon: "bx:bxs-analyse",
+        href: "/features/diff",
+      },
+      {
+        title: "Sample Data Generator",
+        description: "Populate your database in one command. FK-aware, 40+ name heuristics, reproducible with seed.",
+        icon: "bx:bxs-spreadsheet",
+        href: "/features/sampledata",
+      },
+    ],
+  },
+  {
+    title: "Quality & Workflow",
+    subtitle: "Lint, git-friendly format, and CI/CD integration.",
+    features: [
+      {
+        title: "75 Lint Rules",
+        description: "Catch FK mismatches, missing indexes, naming issues, antipatterns. 15 rules with autofix.",
+        icon: "bx:bxs-check-shield",
+        href: "/features/lint",
+      },
+      {
+        title: "Git-Friendly Format",
+        description: ".pgd XML optimized for clean single-line diffs. Split-model for large schemas.",
+        icon: "bx:bxl-git",
+        href: "/features/git",
+      },
+      {
+        title: "CLI for CI/CD",
+        description: "pgdesigner lint, diff, generate, testdata in your pipeline. Zero dependencies, single binary.",
+        icon: "bx:bxs-terminal",
+        href: "/features/cli",
+      },
+    ],
+  },
+];
+---
+
+<Layout title="Features — PostgreSQL Schema Designer" description="All PgDesigner features: visual ERD canvas, DDL generation, schema diff with hazard detection, 75 lint rules, sample data generator, import, git-friendly format, CLI for CI/CD.">
+  <Subnav items={featurePages} />
+  <Container>
+    <div class="max-w-4xl mx-auto pt-16 pb-24">
+      <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-heading">
+        Features
+      </h1>
+      <p class="mt-4 text-lg text-body max-w-2xl">
+        The only tool that combines PG specialization, git-friendly format, diff/ALTER engine, and modern visual UI.
+      </p>
+
+      {groups.map((group) => (
+        <section class="mt-16">
+          <h2 class="text-2xl font-bold text-heading">{group.title}</h2>
+          <p class="mt-1 text-sm text-muted">{group.subtitle}</p>
+          <div class="mt-6 grid sm:grid-cols-2 gap-4">
+            {group.features.map(({ title, description, icon, href }) => (
+              <a
+                href={href}
+                class="group flex gap-4 items-start p-5 rounded-xl border border-border-default hover:border-border-default hover:bg-surface-alt/30 transition-all">
+                <div class="mt-0.5 bg-blue-500/20 rounded-lg p-2 w-9 h-9 shrink-0 flex items-center justify-center">
+                  <Icon class="text-accent-text w-4 h-4" name={icon} />
+                </div>
+                <div>
+                  <h3 class="font-semibold text-heading group-hover:text-accent-text transition-colors">{title}</h3>
+                  <p class="text-sm text-muted mt-1 leading-relaxed">{description}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <div class="mt-16 pt-8 border-t border-border-default flex flex-wrap gap-4">
+        <a href="/pricing" class="text-sm text-accent-text hover:underline">View Pricing →</a>
+        <a href="/docs/quickstart" class="text-sm text-accent-text hover:underline">Quickstart →</a>
+      </div>
+    </div>
+  </Container>
+</Layout>

@@ -1,0 +1,81 @@
+---
+import FeatureLayout from "@/layouts/FeatureLayout.astro";
+---
+<FeatureLayout
+  title="Git-Friendly Schema Format"
+  description="The .pgd XML format produces clean single-line git diffs when you add or change columns. Split-model option for large schemas eliminates merge conflicts."
+  subtitle="Review schema changes like code — clean diffs, meaningful context, near-zero merge conflicts."
+>
+
+<h2>The problem with other tools</h2>
+
+<p>When you save a schema in pgModeler, the XML reorders elements and changes hundreds of lines. DrawDB dumps everything into a single JSON blob. dbdiagram.io doesn't even give you a local file. Reviewing these diffs in a pull request is impossible.</p>
+
+<h2>One column = one line in the diff</h2>
+
+<p>PgDesigner's <code>.pgd</code> format is XML designed specifically for version control. Each column is a single self-closing element with all attributes inline:</p>
+
+<pre><code>&lt;table name="users" schema="public"&gt;
+  &lt;column name="id" type="bigint" nullable="false"/&gt;
+  &lt;column name="email" type="varchar(255)" nullable="false"/&gt;
+  &lt;column name="created_at" type="timestamptz" default="now()"/&gt;
+  &lt;primary-key&gt;
+    &lt;column name="id"/&gt;
+  &lt;/primary-key&gt;
+&lt;/table&gt;</code></pre>
+
+<p>Adding a column produces exactly one line in <code>git diff</code>:</p>
+
+<pre><code>  &lt;column name="email" type="varchar(255)" nullable="false"/&gt;
++ &lt;column name="phone" type="varchar(20)"/&gt;
+  &lt;column name="created_at" type="timestamptz" default="now()"/&gt;</code></pre>
+
+<p>Closing tags like <code>&lt;/table&gt;</code> give context in diffs — you always know which table was changed, unlike JSON's anonymous closing braces.</p>
+
+<h2>Why not HCL, DBML, or JSON?</h2>
+
+<div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 mb-8">
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <h3 class="text-sm font-semibold text-heading mb-1">vs pgModeler XML</h3>
+    <p class="text-sm text-muted">Monolithic file, element order changes on every save. Diffs are unreadable.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <h3 class="text-sm font-semibold text-heading mb-1">vs DrawDB JSON</h3>
+    <p class="text-sm text-muted">Single JSON blob — entire file shows as changed. No meaningful context.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <h3 class="text-sm font-semibold text-heading mb-1">vs Atlas HCL</h3>
+    <p class="text-sm text-muted">Clean diffs, but no visual editor. CLI-only workflow.</p>
+  </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4">
+    <h3 class="text-sm font-semibold text-heading mb-1">vs dbdiagram DBML</h3>
+    <p class="text-sm text-muted">Text-based and git-friendly, but SaaS — no local files unless you export.</p>
+  </div>
+</div>
+
+<h2>Split-model for large schemas</h2>
+
+<p>For schemas with 50+ tables, enable split-model. Each object gets its own file — merge conflicts drop to nearly zero because different developers edit different files:</p>
+
+<pre><code>project/
+  project.pgd           # metadata, layouts, settings
+  tables/
+    users.pgd
+    orders.pgd
+    products.pgd
+  views/
+    order_summary.pgd
+  functions/
+    calculate_total.pgd</code></pre>
+
+<p>The visual editor works identically — you open <code>project.pgd</code> and see everything. The split is transparent.</p>
+
+<div class="not-prose mt-12 pt-8 border-t border-border-default">
+  <p class="text-sm font-semibold text-heading mb-3">Related</p>
+  <div class="flex flex-wrap gap-2">
+    <a href="/features/diff" class="text-sm text-accent-text hover:underline">Diff & ALTER →</a>
+    <a href="/features/cli" class="text-sm text-accent-text hover:underline">CLI for CI/CD →</a>
+    <a href="/compare/drawdb" class="text-sm text-accent-text hover:underline">vs DrawDB →</a>
+  </div>
+</div>
+</FeatureLayout>
