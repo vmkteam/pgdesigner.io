@@ -2,6 +2,7 @@
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 import Subnav from "@/components/subnav.astro";
+import Breadcrumbs from "@/components/breadcrumbs.astro";
 import { featurePages } from "@/data/navigation";
 import { Icon } from "astro-icon/components";
 
@@ -79,6 +80,7 @@ const groups = [
   <Subnav items={featurePages} />
   <Container>
     <div class="max-w-4xl mx-auto pt-16 pb-24">
+      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Features" }]} />
       <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-heading">
         Features
       </h1>

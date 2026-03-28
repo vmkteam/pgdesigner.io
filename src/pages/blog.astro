@@ -1,13 +1,13 @@
 ---
 import { getCollection } from "astro:content";
-import { Picture } from "astro:assets";
+import { getFormattedDate } from "@/utils/all";
 import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
-import Sectionhead from "@/components/sectionhead.astro";
+import Breadcrumbs from "@/components/breadcrumbs.astro";
 
-// Filter blog entries with 'draft: false' & date before current date
+const now = new Date();
 const publishedBlogEntries = await getCollection("blog", ({ data }) => {
-  return !data.draft && data.publishDate < new Date();
+  return !data.draft && data.publishDate < now;
 });
 
 // Sort content entries by publication date
@@ -18,47 +18,56 @@ publishedBlogEntries.sort(function (a, b) {
 
 <Layout title="Blog — PgDesigner PostgreSQL Schema Designer">
   <Container>
-    <Sectionhead>
-      <Fragment slot="title">Blog</Fragment>
-      <Fragment slot="desc">
+    <div class="max-w-4xl mx-auto pt-16 pb-24">
+      <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Blog" }]} />
+      <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-heading">
+        Blog
+      </h1>
+      <p class="mt-4 text-lg text-body">
         Announcements, engineering deep-dives, and tutorials for PostgreSQL schema design.
-      </Fragment>
-    </Sectionhead>
-    <main class="mt-16">
-      <ul class="grid gap-16 max-w-4xl mx-auto">
+      </p>
+
+      <ul class="mt-12 grid gap-10">
         {
           publishedBlogEntries.map((blogPostEntry, index) => (
             <li>
-              <a href={`/blog/${blogPostEntry.slug}`}>
-                <div class="grid md:grid-cols-2 gap-5 md:gap-10 items-center">
-                  <Picture
-                    src={blogPostEntry.data.image.src}
-                    alt={blogPostEntry.data.image.alt}
-                    sizes="(max-width: 800px) 100vw, 800px"
-                    width={800}
-                    height={600}
-                    loading={index <= 2 ? "eager" : "lazy"}
-                    decoding={index <= 2 ? "sync" : "async"}
-                    class="w-full rounded-md object-cover object-center bg-white"
-                  />
+              <a href={`/blog/${blogPostEntry.slug}`} class="group">
+                <div class="grid md:grid-cols-[240px_1fr] gap-5 md:gap-8 items-center">
+                  {(() => {
+                    const dark = blogPostEntry.data.thumb || blogPostEntry.data.image;
+                    const light = blogPostEntry.data.thumbLight || dark;
+                    const lazy = index > 2;
+                    return (
+                      <div>
+                        <img src={dark.src} alt={dark.alt} width={240} height={160}
+                          loading={lazy ? "lazy" : "eager"} decoding={lazy ? "async" : "sync"}
+                          class="w-full rounded-lg object-cover object-center aspect-[3/2] border border-border-default hidden dark:block" />
+                        <img src={light.src} alt={light.alt} width={240} height={160}
+                          loading={lazy ? "lazy" : "eager"} decoding={lazy ? "async" : "sync"}
+                          class="w-full rounded-lg object-cover object-center aspect-[3/2] border border-border-default block dark:hidden" />
+                      </div>
+                    );
+                  })()}
                   <div>
-                    <span class="text-accent-text uppercase tracking-wider text-sm font-medium">
+                    <span class="text-accent-text uppercase tracking-wider text-xs font-medium">
                       {blogPostEntry.data.category}
                     </span>
 
-                    <h2 class="text-3xl font-semibold leading-snug tracking-tight mt-1 ">
+                    <h2 class="text-xl font-semibold leading-snug tracking-tight mt-1 group-hover:text-accent-text transition-colors">
                       {blogPostEntry.data.title}
                     </h2>
 
-                    <div class="flex gap-2 mt-3">
+                    <p class="text-sm text-muted mt-2 line-clamp-2">{blogPostEntry.data.snippet}</p>
+
+                    <div class="flex gap-2 mt-2 text-xs">
                       <span class="text-muted">
                         {blogPostEntry.data.author}
                       </span>
-                      <span class="text-muted">• </span>
+                      <span class="text-muted">•</span>
                       <time
                         class="text-muted"
                         datetime={blogPostEntry.data.publishDate.toISOString()}>
-                        {blogPostEntry.data.publishDate.toDateString()}
+                        {getFormattedDate(blogPostEntry.data.publishDate)}
                       </time>
                     </div>
                   </div>
@@ -68,6 +77,6 @@ publishedBlogEntries.sort(function (a, b) {
           ))
         }
       </ul>
-    </main>
+    </div>
   </Container>
 </Layout>

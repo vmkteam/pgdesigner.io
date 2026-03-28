@@ -5,6 +5,12 @@ snippet: "MicroOLAP Database Designer for PostgreSQL hasn't been updated since 2
 image:
   src: "/images/erd-dark.png"
   alt: "PgDesigner ERD canvas showing imported database schema"
+thumb:
+  src: "/images/blog/thumb-erd.webp"
+  alt: "PgDesigner ERD canvas showing imported database schema"
+thumbLight:
+  src: "/images/blog/thumb-erd-light.webp"
+  alt: "PgDesigner ERD canvas showing imported database schema"
 publishDate: "2026-03-24 16:00"
 category: "Tutorials"
 author: "vmkteam"

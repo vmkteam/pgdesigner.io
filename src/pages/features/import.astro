@@ -32,6 +32,19 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
 
 <h2>Reverse engineering from a live database</h2>
 
+<div class="not-prose -mx-4 sm:mx-0 mt-2 mb-8">
+  <div class="rounded-xl overflow-hidden border border-border-default shadow-xl img-zoom">
+    <picture class="hidden dark:block">
+      <source srcset="/images/blog/v002-dsn-dark.webp" type="image/webp" />
+      <img src="/images/blog/v002-dsn-dark.png" alt="PgDesigner DSN Introspection dialog connecting to PostgreSQL and showing schemas in dark theme" loading="lazy" width="1280" height="1006" class="w-full" />
+    </picture>
+    <picture class="block dark:hidden">
+      <source srcset="/images/blog/v002-dsn-light.webp" type="image/webp" />
+      <img src="/images/blog/v002-dsn-light.png" alt="PgDesigner DSN Introspection dialog connecting to PostgreSQL and showing schemas in light theme" loading="lazy" width="1280" height="1006" class="w-full" />
+    </picture>
+  </div>
+</div>
+
 <p>Pass a PostgreSQL connection string instead of a file path. PgDesigner connects to your database and introspects the full schema via <code>pg_catalog</code> queries:</p>
 
 <pre><code>pgdesigner convert "postgres://user:pass@localhost:5432/mydb" -o project.pgd</code></pre>

@@ -2,6 +2,7 @@
 import Layout from "./Layout.astro";
 import Container from "@/components/container.astro";
 import Subnav from "@/components/subnav.astro";
+import Breadcrumbs from "@/components/breadcrumbs.astro";
 import { featurePages } from "@/data/navigation";
 
 interface Props {
@@ -11,13 +12,21 @@ interface Props {
 }
 
 const { title, description, subtitle } = Astro.props;
+
+const currentPage = featurePages.find(p => Astro.url.pathname.replace(/\/$/, "") === p.href);
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Features", href: "/features" },
+  ...(currentPage ? [{ label: currentPage.label }] : []),
+];
 ---
 
 <Layout title={title} description={description}>
   <Subnav items={featurePages} />
 
   <Container>
-    <div class="max-w-3xl mx-auto pt-16 pb-24">
+    <div class="max-w-4xl mx-auto pt-16 pb-24">
+      <Breadcrumbs items={breadcrumbs} />
       <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-heading">
         {title}
       </h1>

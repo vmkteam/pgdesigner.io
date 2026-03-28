@@ -1,0 +1,39 @@
+---
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items.map((item, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: item.label,
+    ...(item.href ? { item: new URL(item.href, Astro.site).toString() } : {}),
+  })),
+};
+---
+
+<nav aria-label="Breadcrumb" class="text-sm text-muted mb-6">
+  <ol class="flex items-center gap-1.5 flex-wrap">
+    {items.map((item, i) => (
+      <li class="flex items-center gap-1.5">
+        {i > 0 && <span class="text-faint">/</span>}
+        {item.href && i < items.length - 1 ? (
+          <a href={item.href} class="hover:text-heading transition-colors">{item.label}</a>
+        ) : (
+          <span class="text-heading font-medium">{item.label}</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

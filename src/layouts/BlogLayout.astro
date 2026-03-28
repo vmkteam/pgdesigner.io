@@ -1,15 +1,23 @@
 ---
 import Container from "@/components/container.astro";
+import Breadcrumbs from "@/components/breadcrumbs.astro";
 import { getFormattedDate } from "@/utils/all";
 import Layout from "./Layout.astro";
 
 const { frontmatter } = Astro.props;
+
+const breadcrumbs = [
+  { label: "Home", href: "/" },
+  { label: "Blog", href: "/blog" },
+  { label: frontmatter.title },
+];
 ---
 
 <Layout title={frontmatter.title} description={frontmatter.snippet}>
   <Container>
-    <div class="mx-auto max-w-3xl mt-14">
-      <span class="text-accent-text uppercase tracking-wider text-sm font-medium">
+    <div class="mx-auto max-w-4xl pt-16 pb-24">
+      <Breadcrumbs items={breadcrumbs} />
+      <span class="text-accent-text uppercase tracking-wider text-sm font-medium block">
         {frontmatter.category}
       </span>
       <h1
@@ -33,22 +41,22 @@ const { frontmatter } = Astro.props;
           }
         </div>
       </div>
-    </div>
 
-    <div class="mx-auto max-w-3xl mt-8 prose prose-lg
-      prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-      prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
-      prose-p:leading-relaxed
-      prose-headings:font-semibold">
-      <slot />
-    </div>
+      <div class="mt-8 prose prose-lg max-w-none
+        prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+        prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
+        prose-p:leading-relaxed
+        prose-headings:font-semibold">
+        <slot />
+      </div>
 
-    <div class="max-w-3xl mx-auto text-center mt-12">
-      <a
-        href="/blog"
-        class="inline-flex items-center gap-2 text-sm text-accent-text hover:underline">
-        ← Back to Blog
-      </a>
+      <div class="text-center mt-12">
+        <a
+          href="/blog"
+          class="inline-flex items-center gap-2 text-sm text-accent-text hover:underline">
+          ← Back to Blog
+        </a>
+      </div>
     </div>
   </Container>
 </Layout>

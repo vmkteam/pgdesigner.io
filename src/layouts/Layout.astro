@@ -128,6 +128,13 @@ const seoDescription = description || "Design PostgreSQL schemas visually. Gener
       }
     </style>
     <script is:inline>
+      document.querySelectorAll('a[href^="http"]').forEach(a => {
+        if (!a.hostname || a.hostname === location.hostname) return;
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener');
+      });
+    </script>
+    <script is:inline>
       document.addEventListener('click', (e) => {
         const zoom = e.target.closest('.img-zoom');
         if (!zoom) return;
@@ -136,10 +143,15 @@ const seoDescription = description || "Design PostgreSQL schemas visually. Gener
         const overlay = document.createElement('div');
         overlay.className = 'img-zoom-overlay';
         overlay.innerHTML = '<img src="' + img.src + '" alt="' + (img.alt || '') + '">';
-        overlay.addEventListener('click', () => overlay.remove());
-        document.addEventListener('keydown', function esc(e) {
-          if (e.key === 'Escape') { overlay.remove(); document.removeEventListener('keydown', esc); }
-        });
+        function esc(e) {
+          if (e.key === 'Escape') close();
+        }
+        function close() {
+          overlay.remove();
+          document.removeEventListener('keydown', esc);
+        }
+        overlay.addEventListener('click', close);
+        document.addEventListener('keydown', esc);
         document.body.appendChild(overlay);
       });
     </script>

@@ -1,0 +1,72 @@
+---
+import DocsLayout from "@/layouts/DocsLayout.astro";
+---
+<DocsLayout
+  title="Changelog — PgDesigner Release History"
+  description="PgDesigner release history: new features, improvements, and bug fixes for each version.">
+
+<h2 id="v0.0.2">v0.0.2 <span class="text-sm font-normal text-muted">— 2026-03-27</span></h2>
+
+<h3>New Features</h3>
+<ul>
+  <li><strong>File Browser</strong> — visual Open/Save dialogs with directory navigation</li>
+  <li><strong>DSN Introspection</strong> — connect to PostgreSQL, preview schemas/tables, selectively import</li>
+  <li><strong>Update Checker</strong> — status bar badge when new version available</li>
+  <li><strong>Auto-save DDL</strong> — optionally generate .sql file alongside .pgd on every save</li>
+  <li><strong>Save SQL</strong> — export DDL, diff patches, and test data as .sql files</li>
+  <li><strong>Project Settings</strong> — PG version, naming conventions, FK defaults, lint config</li>
+  <li><strong>Canvas Hotkeys</strong> — T (Create Table), F (Create FK), M (Create M:N)</li>
+  <li><strong>Keyboard Shortcuts</strong> — Ctrl+N/O/S/Shift+S/W, full keyboard reference (?)</li>
+  <li><strong>Column Index Indicator</strong> — Ix column in grid, index links in column properties</li>
+  <li><strong>Recent Files</strong> — welcome screen shows 2 most recent files with metadata</li>
+</ul>
+
+<h3>Improvements</h3>
+<ul>
+  <li>Flat SVG toolbar icons replacing emoji</li>
+  <li>FK referenced column is now a dropdown</li>
+  <li>Welcome screen shows version in footer</li>
+  <li>Save As / Open default to project directory or working directory</li>
+  <li>VueUse adoption: useEventListener, useClipboard, useDark, useTitle</li>
+  <li>Vue 3.5 best practices: useTemplateRef, shallowRef, onCleanup in watchers</li>
+</ul>
+
+<h3>Bug Fixes</h3>
+<ul>
+  <li>Fix multi-schema FK lint false positive (E009)</li>
+  <li>Fix multi-schema layout position corruption (W014)</li>
+  <li>Fix multi-schema GoTo navigation</li>
+  <li>Fix duplicate table creation allowed</li>
+  <li>Fix node position jumps after FK creation</li>
+  <li>Fix fitView over-zooming to 200% on small schemas</li>
+  <li>Fix Ctrl+Shift+S intercepted by Ctrl+S</li>
+  <li>Fix Ctrl+Shift+D dark mode toggle across keyboard layouts</li>
+  <li>Fix identity validation error not highlighting specific columns</li>
+  <li>Fix Ctrl+S on new project showing fatal error instead of toast</li>
+</ul>
+
+<hr />
+
+<h2 id="v0.0.1">v0.0.1 <span class="text-sm font-normal text-muted">— 2026-03-24</span></h2>
+
+<p>Initial release. <a href="/blog/introducing-pgdesigner">Read the announcement →</a></p>
+
+<ul>
+  <li>Visual ERD canvas with auto-layout and minimap</li>
+  <li>Production-ready DDL generation (15-phase topological sort)</li>
+  <li>Diff & ALTER engine with 6 hazard codes</li>
+  <li>75 lint rules with one-click autofix</li>
+  <li>Sample data generator with FK-aware ordering</li>
+  <li>Import from .pdd, .dbs, .dm2, SQL, and live PostgreSQL</li>
+  <li>CLI: lint, diff, generate, testdata, convert</li>
+  <li>Git-friendly .pgd XML format</li>
+</ul>
+
+<div class="not-prose mt-10 pt-6 border-t border-border-default">
+  <p class="text-sm font-semibold text-heading mb-2">See also</p>
+  <ul class="text-sm space-y-1">
+    <li><a href="https://github.com/vmkteam/pgdesigner/releases" class="text-accent-text hover:underline">GitHub Releases</a></li>
+    <li><a href="/docs/download" class="text-accent-text hover:underline">Download</a></li>
+  </ul>
+</div>
+</DocsLayout>

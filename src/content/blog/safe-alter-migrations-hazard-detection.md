@@ -5,6 +5,12 @@ snippet: "A deep dive into PgDesigner's diff engine: two-phase algorithm, 6 haza
 image:
   src: "/images/diff-dark.png"
   alt: "PgDesigner diff dialog showing ALTER SQL with hazard warnings"
+thumb:
+  src: "/images/blog/thumb-diff.webp"
+  alt: "PgDesigner diff dialog showing ALTER SQL with hazard warnings"
+thumbLight:
+  src: "/images/blog/thumb-diff-light.webp"
+  alt: "PgDesigner diff dialog showing ALTER SQL with hazard warnings"
 publishDate: "2026-03-24 14:00"
 category: "Engineering"
 author: "vmkteam"

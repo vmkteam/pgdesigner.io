@@ -5,6 +5,12 @@ snippet: "PgDesigner is a visual PostgreSQL schema designer with production-read
 image:
   src: "/images/dark.png"
   alt: "PgDesigner visual ERD editor showing database schema"
+thumb:
+  src: "/images/blog/thumb-erd.webp"
+  alt: "PgDesigner visual ERD editor showing database schema"
+thumbLight:
+  src: "/images/blog/thumb-erd-light.webp"
+  alt: "PgDesigner visual ERD editor showing database schema"
 publishDate: "2026-03-24 12:00"
 category: "Announcements"
 author: "vmkteam"
@@ -60,7 +66,7 @@ Commercial licenses start at $19 one-time for individuals. That's less than a lu
 
 ## What's next
 
-This is v1.0. Here's what's planned:
+Here's what's planned next:
 
 - **Views and functions diff** — currently tables, columns, indexes, FK, PK, constraints, enums, and partitions are diffed. Views and functions are next
 - **More sample data heuristics** — expanding beyond 30 name patterns

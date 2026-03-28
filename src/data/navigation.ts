@@ -22,4 +22,5 @@ export const docsPages = [
   { label: "CLI Reference", href: "/docs/cli" },
   { label: "PGD Format", href: "/docs/pgd-format" },
   { label: "Lint Rules", href: "/docs/lint-rules" },
+  { label: "Changelog", href: "/docs/changelog" },
 ];
