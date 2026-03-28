@@ -11,7 +11,7 @@ thumb:
 thumbLight:
   src: "/images/blog/thumb-lint-light.webp"
   alt: "PgDesigner lint results showing schema validation issues"
-publishDate: "2026-03-28 14:00"
+publishDate: "2026-03-28 12:30"
 category: "Engineering"
 author: "vmkteam"
 tags: [postgresql, lint, schema-design, best-practices]
