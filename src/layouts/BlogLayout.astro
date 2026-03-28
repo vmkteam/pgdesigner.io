@@ -11,9 +11,23 @@ const breadcrumbs = [
   { label: "Blog", href: "/blog" },
   { label: frontmatter.title },
 ];
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": frontmatter.title,
+  "description": frontmatter.snippet,
+  "datePublished": new Date(frontmatter.publishDate).toISOString(),
+  "author": { "@type": "Organization", "name": frontmatter.author, "url": "https://github.com/vmkteam" },
+  "publisher": { "@type": "Organization", "name": "vmkteam", "logo": { "@type": "ImageObject", "url": "https://pgdesigner.io/favicon.svg" } },
+  "mainEntityOfPage": canonicalURL,
+  ...(frontmatter.image ? { "image": new URL(frontmatter.image.src, Astro.site).toString() } : {}),
+};
 ---
 
 <Layout title={frontmatter.title} description={frontmatter.snippet}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} />
   <Container>
     <div class="mx-auto max-w-4xl pt-16 pb-24">
       <Breadcrumbs items={breadcrumbs} />
