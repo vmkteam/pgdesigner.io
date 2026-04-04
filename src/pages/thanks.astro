@@ -1,0 +1,27 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Container from "@/components/container.astro";
+---
+
+<Layout title="Thank You — PgDesigner" description="Thank you for purchasing a PgDesigner commercial license.">
+  <Container>
+    <div class="max-w-2xl mx-auto pt-24 pb-32 text-center">
+      <h1 class="text-4xl font-bold tracking-tight text-heading">Thank you for your purchase!</h1>
+      <p class="mt-4 text-lg text-body">
+        Your commercial license is now active. A receipt has been sent to your email.
+      </p>
+
+      <div class="mt-10 space-y-4">
+        <a
+          href="/docs/download"
+          class="inline-flex items-center justify-center rounded-lg bg-blue-600 text-white px-6 py-3 text-sm font-semibold hover:bg-blue-500 transition-colors">
+          Download PgDesigner
+        </a>
+        <p class="text-sm text-muted">
+          Need help? Contact us at
+          <a href="mailto:support@pgdesigner.io" class="text-accent-text hover:underline">support@pgdesigner.io</a>
+        </p>
+      </div>
+    </div>
+  </Container>
+</Layout>
