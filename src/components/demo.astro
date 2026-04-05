@@ -1,0 +1,89 @@
+---
+import Container from "@/components/container.astro";
+---
+
+<div class="mt-24">
+  <Container>
+    <div class="text-center max-w-3xl mx-auto">
+      <h2 class="text-3xl lg:text-4xl font-bold lg:tracking-tight text-heading">
+        Try it right now
+      </h2>
+      <p class="text-lg mt-4 text-muted">
+        Explore a real database schema in your browser. No download, no signup — just click and see.
+      </p>
+    </div>
+
+    <div class="mt-10 relative group">
+      <a
+        href="https://demo.pgdesigner.io"
+        target="_blank"
+        rel="noopener"
+        class="block rounded-xl overflow-hidden border border-border-default hover:border-blue-500/50 transition-all duration-300 shadow-lg hover:shadow-[0_0_40px_rgba(37,99,235,0.15)]">
+        <div class="relative">
+          <picture class="hidden dark:block">
+            <source
+              srcset="/images/dark-1x.webp 1x, /images/dark-2x.webp 2x"
+              type="image/webp"
+            />
+            <img
+              src="/images/dark.png"
+              alt="PgDesigner Live Demo — interactive ERD diagram"
+              class="w-full h-auto"
+              width="1109"
+              height="857"
+              loading="lazy"
+            />
+          </picture>
+          <picture class="block dark:hidden">
+            <source
+              srcset="/images/light-1x.webp 1x, /images/light-2x.webp 2x"
+              type="image/webp"
+            />
+            <img
+              src="/images/light.png"
+              alt="PgDesigner Live Demo — interactive ERD diagram"
+              class="w-full h-auto"
+              width="1109"
+              height="857"
+              loading="lazy"
+            />
+          </picture>
+          <!-- Overlay -->
+          <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+            <div class="flex flex-col items-center gap-3">
+              <div class="w-16 h-16 rounded-full bg-blue-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-7 h-7 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+              <span class="text-white text-lg font-semibold drop-shadow-lg">
+                Open Live Demo
+              </span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="mt-8 flex flex-wrap justify-center gap-6 text-sm text-muted">
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+        </svg>
+        No signup required
+      </div>
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+        </svg>
+        5 sample schemas included
+      </div>
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 text-green-500" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"/>
+        </svg>
+        Read-only — safe to explore
+      </div>
+    </div>
+  </Container>
+</div>
