@@ -55,6 +55,10 @@ const seoDescription = description || "Design PostgreSQL schemas visually. Gener
       canonical={canonicalURL}
       twitter={{
         card: "summary_large_image",
+        title: makeTitle,
+        description: seoDescription,
+        image: resolvedImageWithDomain,
+        imageAlt: "PgDesigner — Visual PostgreSQL Schema Designer",
       }}
       openGraph={{
         basic: {
@@ -62,6 +66,9 @@ const seoDescription = description || "Design PostgreSQL schemas visually. Gener
           type: "website",
           title: makeTitle,
           image: resolvedImageWithDomain,
+        },
+        optional: {
+          description: seoDescription,
         },
         image: {
           alt: "PgDesigner — Visual PostgreSQL Schema Designer",
