@@ -8,7 +8,7 @@ import { comparePages } from "@/data/navigation";
 
 <Layout
   title="PgDesigner vs DrawDB — PostgreSQL ERD Tool Comparison"
-  description="Compare PgDesigner and DrawDB for PostgreSQL schema design. PG-specialized vs generic multi-database. Diff engine, 75 lint rules, sample data vs free browser-based ERD.">
+  description="Compare PgDesigner and DrawDB for PostgreSQL schema design. PG-specialized vs generic multi-database. Diff engine, 66 lint rules, sample data vs free browser-based ERD.">
 
   <Subnav items={comparePages} />
 
@@ -47,7 +47,7 @@ import { comparePages } from "@/data/navigation";
             <tr><td>Visual ERD editor</td><td style="text-align:center">Yes</td><td style="text-align:center">Yes</td></tr>
             <tr><td>DDL export</td><td style="text-align:center">Yes (15-phase sort)</td><td style="text-align:center">Yes (multi-dialect)</td></tr>
             <tr><td>Diff/ALTER engine</td><td style="text-align:center">Yes (6 hazard codes)</td><td style="text-align:center">No</td></tr>
-            <tr><td>Schema lint</td><td style="text-align:center">75 rules, 15 autofix</td><td style="text-align:center">Basic validation</td></tr>
+            <tr><td>Schema lint</td><td style="text-align:center">66 rules, 15 autofix</td><td style="text-align:center">Basic validation</td></tr>
             <tr><td>Sample data generator</td><td style="text-align:center">Yes (30 heuristics)</td><td style="text-align:center">No</td></tr>
             <tr><td>Reverse engineering</td><td style="text-align:center">Yes (live DB + SQL import)</td><td style="text-align:center">DDL import only</td></tr>
             <tr><td>Git-friendly format</td><td style="text-align:center">Yes (.pgd XML, split-model)</td><td style="text-align:center">No (JSON blob)</td></tr>
@@ -78,7 +78,7 @@ import { comparePages } from "@/data/navigation";
         <ul>
           <li><strong>PostgreSQL depth</strong> — 70+ types, partitions (RANGE/LIST/HASH), temporal constraints, virtual generated columns, IDENTITY, domains, composite types. DrawDB supports basic PG types</li>
           <li><strong>Diff & migrations</strong> — compare two schemas → safe ALTER SQL with 6 hazard warnings. DrawDB has no diff engine</li>
-          <li><strong>75 lint rules</strong> — FK type mismatches, missing indexes, naming conventions, antipatterns. 15 with autofix. DrawDB has basic validation</li>
+          <li><strong>66 lint rules</strong> — FK type mismatches, missing indexes, naming conventions, antipatterns. 15 with autofix. DrawDB has basic validation</li>
           <li><strong>Sample data generator</strong> — FK-aware, 30 name heuristics, seeded. DrawDB has no data generation</li>
           <li><strong>Live database reverse engineering</strong> — connect via pg_catalog, extract full schema. DrawDB imports DDL text only</li>
           <li><strong>Git-friendly format</strong> — single-line diffs, split-model. DrawDB's JSON blob changes entirely on every save</li>
@@ -88,7 +88,7 @@ import { comparePages } from "@/data/navigation";
 
         <h2>Honest assessment</h2>
 
-        <p>If you need a quick, free ERD editor that works with MySQL and PostgreSQL — DrawDB is excellent. If your production database is PostgreSQL and you need migrations, linting, and a CI/CD workflow — PgDesigner is purpose-built for that. The $19 price reflects the depth: diff engine, hazard detection, 75 lint rules, and sample data generation that DrawDB doesn't offer.</p>
+        <p>If you need a quick, free ERD editor that works with MySQL and PostgreSQL — DrawDB is excellent. If your production database is PostgreSQL and you need migrations, linting, and a CI/CD workflow — PgDesigner is purpose-built for that. The $19 price reflects the depth: diff engine, hazard detection, 66 lint rules, and sample data generation that DrawDB doesn't offer.</p>
 
       </div>
 

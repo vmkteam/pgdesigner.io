@@ -48,7 +48,7 @@ import { comparePages } from "@/data/navigation";
             <tr><td>Git-friendly diffs</td><td style="text-align:center">Yes (single-line XML)</td><td style="text-align:center">Plus only (split model)</td></tr>
             <tr><td>Diff/ALTER engine</td><td style="text-align:center">Yes</td><td style="text-align:center">Yes</td></tr>
             <tr><td>Hazard detection</td><td style="text-align:center">Yes (6 hazard codes)</td><td style="text-align:center">No</td></tr>
-            <tr><td>Schema lint</td><td style="text-align:center">75 rules, 15 autofix</td><td style="text-align:center">Basic validation</td></tr>
+            <tr><td>Schema lint</td><td style="text-align:center">66 rules, 15 autofix</td><td style="text-align:center">Basic validation</td></tr>
             <tr><td>Sample data generator</td><td style="text-align:center">Yes (30 heuristics)</td><td style="text-align:center">No</td></tr>
             <tr><td>Reverse engineering</td><td style="text-align:center">Yes (pg_catalog)</td><td style="text-align:center">Yes</td></tr>
             <tr><td>Import PDD/DBS/DM2</td><td style="text-align:center">Yes</td><td style="text-align:center">No</td></tr>
@@ -91,7 +91,7 @@ import { comparePages } from "@/data/navigation";
 
         <ul>
           <li><strong>Hazard detection</strong> — 6 hazard codes (DELETES_DATA, TABLE_REWRITE, TABLE_RECREATE, BACKFILL_REQUIRED, DETACH_PARTITION, REATTACH_PARTITION) warn you before risky ALTER statements</li>
-          <li><strong>75 lint rules with autofix</strong> — vs basic validation in pgModeler</li>
+          <li><strong>66 lint rules with autofix</strong> — vs basic validation in pgModeler</li>
           <li><strong>Git-friendly by default</strong> — single-line diffs in the free version. pgModeler's split model is Plus-only</li>
           <li><strong>Sample data generator</strong> — FK-aware, 30 name heuristics, reproducible with seed</li>
           <li><strong>Import from 5 sources</strong> — MicroOLAP .pdd, DbSchema .dbs, Toad .dm2, SQL, live DB</li>

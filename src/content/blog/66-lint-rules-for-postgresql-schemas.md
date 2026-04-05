@@ -1,7 +1,7 @@
 ---
 draft: false
-title: "75 Lint Rules for PostgreSQL Schemas — What We Check and Why"
-snippet: "PgDesigner validates your schema with 75 rules across 3 severity levels. Here's the reasoning behind the most impactful rules: missing FK indexes, type mismatches, serial vs identity, and more."
+title: "66 Lint Rules for PostgreSQL Schemas — What We Check and Why"
+snippet: "PgDesigner validates your schema with 66 rules across 3 severity levels. Here's the reasoning behind the most impactful rules: missing FK indexes, type mismatches, serial vs identity, and more."
 image:
   src: "/images/lint-dark.png"
   alt: "PgDesigner lint results showing schema validation issues"
@@ -19,7 +19,7 @@ tags: [postgresql, lint, schema-design, best-practices]
 
 Most PostgreSQL schemas accumulate design debt silently. A missing index on a foreign key doesn't break anything — until a JOIN takes 40 seconds in production. A `char(n)` column works fine — until you discover it pads every value with spaces and breaks equality comparisons with `text`.
 
-PgDesigner ships 75 lint rules to catch these issues at design time. Here's the reasoning behind the most impactful ones.
+PgDesigner ships 66 lint rules to catch these issues at design time. Here's the reasoning behind the most impactful ones.
 
 <div class="not-prose -mx-4 sm:mx-0 mt-6 mb-10">
   <div class="rounded-xl overflow-hidden border border-border-default shadow-2xl img-zoom">
@@ -146,7 +146,7 @@ pgdesigner lint -f json schema.pgd       # machine-readable output
 
 JSON output includes rule code, severity, table, column, and message — easy to parse with `jq` or feed into your monitoring.
 
-## How we picked these 75 rules
+## How we picked these 66 rules
 
 Every rule comes from real-world experience across 6 production databases (630+ tables total). We didn't invent problems to solve — we catalogued the issues we found when importing real schemas from MicroOLAP, DbSchema, and live PostgreSQL instances.
 

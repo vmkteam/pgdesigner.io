@@ -8,7 +8,7 @@ import { comparePages } from "@/data/navigation";
 
 <Layout
   title="PgDesigner vs Atlas — Visual Designer vs Schema-as-Code"
-  description="Compare PgDesigner and Atlas for PostgreSQL schema management. Visual ERD vs HCL schema-as-code. One-time $19 vs $9/dev/mo. 75 lint rules vs Pro-only governance.">
+  description="Compare PgDesigner and Atlas for PostgreSQL schema management. Visual ERD vs HCL schema-as-code. One-time $19 vs $9/dev/mo. 66 lint rules vs Pro-only governance.">
 
   <Subnav items={comparePages} />
 
@@ -49,7 +49,7 @@ import { comparePages } from "@/data/navigation";
             <tr><td>Schema format</td><td style="text-align:center">.pgd XML (visual)</td><td style="text-align:center">HCL / SQL</td><td style="text-align:center">HCL / SQL / ORM</td></tr>
             <tr><td>Diff/ALTER engine</td><td style="text-align:center">Yes</td><td style="text-align:center">Yes</td><td style="text-align:center">Yes</td></tr>
             <tr><td>Hazard detection</td><td style="text-align:center">6 codes</td><td style="text-align:center">Basic</td><td style="text-align:center">Migration linting</td></tr>
-            <tr><td>Schema lint rules</td><td style="text-align:center">75 (15 autofix)</td><td style="text-align:center">Limited</td><td style="text-align:center">Policy & governance</td></tr>
+            <tr><td>Schema lint rules</td><td style="text-align:center">66 (15 autofix)</td><td style="text-align:center">Limited</td><td style="text-align:center">Policy & governance</td></tr>
             <tr><td>Sample data generator</td><td style="text-align:center">Yes (30 heuristics)</td><td style="text-align:center">No</td><td style="text-align:center">Seed data (v1.1+)</td></tr>
             <tr><td>Security as Code (RLS)</td><td style="text-align:center">DDL generation</td><td style="text-align:center">No</td><td style="text-align:center">Yes (v1.1+)</td></tr>
             <tr><td>CI/CD integration</td><td style="text-align:center">CLI + scripts</td><td style="text-align:center">CLI</td><td style="text-align:center">Native (GitHub, GitLab)</td></tr>
@@ -100,7 +100,7 @@ import { comparePages } from "@/data/navigation";
         <ul>
           <li><strong>Visual ERD</strong> — interactive canvas, auto-layout, minimap. Atlas has no visual editor</li>
           <li><strong>Price</strong> — $19 one-time vs $9/dev/mo + $59/CI/mo + $39/DB/mo. For a team of 5 with 1 CI project: $49 vs $540+/yr</li>
-          <li><strong>75 lint rules</strong> — structural errors, best practices, antipatterns. All in free tier. Atlas CE has limited linting</li>
+          <li><strong>66 lint rules</strong> — structural errors, best practices, antipatterns. All in free tier. Atlas CE has limited linting</li>
           <li><strong>Sample data generator</strong> — FK-aware, 30 heuristics, seeded. Atlas has no equivalent in CE</li>
           <li><strong>PostgreSQL depth</strong> — 70+ types, partitions, temporal, IDENTITY, domains. Atlas abstracts PG behind multi-DB HCL</li>
           <li><strong>Import from legacy tools</strong> — MicroOLAP .pdd, DbSchema .dbs, Toad .dm2</li>

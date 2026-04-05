@@ -8,7 +8,7 @@ import { comparePages } from "@/data/navigation";
 
 <Layout
   title="PgDesigner vs dbdiagram.io — Comparison"
-  description="Compare PgDesigner and dbdiagram.io for PostgreSQL schema design. Offline-first vs SaaS. One-time $19 vs $9/mo. Diff engine, 75 lint rules, sample data vs DBML cloud diagrams.">
+  description="Compare PgDesigner and dbdiagram.io for PostgreSQL schema design. Offline-first vs SaaS. One-time $19 vs $9/mo. Diff engine, 66 lint rules, sample data vs DBML cloud diagrams.">
 
   <Subnav items={comparePages} />
 
@@ -48,7 +48,7 @@ import { comparePages } from "@/data/navigation";
             <tr><td>Schema format</td><td style="text-align:center">.pgd XML (git-friendly)</td><td style="text-align:center">DBML (text DSL)</td></tr>
             <tr><td>Visual ERD editor</td><td style="text-align:center">Yes (drag & drop)</td><td style="text-align:center">Yes (code → diagram)</td></tr>
             <tr><td>Diff/ALTER engine</td><td style="text-align:center">Yes (6 hazard codes)</td><td style="text-align:center">No</td></tr>
-            <tr><td>Schema lint</td><td style="text-align:center">75 rules, 15 autofix</td><td style="text-align:center">No</td></tr>
+            <tr><td>Schema lint</td><td style="text-align:center">66 rules, 15 autofix</td><td style="text-align:center">No</td></tr>
             <tr><td>Sample data generator</td><td style="text-align:center">Yes (30 heuristics)</td><td style="text-align:center">No</td></tr>
             <tr><td>Import SQL scripts</td><td style="text-align:center">Yes (PG parser + live DB)</td><td style="text-align:center">Yes (PG, MySQL scripts)</td></tr>
             <tr><td>Export SQL</td><td style="text-align:center">Yes (15-phase DDL)</td><td style="text-align:center">Yes (basic DDL)</td></tr>
@@ -93,7 +93,7 @@ import { comparePages } from "@/data/navigation";
         <ul>
           <li><strong>Data stays local</strong> — your schema never leaves your machine. Critical for security/compliance</li>
           <li><strong>Diff & migrations</strong> — compare schemas → safe ALTER SQL with hazard warnings. dbdiagram.io has no diff engine</li>
-          <li><strong>75 lint rules</strong> — structural errors, best practices, antipatterns with autofix. dbdiagram.io has no validation</li>
+          <li><strong>66 lint rules</strong> — structural errors, best practices, antipatterns with autofix. dbdiagram.io has no validation</li>
           <li><strong>Sample data generator</strong> — FK-aware, 30 heuristics, seeded. Not available in dbdiagram.io</li>
           <li><strong>PostgreSQL depth</strong> — 70+ types, partitions, IDENTITY, domains, temporal. DBML supports basic types only</li>
           <li><strong>One-time pricing</strong> — $19 once vs $108/yr. Over 2 years: $19 vs $216</li>

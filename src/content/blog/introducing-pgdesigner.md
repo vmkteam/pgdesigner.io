@@ -1,7 +1,7 @@
 ---
 draft: false
 title: "Introducing PgDesigner — A Modern Visual PostgreSQL Schema Designer"
-snippet: "PgDesigner is a visual PostgreSQL schema designer with production-ready DDL generation, safe ALTER migrations with hazard detection, 75 lint rules, and a git-friendly format. Free for non-commercial use."
+snippet: "PgDesigner is a visual PostgreSQL schema designer with production-ready DDL generation, safe ALTER migrations with hazard detection, 66 lint rules, and a git-friendly format. Free for non-commercial use."
 image:
   src: "/images/dark.png"
   alt: "PgDesigner visual ERD editor showing database schema"
@@ -29,7 +29,7 @@ Every PostgreSQL team faces the same challenges:
 - **Migrations are scary** — writing ALTER statements by hand means risking data loss, table rewrites, or exclusive locks in production
 - **Existing tools are either generic or outdated** — DrawDB supports 4 databases but none deeply. pgModeler is powerful but 19 years old with poor git integration
 
-PgDesigner addresses all three: a visual ERD editor that generates production-ready SQL, compares schemas with hazard detection, and validates with 75 lint rules.
+PgDesigner addresses all three: a visual ERD editor that generates production-ready SQL, compares schemas with hazard detection, and validates with 66 lint rules.
 
 ## What makes PgDesigner different
 
@@ -50,7 +50,7 @@ No other tool has all four. pgModeler has 3/4 (no hazard detection, poor git dif
 
 **Diff & ALTER Engine** — compare old.pgd vs new.pgd → safe ALTER SQL. Hazard detection: DELETES_DATA, TABLE_REWRITE, TABLE_RECREATE, BACKFILL_REQUIRED, DETACH_PARTITION, REATTACH_PARTITION. Compatible cast detection (varchar widening, integer → bigint).
 
-**75 Lint Rules** — 32 errors (structural integrity), 21 warnings (best practices), 13 info (antipatterns). 15 rules with one-click autofix. Missing FK index? Click fix. char(n) column? Auto-convert to text.
+**66 Lint Rules** — 32 errors (structural integrity), 21 warnings (best practices), 13 info (antipatterns). 15 rules with one-click autofix. Missing FK index? Click fix. char(n) column? Auto-convert to text.
 
 **Sample Data Generator** — FK-aware topological sort, 30 name heuristics (email → realistic email, price → 29.99), seeded reproducibility. Circular FK handling via deferred UPDATE.
 

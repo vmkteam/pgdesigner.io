@@ -3,7 +3,7 @@ import DocsLayout from "@/layouts/DocsLayout.astro";
 ---
 <DocsLayout
   title="CLI Reference — PgDesigner PostgreSQL Tools"
-  description="Complete PgDesigner CLI reference: generate DDL, diff schemas, lint with 75 rules, generate test data, import from .pdd/.dbs/.dm2/.sql. All commands, flags, exit codes, and examples.">
+  description="Complete PgDesigner CLI reference: generate DDL, diff schemas, lint with 66 rules, generate test data, import from .pdd/.dbs/.dm2/.sql. All commands, flags, exit codes, and examples.">
 
 <h2>Usage</h2>
 
@@ -49,7 +49,7 @@ pgdesigner diff -f json old.pgd new.pgd</code></pre>
 
 <h3>lint</h3>
 
-<p>Validate schema against 75 rules.</p>
+<p>Validate schema against 66 rules.</p>
 
 <pre><code>pgdesigner lint schema.pgd
 pgdesigner lint -f json schema.pgd
@@ -125,7 +125,7 @@ pgdesigner convert "postgres://localhost/mydb" -o project.pgd</code></pre>
   <p class="text-sm font-semibold text-heading mb-2">See also</p>
   <ul class="text-sm space-y-1">
     <li><a href="/features/diff" class="text-accent-text hover:underline">Diff & ALTER engine</a></li>
-    <li><a href="/features/lint" class="text-accent-text hover:underline">Schema Linter (75 rules)</a></li>
+    <li><a href="/features/lint" class="text-accent-text hover:underline">Schema Linter (66 rules)</a></li>
     <li><a href="/features/sampledata" class="text-accent-text hover:underline">Sample Data Generator</a></li>
     <li><a href="/docs/download" class="text-accent-text hover:underline">Download PgDesigner</a></li>
   </ul>

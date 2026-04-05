@@ -3,8 +3,8 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
 ---
 <FeatureLayout
   title="PostgreSQL Schema Linter"
-  description="Validate your PostgreSQL schema with 75 lint rules — 32 errors, 21 warnings, 13 antipattern checks. 15 rules with one-click autofix. CLI with JSON output for CI/CD."
-  subtitle="75 rules catch structural errors, best-practice violations, and PostgreSQL antipatterns — before they reach production."
+  description="Validate your PostgreSQL schema with 66 lint rules — 32 errors, 21 warnings, 13 antipattern checks. 15 rules with one-click autofix. CLI with JSON output for CI/CD."
+  subtitle="66 rules catch structural errors, best-practice violations, and PostgreSQL antipatterns — before they reach production."
 >
 
 <div class="not-prose -mx-4 sm:mx-0 mt-2 mb-10">
@@ -24,7 +24,7 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
 
 <p>A missing index on a foreign key slows every JOIN. A <code>char(n)</code> column wastes space. A <code>serial</code> instead of <code>identity</code> creates hidden sequences. These aren't bugs — they're design debt that compounds over time. PgDesigner checks for all of them automatically.</p>
 
-<h2>75 rules across three severity levels</h2>
+<h2>66 rules across three severity levels</h2>
 
 <div class="not-prose grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 mb-8">
   <div class="rounded-lg bg-surface-alt border border-border-default p-4">
@@ -71,7 +71,7 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
     <tr><th>Tool</th><th style="text-align:center">Rules</th><th>Scope</th></tr>
   </thead>
   <tbody>
-    <tr><td><strong>PgDesigner</strong></td><td style="text-align:center"><strong>75</strong></td><td>Schema model validation</td></tr>
+    <tr><td><strong>PgDesigner</strong></td><td style="text-align:center"><strong>66</strong></td><td>Schema model validation</td></tr>
     <tr><td>Squawk</td><td style="text-align:center">~20</td><td>Migration SQL linting</td></tr>
     <tr><td>pglinter</td><td style="text-align:center">6</td><td>Live DB</td></tr>
     <tr><td>schemalint</td><td style="text-align:center">4</td><td>Live DB</td></tr>

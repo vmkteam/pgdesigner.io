@@ -6,6 +6,11 @@
       "source": "/github",
       "destination": "https://github.com/vmkteam/pgdesigner.io",
       "permanent": false
+    },
+    {
+      "source": "/blog/75-lint-rules-for-postgresql-schemas",
+      "destination": "/blog/66-lint-rules-for-postgresql-schemas",
+      "permanent": true
     }
   ],
   "headers": [
