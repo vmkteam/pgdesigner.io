@@ -11,7 +11,7 @@ thumb:
 thumbLight:
   src: "/images/blog/thumb-erd-light.webp"
   alt: "PgDesigner visual ERD editor showing database schema"
-publishDate: "2026-03-24 12:00"
+publishDate: "2026-04-05 00:00"
 category: "Announcements"
 author: "vmkteam"
 tags: [postgresql, schema-design, erd, release]
@@ -52,7 +52,7 @@ No other tool has all four. pgModeler has 3/4 (no hazard detection, poor git dif
 
 **66 Lint Rules** — 32 errors (structural integrity), 21 warnings (best practices), 13 info (antipatterns). 15 rules with one-click autofix. Missing FK index? Click fix. char(n) column? Auto-convert to text.
 
-**Sample Data Generator** — FK-aware topological sort, 30 name heuristics (email → realistic email, price → 29.99), seeded reproducibility. Circular FK handling via deferred UPDATE.
+**Sample Data Generator** — FK-aware topological sort, 40+ name heuristics (email → realistic email, price → 29.99), seeded reproducibility. Circular FK handling via deferred UPDATE.
 
 **Import from anywhere** — MicroOLAP .pdd, DbSchema .dbs, Toad .dm2, plain SQL, live PostgreSQL via pg_catalog introspection.
 
@@ -64,17 +64,23 @@ Free for non-commercial use — forever. All features, no time limit, no feature
 
 Commercial licenses start at $19 one-time for individuals. That's less than a lunch with your team, and less than half what pgModeler charges.
 
+## Try it now
+
+You can try PgDesigner without installing — the [live demo](https://demo.pgdesigner.io) runs a read-only instance with the Chinook sample database. Explore the ERD canvas, check lint results, and preview diff output.
+
 ## What's next
 
 Here's what's planned next:
 
 - **Views and functions diff** — currently tables, columns, indexes, FK, PK, constraints, enums, and partitions are diffed. Views and functions are next
-- **More sample data heuristics** — expanding beyond 30 name patterns
-- **Demo mode** — try PgDesigner in the browser without downloading
+- **More sample data heuristics** — expanding beyond 40 name patterns
+- **Collaboration features** — shared schemas and team workflows
 
 We'd love your feedback. Try it, break it, tell us what's missing.
 
+- [Try the demo →](https://demo.pgdesigner.io)
 - [Download PgDesigner →](/docs/download)
 - [View all features →](/features)
 - [See pricing →](/pricing)
 - [GitHub →](https://github.com/vmkteam/pgdesigner)
+- [Discuss →](https://github.com/vmkteam/pgdesigner/discussions)
