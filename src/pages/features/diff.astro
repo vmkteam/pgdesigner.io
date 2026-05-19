@@ -105,7 +105,7 @@ If the structure is identical, it skips the drop+add cycle. Only actual structur
 <h2>CLI</h2>
 
 <pre><code>pgdesigner diff old.pgd new.pgd
-pgdesigner diff old.pgd new.pgd -o migration.sql</code></pre>
+pgdesigner diff -o migration.sql old.pgd new.pgd</code></pre>
 
 <p>Press <kbd>Ctrl</kbd>+<kbd>D</kbd> in the UI for a live diff preview with hazard badges — red for dangerous, yellow for warnings.</p>
 
