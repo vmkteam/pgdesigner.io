@@ -3,13 +3,13 @@ import DocsLayout from "@/layouts/DocsLayout.astro";
 ---
 <DocsLayout
   title="CLI Reference — PgDesigner PostgreSQL Tools"
-  description="Complete PgDesigner CLI reference: generate DDL, diff schemas, lint with 66 rules, generate test data, import from .pdd/.dbs/.dm2/.sql. All commands, flags, exit codes, and examples.">
+  description="Complete PgDesigner CLI reference: generate DDL, diff schemas, lint with 69 rules, generate test data, import from .pdd/.dbs/.dm2/.sql. All commands, flags, exit codes, and examples.">
 
 <h2>Usage</h2>
 
 <pre><code>pgdesigner [command] [flags] &lt;file&gt;</code></pre>
 
-<p>Input files: <code>.pgd</code>, <code>.pdd</code>, <code>.dbs</code>, <code>.dm2</code>, <code>.sql</code>, or a PostgreSQL connection string.</p>
+<p>Input files: <code>.pgd</code>, <code>.pdd</code>, <code>.dbs</code>, <code>.dm2</code>, <code>.sql</code>, or a PostgreSQL connection string. Flags may go before or after file names.</p>
 
 <h2>Commands</h2>
 
@@ -38,18 +38,22 @@ pgdesigner generate -o schema.sql schema.pgd</code></pre>
 <p>Compare two schemas and generate ALTER SQL.</p>
 
 <pre><code>pgdesigner diff old.pgd new.pgd
-pgdesigner diff -f json old.pgd new.pgd</code></pre>
+pgdesigner diff -f json old.pgd new.pgd
+pgdesigner diff "postgres://localhost/mydb" schema.pgd -o migration.sql</code></pre>
+
+<p>Either side can be a database: <code>diff &lt;dsn&gt; schema.pgd</code> gives the migration from the live database to the model.</p>
 
 <table>
   <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
   <tbody>
     <tr><td><code>-f</code></td><td><code>sql</code></td><td>Output format: <code>sql</code> or <code>json</code></td></tr>
+    <tr><td><code>-o</code></td><td>stdout</td><td>Output file; not written when there are no changes</td></tr>
   </tbody>
 </table>
 
 <h3>lint</h3>
 
-<p>Validate schema against 66 rules.</p>
+<p>Validate schema against 69 rules.</p>
 
 <pre><code>pgdesigner lint schema.pgd
 pgdesigner lint -f json schema.pgd
@@ -89,12 +93,15 @@ pgdesigner testdata -tables users,orders -o seed.sql schema.pgd</code></pre>
 
 <pre><code>pgdesigner convert schema.pdd -o project.pgd
 pgdesigner convert schema.sql -o project.pgd
-pgdesigner convert "postgres://localhost/mydb" -o project.pgd</code></pre>
+pgdesigner convert "postgres://localhost/mydb" -o project.pgd
+pgdesigner convert "postgres://localhost/mydb" -schema public,billing -full</code></pre>
 
 <table>
   <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
   <tbody>
-    <tr><td><code>-o</code></td><td>input name + .pgd</td><td>Output .pgd file</td></tr>
+    <tr><td><code>-o</code></td><td>input name + .pgd</td><td>Output .pgd file; for a database, <code>&lt;dbname&gt;.pgd</code> in the current directory, which must not exist yet</td></tr>
+    <tr><td><code>-schema</code></td><td>all</td><td>Schemas to read from a database (comma-separated)</td></tr>
+    <tr><td><code>-full</code></td><td><code>false</code></td><td>Also read views, functions, triggers, extensions and types from a database</td></tr>
   </tbody>
 </table>
 
@@ -105,9 +112,9 @@ pgdesigner convert "postgres://localhost/mydb" -o project.pgd</code></pre>
 <table>
   <thead><tr><th style="text-align:center">Code</th><th>Meaning</th></tr></thead>
   <tbody>
-    <tr><td style="text-align:center"><code>0</code></td><td>Success (no lint errors, no diff changes)</td></tr>
-    <tr><td style="text-align:center"><code>1</code></td><td>Lint errors found or diff has changes</td></tr>
-    <tr><td style="text-align:center"><code>2</code></td><td>File not found or parse error</td></tr>
+    <tr><td style="text-align:center"><code>0</code></td><td>Success, including a diff with changes</td></tr>
+    <tr><td style="text-align:center"><code>1</code></td><td>Lint errors found, missing arguments, file not found or parse error</td></tr>
+    <tr><td style="text-align:center"><code>2</code></td><td>Unknown flag</td></tr>
   </tbody>
 </table>
 
@@ -125,7 +132,7 @@ pgdesigner convert "postgres://localhost/mydb" -o project.pgd</code></pre>
   <p class="text-sm font-semibold text-heading mb-2">See also</p>
   <ul class="text-sm space-y-1">
     <li><a href="/features/diff" class="text-accent-text hover:underline">Diff & ALTER engine</a></li>
-    <li><a href="/features/lint" class="text-accent-text hover:underline">Schema Linter (66 rules)</a></li>
+    <li><a href="/features/lint" class="text-accent-text hover:underline">Schema Linter (69 rules)</a></li>
     <li><a href="/features/sampledata" class="text-accent-text hover:underline">Sample Data Generator</a></li>
     <li><a href="/docs/download" class="text-accent-text hover:underline">Download PgDesigner</a></li>
   </ul>

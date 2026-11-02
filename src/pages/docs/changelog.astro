@@ -5,6 +5,70 @@ import DocsLayout from "@/layouts/DocsLayout.astro";
   title="Changelog — PgDesigner Release History"
   description="PgDesigner release history: new features, improvements, and bug fixes for each version.">
 
+<h2 id="v0.0.6">v0.0.6 <span class="text-sm font-normal text-muted">— 2026-11-02</span></h2>
+
+<h3>Bug Fixes</h3>
+<ul>
+  <li>CLI flags work after file names (<code>generate schema.pgd -o out.sql</code>); a 12-character path no longer panics (#17)</li>
+  <li><code>convert "postgres://…"</code> writes <code>&lt;dbname&gt;.pgd</code> and never overwrites an existing file; <code>-schema</code> and <code>-full</code> select what to read; DSN passwords are hidden in all messages</li>
+  <li>Table <code>WITH (...)</code> including <code>toast.*</code>, <code>UNLOGGED</code>, <code>USING</code> and <code>TABLESPACE</code> are generated and diffed, for partitions too (#19)</li>
+  <li>Generated columns survive import from SQL and databases, including PG18 virtual columns; diff switches between plain, stored and virtual</li>
+  <li>Index expressions keep <code>opclass</code>, order and nulls; columns and expressions keep their order in the key and are editable in the index editor</li>
+  <li>Diff keeps FKs and comments of new tables, enum value changes and index changes, drops tables in FK order, renames indexes and constraints instead of re-creating them, and creates schemas first</li>
+  <li>Diff of a live database against its model ignores expression formatting, PK/identity NOT NULL and FK action case</li>
+  <li>The table editor keeps <code>NULLS NOT DISTINCT</code>; <code>lint -fix</code> no longer deletes such an index as a duplicate</li>
+</ul>
+
+<h3>New Lint Rules</h3>
+<ul>
+  <li>E033 — generated column without an expression</li>
+  <li>W023 — several keys in one index expression</li>
+  <li>W024 — type from a non-public schema written without the schema</li>
+</ul>
+
+<hr />
+
+<h2 id="v0.0.5">v0.0.5 <span class="text-sm font-normal text-muted">— 2026-06-15</span></h2>
+
+<h3>Bug Fixes</h3>
+<ul>
+  <li>Opening a <code>.sql</code> exported through PgDesigner no longer fails: a literal cast in a partial-index <code>WHERE</code> swallowed the following <code>AND</code></li>
+  <li>Inline <code>CREATE TABLE ... PARTITION OF</code> is parsed back as a partition instead of <code>INHERITS</code></li>
+</ul>
+
+<hr />
+
+<h2 id="v0.0.4">v0.0.4 <span class="text-sm font-normal text-muted">— 2026-05-19</span></h2>
+
+<h3>Bug Fixes</h3>
+<ul>
+  <li><code>diff -o file.sql</code> writes the migration to a file</li>
+  <li><code>INCLUDE</code>, <code>NULLS NOT DISTINCT</code> and <code>TABLESPACE</code> on indexes are generated, parsed from SQL and read from databases</li>
+  <li>PDD <code>OnDelete</code>/<code>OnUpdate</code> codes mapped correctly — re-import <code>.pgd</code> files that came from <code>.pdd</code></li>
+  <li>New tables follow the project's naming convention for the PK column</li>
+  <li>macOS binaries no longer get killed when opening <code>.sql</code></li>
+  <li>Adding a single FK no longer reorders unrelated indexes in the saved <code>.pgd</code></li>
+</ul>
+
+<hr />
+
+<h2 id="v0.0.3">v0.0.3 <span class="text-sm font-normal text-muted">— 2026-04-07</span></h2>
+
+<h3>New Features</h3>
+<ul>
+  <li><strong>macOS Code Signing</strong> — binaries are signed and notarized, no Gatekeeper warnings</li>
+  <li>New <code>camelCase</code> naming lint rule</li>
+</ul>
+
+<h3>Improvements</h3>
+<ul>
+  <li>Reverse engineering: enums, exclude constraints, index <code>WITH</code> and sort order, <code>NULLS NOT DISTINCT</code></li>
+  <li>PDD import: enum types, unicode names, identity columns, defaults; backing indexes are skipped</li>
+  <li>SQL import: exclude constraints, <code>NULLS NOT DISTINCT</code>, index <code>WITH</code> parameters, types</li>
+</ul>
+
+<hr />
+
 <h2 id="v0.0.2">v0.0.2 <span class="text-sm font-normal text-muted">— 2026-03-27</span></h2>
 
 <h3>New Features</h3>

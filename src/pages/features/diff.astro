@@ -35,7 +35,7 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
   </div>
   <div class="rounded-lg bg-surface-alt border border-border-default p-4">
     <h3 class="text-sm font-semibold text-heading mb-1">Phase 2 — CREATE / ALTER</h3>
-    <p class="text-sm text-muted">Forward dependency order: enums → tables → columns → PK → indexes → FK. References always exist before they're needed.</p>
+    <p class="text-sm text-muted">Forward dependency order: schemas → enums → tables → columns → PK → indexes → FK → comments. References always exist before they're needed.</p>
   </div>
 </div>
 
@@ -48,7 +48,7 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
   </div>
   <div class="rounded-lg bg-surface-alt border border-border-default p-4">
     <p class="text-xs font-semibold text-accent-text mb-1">DB vs Model</p>
-    <p class="text-sm text-muted"><code>pg_dump</code> → convert → compare with your model.</p>
+    <p class="text-sm text-muted">Pass a connection string as the old schema, or <code>pg_dump</code> → convert → compare with your model.</p>
   </div>
   <div class="rounded-lg bg-surface-alt border border-border-default p-4">
     <p class="text-xs font-semibold text-accent-text mb-1">Git versions</p>
@@ -73,13 +73,29 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
     <span class="shrink-0 text-xs font-mono font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded">TABLE_RECREATE</span>
     <span class="text-sm text-body">Adding, removing, or changing PARTITION BY strategy — requires full table rebuild</span>
   </div>
+  <div class="flex items-start gap-3 rounded-lg bg-red-500/5 border border-red-500/20 p-3">
+    <span class="shrink-0 text-xs font-mono font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded">COLUMN_RECREATE</span>
+    <span class="text-sm text-body">Regular ↔ generated or STORED ↔ VIRTUAL column — dropped and re-added, current values are replaced</span>
+  </div>
+  <div class="flex items-start gap-3 rounded-lg bg-red-500/5 border border-red-500/20 p-3">
+    <span class="shrink-0 text-xs font-mono font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded">TYPE_RECREATE</span>
+    <span class="text-sm text-body">Enum values removed or reordered — PostgreSQL can't alter that in place, the type must be re-created</span>
+  </div>
   <div class="flex items-start gap-3 rounded-lg bg-yellow-500/5 border border-yellow-500/20 p-3">
     <span class="shrink-0 text-xs font-mono font-bold text-yellow-400 bg-yellow-500/10 px-2 py-0.5 rounded">TABLE_REWRITE</span>
-    <span class="text-sm text-body">ALTER COLUMN TYPE with incompatible cast — may rewrite the entire table on disk</span>
+    <span class="text-sm text-body">ALTER COLUMN TYPE with incompatible cast, new expression of a stored generated column, SET LOGGED/UNLOGGED, ACCESS METHOD or TABLESPACE — may rewrite the entire table on disk</span>
   </div>
   <div class="flex items-start gap-3 rounded-lg bg-yellow-500/5 border border-yellow-500/20 p-3">
     <span class="shrink-0 text-xs font-mono font-bold text-yellow-400 bg-yellow-500/10 px-2 py-0.5 rounded">BACKFILL_REQUIRED</span>
     <span class="text-sm text-body">ADD COLUMN NOT NULL without DEFAULT or IDENTITY — existing rows have no value</span>
+  </div>
+  <div class="flex items-start gap-3 rounded-lg bg-yellow-500/5 border border-yellow-500/20 p-3">
+    <span class="shrink-0 text-xs font-mono font-bold text-yellow-400 bg-yellow-500/10 px-2 py-0.5 rounded">ENUM_ADD_VALUE</span>
+    <span class="text-sm text-body">New enum value — can't be used in the same transaction that adds it</span>
+  </div>
+  <div class="flex items-start gap-3 rounded-lg bg-yellow-500/5 border border-yellow-500/20 p-3">
+    <span class="shrink-0 text-xs font-mono font-bold text-yellow-400 bg-yellow-500/10 px-2 py-0.5 rounded">UNNAMED_CONSTRAINT</span>
+    <span class="text-sm text-body">Constraint without a name in the old model — can't be dropped by name, name it first</span>
   </div>
   <div class="flex items-start gap-3 rounded-lg bg-yellow-500/5 border border-yellow-500/20 p-3">
     <span class="shrink-0 text-xs font-mono font-bold text-yellow-400 bg-yellow-500/10 px-2 py-0.5 rounded">DETACH_PARTITION</span>
@@ -95,12 +111,12 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
 
 <h2>Smart rename detection</h2>
 
-<p>Renamed an index or foreign key? PgDesigner compares the structural definition (table, columns, method) — not just the name.
-If the structure is identical, it skips the drop+add cycle. Only actual structural changes trigger recreation.</p>
+<p>Renamed an index, foreign key, UNIQUE or CHECK constraint? PgDesigner compares the definition (table, columns, method, expression) — not just the name.
+If the definition is identical, it emits <code>ALTER INDEX … RENAME TO</code> or <code>ALTER TABLE … RENAME CONSTRAINT</code> instead of a drop+add cycle. Only actual structural changes trigger recreation.</p>
 
 <h2>What gets diffed</h2>
 
-<p>Tables (including comment and PARTITION BY), columns (type, nullable, default, identity with sequence options, comment, compression, storage), indexes, FK, PK, UNIQUE, CHECK constraints, enum values (ADD VALUE), and partitions (CREATE, DETACH, re-ATTACH on bound change). Views and functions diff is planned for Phase 2.</p>
+<p>Schemas, tables (including comment, PARTITION BY, storage parameters, UNLOGGED, access method and tablespace), columns (type, nullable, default, identity with sequence options, STORED and VIRTUAL generated expressions, comment, compression, storage), indexes, FK, PK, UNIQUE, CHECK constraints, enum types (CREATE, ADD VALUE in position), comments, and partitions (CREATE, DETACH, re-ATTACH on bound change, storage parameters). Expressions are compared by meaning, so the formatting PostgreSQL applies to a live database is not a change. Views and functions diff is planned for Phase 2.</p>
 
 <h2>CLI</h2>
 

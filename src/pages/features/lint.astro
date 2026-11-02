@@ -3,8 +3,8 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
 ---
 <FeatureLayout
   title="PostgreSQL Schema Linter"
-  description="Validate your PostgreSQL schema with 66 lint rules — 32 errors, 21 warnings, 13 antipattern checks. 15 rules with one-click autofix. CLI with JSON output for CI/CD."
-  subtitle="66 rules catch structural errors, best-practice violations, and PostgreSQL antipatterns — before they reach production."
+  description="Validate your PostgreSQL schema with 69 lint rules — 33 errors, 23 warnings, 13 antipattern checks. 15 rules with one-click autofix. CLI with JSON output for CI/CD."
+  subtitle="69 rules catch structural errors, best-practice violations, and PostgreSQL antipatterns — before they reach production."
 >
 
 <div class="not-prose -mx-4 sm:mx-0 mt-2 mb-10">
@@ -24,19 +24,19 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
 
 <p>A missing index on a foreign key slows every JOIN. A <code>char(n)</code> column wastes space. A <code>serial</code> instead of <code>identity</code> creates hidden sequences. These aren't bugs — they're design debt that compounds over time. PgDesigner checks for all of them automatically.</p>
 
-<h2>66 rules across three severity levels</h2>
+<h2>69 rules across three severity levels</h2>
 
 <div class="not-prose grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 mb-8">
   <div class="rounded-lg bg-surface-alt border border-border-default p-4">
     <div class="flex items-center gap-2 mb-3">
-      <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-red-500/15 text-red-400 text-xs font-bold">32</span>
+      <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-red-500/15 text-red-400 text-xs font-bold">33</span>
       <span class="text-sm font-semibold text-heading">Errors</span>
     </div>
     <p class="text-xs text-muted leading-relaxed">Structural integrity — FK to missing table, duplicate names, PK column not found, unknown types, empty enums, multiple identity columns.</p>
   </div>
   <div class="rounded-lg bg-surface-alt border border-border-default p-4">
     <div class="flex items-center gap-2 mb-3">
-      <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-yellow-500/15 text-yellow-400 text-xs font-bold">21</span>
+      <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-yellow-500/15 text-yellow-400 text-xs font-bold">23</span>
       <span class="text-sm font-semibold text-heading">Warnings</span>
     </div>
     <p class="text-xs text-muted leading-relaxed">Best practices — FK type mismatch, missing FK index, circular FK, no primary key, overlapping indexes, reserved words, PG version compatibility.</p>
@@ -71,7 +71,7 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
     <tr><th>Tool</th><th style="text-align:center">Rules</th><th>Scope</th></tr>
   </thead>
   <tbody>
-    <tr><td><strong>PgDesigner</strong></td><td style="text-align:center"><strong>66</strong></td><td>Schema model validation</td></tr>
+    <tr><td><strong>PgDesigner</strong></td><td style="text-align:center"><strong>69</strong></td><td>Schema model validation</td></tr>
     <tr><td>Squawk</td><td style="text-align:center">~20</td><td>Migration SQL linting</td></tr>
     <tr><td>pglinter</td><td style="text-align:center">6</td><td>Live DB</td></tr>
     <tr><td>schemalint</td><td style="text-align:center">4</td><td>Live DB</td></tr>
