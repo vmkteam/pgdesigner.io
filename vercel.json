@@ -4,7 +4,7 @@
   "redirects": [
     {
       "source": "/github",
-      "destination": "https://github.com/vmkteam/pgdesigner.io",
+      "destination": "https://github.com/vmkteam/pgdesigner",
       "permanent": false
     },
     {
