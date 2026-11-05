@@ -11,7 +11,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "");
 
 <div class="border-b border-border-default bg-surface/80 backdrop-blur-md">
   <Container>
-    <nav class="flex gap-1 py-2 overflow-x-auto scrollbar-hide justify-center">
+    <nav class="flex gap-1 py-2 overflow-x-auto scrollbar-hide justify-start sm:justify-center">
       {items.map(({ label, href }) => {
         const isActive = currentPath === href;
         return (

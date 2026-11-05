@@ -46,7 +46,7 @@
   --c-heading: #ffffff;
   --c-body: #d1d5db;          /* gray-300 */
   --c-muted: #9ca3af;         /* gray-400 */
-  --c-faint: #6b7280;         /* gray-500 */
+  --c-faint: #8b93a1;         /* lighter than gray-500 for 4.5:1 contrast on #0b0d11 */
   --c-surface: #0b0d11;
   --c-surface-alt: rgba(31, 41, 55, 0.5); /* gray-800/50 */
   --c-border: rgba(55, 65, 81, 0.5);      /* gray-700/50 */
@@ -186,6 +186,12 @@
   --tw-prose-pre-bg: #111827;
   --tw-prose-th-borders: var(--c-border);
   --tw-prose-td-borders: var(--c-border);
+}
+
+/* Typography adds literal backticks around inline code; our code chips don't need them. */
+.prose :where(code):not(:where(pre *))::before,
+.prose :where(code):not(:where(pre *))::after {
+  content: none;
 }
 
 .prose table {

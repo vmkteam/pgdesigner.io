@@ -28,7 +28,7 @@ const currentPath = Astro.url.pathname;
           <span class="text-xl font-bold text-heading">PgDesigner</span>
         </a>
         <div class="block lg:hidden">
-          <MenuIcon class="w-4 h-4 text-body" />
+          <MenuIcon class="w-6 h-6 text-body" />
         </div>
       </div>
       <MenuItems class="hidden w-full lg:w-auto mt-2 lg:flex lg:mt-0">
@@ -48,13 +48,25 @@ const currentPath = Astro.url.pathname;
               </li>
             );
           })}
+          <li class="lg:hidden">
+            <a href="https://github.com/vmkteam/pgdesigner" class="flex py-2 items-center gap-2 text-body hover:text-heading transition-colors">
+              <Icon name="simple-icons:github" class="w-4 h-4" />
+              <span>GitHub</span>
+            </a>
+          </li>
+          <li class="lg:hidden">
+            <button type="button" data-theme-toggle class="flex py-2 items-center gap-2 text-body hover:text-heading transition-colors">
+              <span class="hidden dark:inline">Light theme</span>
+              <span class="inline dark:hidden">Dark theme</span>
+            </button>
+          </li>
         </ul>
       </MenuItems>
     </Astronav>
     <div>
       <div class="hidden lg:flex items-center gap-4">
         <button
-          id="theme-toggle"
+          data-theme-toggle
           type="button"
           class="text-muted hover:text-heading transition-colors"
           aria-label="Toggle theme">
@@ -91,8 +103,18 @@ const currentPath = Astro.url.pathname;
 </Container>
 
 <script>
-  document.getElementById("theme-toggle")?.addEventListener("click", () => {
-    const isDark = document.documentElement.classList.toggle("dark");
-    localStorage.setItem("theme", isDark ? "dark" : "light");
-  });
+  document.querySelectorAll("[data-theme-toggle]").forEach((btn) =>
+    btn.addEventListener("click", () => {
+      const isDark = document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", isDark ? "dark" : "light");
+    }),
+  );
 </script>
+
+<style is:global>
+  /* 44px touch target for the mobile menu button. */
+  #astronav-menu {
+    padding: 10px;
+    margin: -10px;
+  }
+</style>
