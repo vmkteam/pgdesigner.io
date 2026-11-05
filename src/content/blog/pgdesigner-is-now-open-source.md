@@ -42,7 +42,7 @@ The PgDesigner name and logo are not covered by the license — forks should use
 
 Instead of selling licenses, we sell our time:
 
-- **Priority Support — $149/year per company.** Private email, a response within 2 business days, your team's bugs first in the queue, and help migrating models from pgModeler, MicroOLAP, or DbSchema.
+- **Priority Support — $149/year per company.** Private email, a response within 2 business days, your team's bugs first in the queue, and help migrating models from MicroOLAP, DbSchema, Toad Data Modeler, or a live database.
 - **Enterprise Support — from $990/year.** Response within 1 business day, a private chat channel, an onboarding call, and payment by invoice or PO.
 - **Sponsored development.** Need an import format, a lint rule for your conventions, or a roadmap feature sooner? We'll quote it, and it ships in the open-source release.
 

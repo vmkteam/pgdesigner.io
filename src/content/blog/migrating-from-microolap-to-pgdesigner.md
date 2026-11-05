@@ -52,7 +52,7 @@ Your browser opens with the ERD canvas. All tables, relationships, and constrain
 pgdesigner lint myproject.pgd
 ```
 
-PgDesigner runs 66 validation rules against your schema. After years in MicroOLAP, you might find:
+PgDesigner runs 69 validation rules against your schema. After years in MicroOLAP, you might find:
 
 - **Missing FK indexes** (W002) — MicroOLAP didn't check for these
 - **char(n) columns** (I001) — should probably be `text`
@@ -76,9 +76,9 @@ From now on, every schema change produces clean single-line diffs in your pull r
 |---------|-----------|------------|
 | PostgreSQL version | Up to PG12 (last update 2021) | PG18 |
 | Last update | July 2021 | Active |
-| Diff/ALTER engine | No | Yes (6 hazard codes) |
-| Schema lint | No | 66 rules, 15 autofix |
-| Sample data generator | No | Yes (30 heuristics) |
+| Diff/ALTER engine | No | Yes (10 hazard codes) |
+| Schema lint | No | 69 rules, 15 autofix |
+| Sample data generator | No | Yes (30+ heuristics) |
 | Git-friendly diffs | Poor | Single-line XML diffs |
 | CLI for CI/CD | No | Yes |
 | Cross-platform | Windows only | macOS, Linux, Windows |

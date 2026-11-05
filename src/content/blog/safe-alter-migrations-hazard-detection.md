@@ -1,7 +1,7 @@
 ---
 draft: false
 title: "How PgDesigner Generates Safe ALTER Migrations with Hazard Detection"
-snippet: "A deep dive into PgDesigner's diff engine: two-phase algorithm, 6 hazard codes, compatible cast detection, and smart rename recognition. Learn how it prevents dangerous migrations."
+snippet: "A deep dive into PgDesigner's diff engine: two-phase algorithm, hazard codes, compatible cast detection, and smart rename recognition. Learn how it prevents dangerous migrations."
 image:
   src: "/images/diff-dark.png"
   alt: "PgDesigner diff dialog showing ALTER SQL with hazard warnings"
@@ -55,6 +55,8 @@ References always exist before they're needed.
 `ALTER TYPE ... ADD VALUE` for new enum labels. PostgreSQL doesn't support removing labels, so dropped labels are silently skipped.
 
 ## Six hazard codes
+
+> **Update (November 2026):** the engine now reports 10 hazard codes, adding `COLUMN_RECREATE`, `TYPE_RECREATE`, `ENUM_ADD_VALUE` and `UNNAMED_CONSTRAINT` — see [Diff & ALTER](/features/diff) for the full list.
 
 Every generated ALTER is analyzed for operational risk. The engine emits a hazard comment directly before the SQL statement:
 
@@ -123,7 +125,7 @@ pgdesigner diff old.pgd new.pgd
 pgdesigner diff -f json old.pgd new.pgd
 ```
 
-The diff command outputs ALTER SQL to stdout. Use `-f json` for machine-readable output in CI pipelines. Exit code 1 if changes are found — useful for drift detection.
+The diff command outputs ALTER SQL to stdout. Use `-f json` for machine-readable output in CI pipelines. The exit code is 0 whether or not there are changes; when the schemas match, stdout is empty and `no changes` goes to stderr — so for drift detection, check for empty output.
 
 ## UI usage
 
