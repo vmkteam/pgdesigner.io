@@ -9,7 +9,7 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
 
 <h2>Five sources, one output</h2>
 
-<p>PgDesigner reads schemas from five different sources and converts them into its native <code>.pgd</code> format. The conversion is lossless — tables, columns, indexes, foreign keys, constraints, enums, domains, sequences, views, functions, triggers, and comments are all preserved.</p>
+<p>PgDesigner reads schemas from five different sources and converts them into its native <code>.pgd</code> format — tables, columns, indexes, foreign keys, constraints, enums, domains, sequences, views, functions, triggers, and comments. The SQL path is round-trip tested on real databases: SQL → <code>.pgd</code> → DDL → PostgreSQL → <code>pg_dump</code> → <code>.pgd</code> with zero diff.</p>
 
 <div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 mb-8">
   <div class="rounded-lg bg-surface-alt border border-border-default p-4">
@@ -36,48 +36,48 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
   <div class="rounded-xl overflow-hidden border border-border-default shadow-xl img-zoom">
     <picture class="hidden dark:block">
       <source srcset="/images/blog/v002-dsn-dark.webp" type="image/webp" />
-      <img src="/images/blog/v002-dsn-dark.png" alt="PgDesigner DSN Introspection dialog connecting to PostgreSQL and showing schemas in dark theme" loading="lazy" width="1280" height="1006" class="w-full" />
+      <img src="/images/blog/v002-dsn-dark.png" alt="PgDesigner DSN Introspection dialog connecting to PostgreSQL and showing schemas in dark theme" loading="lazy" width="1280" height="1024" class="w-full" />
     </picture>
     <picture class="block dark:hidden">
       <source srcset="/images/blog/v002-dsn-light.webp" type="image/webp" />
-      <img src="/images/blog/v002-dsn-light.png" alt="PgDesigner DSN Introspection dialog connecting to PostgreSQL and showing schemas in light theme" loading="lazy" width="1280" height="1006" class="w-full" />
+      <img src="/images/blog/v002-dsn-light.png" alt="PgDesigner DSN Introspection dialog connecting to PostgreSQL and showing schemas in light theme" loading="lazy" width="1280" height="1024" class="w-full" />
     </picture>
   </div>
 </div>
 
-<p>Pass a PostgreSQL connection string instead of a file path. PgDesigner connects to your database and introspects the full schema via <code>pg_catalog</code> queries:</p>
+<p>Pass a PostgreSQL connection string instead of a file path. PgDesigner connects to your database and introspects the schema via <code>pg_catalog</code> queries:</p>
 
-<pre><code>pgdesigner convert "postgres://user:pass@localhost:5432/mydb" -o project.pgd</code></pre>
+<pre><code>pgdesigner convert -o project.pgd "postgres://user:pass@localhost:5432/mydb"
+pgdesigner convert -full -schema public,billing -o project.pgd "postgres://localhost/mydb"</code></pre>
 
-<p>What gets extracted:</p>
+<p>Always extracted:</p>
 <ul>
-  <li>Tables, columns (types, defaults, identity, nullable, storage, compression, comments)</li>
+  <li>Tables and columns (types, defaults, identity, nullable, storage, compression, comments)</li>
   <li>Indexes (btree, hash, gin, gist, brin — with INCLUDE columns)</li>
-  <li>Foreign keys, primary keys, UNIQUE, CHECK, EXCLUDE constraints</li>
-  <li>Enums, domains, composite types, ranges</li>
-  <li>Sequences (with ownership)</li>
-  <li>Views and materialized views</li>
-  <li>Functions and triggers</li>
-  <li>RLS policies</li>
+  <li>Primary keys, foreign keys, UNIQUE, CHECK, EXCLUDE constraints</li>
+  <li>Sequences</li>
   <li>Partitions (RANGE, LIST, HASH — with bounds)</li>
-  <li>Comments on all object types</li>
 </ul>
+
+<p>Add <code>-full</code> for extensions, enums, domains, views, materialized views (with their indexes), functions, and triggers. <code>-schema</code> limits introspection to the listed schemas.</p>
+
+<p>In the visual editor, <strong>File → Open… → PostgreSQL</strong> connects first and shows a preview of what's there — then you pick the schemas, individual tables, and object categories (views, functions, triggers, enums, domains, sequences, extensions) to import.</p>
 
 <h2>CLI</h2>
 
-<pre><code>pgdesigner convert schema.pdd -o project.pgd
-pgdesigner convert schema.dbs -o project.pgd
-pgdesigner convert schema.dm2 -o project.pgd
-pgdesigner convert schema.sql -o project.pgd
-pgdesigner convert "postgres://localhost:5432/mydb" -o project.pgd</code></pre>
+<pre><code>pgdesigner convert -o project.pgd schema.pdd
+pgdesigner convert -o project.pgd schema.dbs
+pgdesigner convert -o project.pgd schema.dm2
+pgdesigner convert -o project.pgd schema.sql
+pgdesigner convert -o project.pgd "postgres://localhost:5432/mydb"</code></pre>
 
 <p>The <code>-o</code> flag sets the output file. Without it, PgDesigner uses the input filename with a <code>.pgd</code> extension.</p>
 
 <h2>Migrating from MicroOLAP?</h2>
 
-<p>MicroOLAP Database Designer for PostgreSQL hasn't been updated since July 2021. If you have <code>.pdd</code> project files, PgDesigner reads them natively — no intermediate steps, no data loss. Convert and open in the visual editor in seconds:</p>
+<p>MicroOLAP Database Designer for PostgreSQL hasn't been updated since July 2021. If you have <code>.pdd</code> project files, PgDesigner reads them natively — no intermediate steps. Convert and open in the visual editor in seconds:</p>
 
-<pre><code>pgdesigner convert myproject.pdd -o myproject.pgd
+<pre><code>pgdesigner convert -o myproject.pgd myproject.pdd
 pgdesigner myproject.pgd</code></pre>
 
 <div class="not-prose mt-12 pt-8 border-t border-border-default">

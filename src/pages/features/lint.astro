@@ -11,11 +11,11 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
   <div class="rounded-xl overflow-hidden border border-border-default shadow-2xl img-zoom">
     <picture class="hidden dark:block">
       <source srcset="/images/lint-dark.webp" type="image/webp" />
-      <img src="/images/lint-dark.png" alt="PgDesigner Check Diagram showing 34 lint issues — 0 errors, 23 warnings, 11 info with fix buttons on Northwind database in dark theme" loading="eager" width="1280" height="800" class="w-full" />
+      <img src="/images/lint-dark.png" alt="PgDesigner Check Diagram showing 34 lint issues — 0 errors, 23 warnings, 11 info with fix buttons on Northwind database in dark theme" loading="eager" width="1280" height="847" class="w-full" />
     </picture>
     <picture class="block dark:hidden">
       <source srcset="/images/lint-light.webp" type="image/webp" />
-      <img src="/images/lint-light.png" alt="PgDesigner Check Diagram showing 34 lint issues — 0 errors, 23 warnings, 11 info with fix buttons on Northwind database in light theme" loading="eager" width="1280" height="800" class="w-full" />
+      <img src="/images/lint-light.png" alt="PgDesigner Check Diagram showing 34 lint issues — 0 errors, 23 warnings, 11 info with fix buttons on Northwind database in light theme" loading="lazy" width="1280" height="847" class="w-full" />
     </picture>
   </div>
 </div>
@@ -64,22 +64,13 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
 
 <p>In the UI, click the fix button next to any fixable issue. In the CLI, run <code>pgdesigner lint -fix schema.pgd</code> to apply all fixes at once.</p>
 
-<h2>10x more rules than alternatives</h2>
+<h2>Lints the model, not the migration</h2>
 
-<table>
-  <thead>
-    <tr><th>Tool</th><th style="text-align:center">Rules</th><th>Scope</th></tr>
-  </thead>
-  <tbody>
-    <tr><td><strong>PgDesigner</strong></td><td style="text-align:center"><strong>69</strong></td><td>Schema model validation</td></tr>
-    <tr><td>Squawk</td><td style="text-align:center">~20</td><td>Migration SQL linting</td></tr>
-    <tr><td>pglinter</td><td style="text-align:center">6</td><td>Live DB</td></tr>
-    <tr><td>schemalint</td><td style="text-align:center">4</td><td>Live DB</td></tr>
-    <tr><td>Atlas</td><td style="text-align:center">3</td><td>Schema-as-code</td></tr>
-  </tbody>
-</table>
+<p>Migration linters such as Squawk and Atlas check the SQL you are about to run — locks, rewrites, destructive changes. PgDesigner checks the schema <em>model</em> itself: structure, design and PostgreSQL antipatterns, before any SQL is generated. The two complement each other, and PgDesigner's <a href="/features/diff">diff engine</a> adds hazard warnings to every generated migration.</p>
 
-<p>Squawk focuses on runtime migration hazards (locks, rewrites). PgDesigner validates the schema <em>model</em> — catching structural and design issues before any SQL is generated.</p>
+<h2>Lint settings live in the model</h2>
+
+<p>Ignored rules are stored in the <code>.pgd</code> file and versioned with the schema — project-wide in <code>&lt;lint ignore-rules="W015,I009"&gt;</code>, or per table with <code>lint-ignore="…"</code>. Everyone on the team, and CI, gets the same result. Rule <code>W021</code> checks the model against the project's target PostgreSQL version and flags features that version doesn't support yet.</p>
 
 <h2>CLI — lint in your pipeline</h2>
 

@@ -45,7 +45,7 @@ PgDesigner is built exclusively for PostgreSQL and runs in the browser — with 
   </div>
   <div class="rounded-lg bg-surface-alt border border-border-default p-4">
     <h3 class="text-sm font-semibold text-heading mb-1">FK Edge Routing</h3>
-    <p class="text-sm text-muted">Foreign keys render as directed edges with smart path routing. Click any edge to see the full FK definition.</p>
+    <p class="text-sm text-muted">Foreign keys render as directed edges with smart path routing. Click any edge to open that foreign key in the Table Editor.</p>
   </div>
 </div>
 
@@ -53,7 +53,7 @@ PgDesigner is built exclusively for PostgreSQL and runs in the browser — with 
 
 <p>Each table node shows column names with types (<code>bigint</code>, <code>text</code>, <code>timestamptz</code>),
 inline <strong>PK</strong> / <strong>FK</strong> / <strong>UNIQUE</strong> badges, nullable markers, and a column count in the header.
-Click any table to open the Table Editor with full column details, constraints, indexes, foreign keys, DDL preview, and lint results.</p>
+Double-click any table to open the Table Editor with full column details, constraints, indexes, foreign keys, DDL preview, and lint results.</p>
 
 <!-- Table Editor screenshot (theme-aware) -->
 <div class="not-prose -mx-4 sm:mx-0 mt-6 mb-8">
@@ -71,7 +71,7 @@ Click any table to open the Table Editor with full column details, constraints, 
 
 <h2>Handles real production schemas</h2>
 
-<p>PgDesigner is tested on 6 real-world databases. The largest has 120+ tables and 150+ foreign keys — canvas stays smooth.</p>
+<p>PgDesigner is tested on five public sample databases, a synthetic edge-case schema, and private production schemas. The largest has 120 tables and 196 foreign keys — the canvas stays smooth.</p>
 
 <table>
   <thead>
@@ -80,24 +80,25 @@ Click any table to open the Table Editor with full column details, constraints, 
   <tbody>
     <tr><td>Chinook</td><td style="text-align:center">11</td><td style="text-align:center">11</td><td style="text-align:center">Instant</td></tr>
     <tr><td>Northwind</td><td style="text-align:center">14</td><td style="text-align:center">13</td><td style="text-align:center">Instant</td></tr>
-    <tr><td>Pagila</td><td style="text-align:center">15</td><td style="text-align:center">12</td><td style="text-align:center">Instant</td></tr>
-    <tr><td>Airlines</td><td style="text-align:center">8</td><td style="text-align:center">6</td><td style="text-align:center">Instant</td></tr>
-    <tr><td>AdventureWorks</td><td style="text-align:center">68</td><td style="text-align:center">69</td><td style="text-align:center">Smooth</td></tr>
-    <tr><td><strong>Synthetic</strong></td><td style="text-align:center"><strong>120+</strong></td><td style="text-align:center"><strong>150+</strong></td><td style="text-align:center"><strong>Smooth</strong></td></tr>
+    <tr><td>Pagila</td><td style="text-align:center">15</td><td style="text-align:center">18</td><td style="text-align:center">Instant</td></tr>
+    <tr><td>Airlines</td><td style="text-align:center">8</td><td style="text-align:center">8</td><td style="text-align:center">Instant</td></tr>
+    <tr><td>AdventureWorks</td><td style="text-align:center">68</td><td style="text-align:center">89</td><td style="text-align:center">Smooth</td></tr>
+    <tr><td>Synthetic (domains, GIN/GiST, triggers, RLS)</td><td style="text-align:center">8</td><td style="text-align:center">9</td><td style="text-align:center">Instant</td></tr>
+    <tr><td><strong>Private production schema</strong></td><td style="text-align:center"><strong>120</strong></td><td style="text-align:center"><strong>196</strong></td><td style="text-align:center"><strong>Smooth</strong></td></tr>
   </tbody>
 </table>
 
-<p>All 6 databases are included as sample projects in the download — open one and start exploring.</p>
+<p>The five public databases ship with the app as sample projects — open one from the Welcome Screen and start exploring.</p>
 
 <h2>Find anything in seconds</h2>
 
 <p>The <strong>Object Tree</strong> gives you a hierarchical view: schemas → tables → columns, indexes, and foreign keys.
 Need to jump somewhere fast? <kbd>Ctrl</kbd>+<kbd>F</kbd> opens Go To — type any table, column, or index name and you're there.
-Click a table to open the Table Editor. Double-click a name to rename inline.</p>
+Click a table to jump to it on the canvas; double-click it or press <kbd>Enter</kbd> to open the Table Editor, <kbd>F2</kbd> to rename.</p>
 
 <h2>Create without writing SQL</h2>
 
-<p>Build your schema directly on the canvas. Click to place a table (auto-generates PK). Click two tables to create a foreign key — the FK column and constraint appear automatically. Need a many-to-many? Click table A, then B — PgDesigner creates the junction table with composite PK and both FKs.</p>
+<p>Build your schema directly on the canvas. Press <kbd>T</kbd> and click an empty spot to place a table — it gets an identity primary key and opens in the Table Editor. Press <kbd>F</kbd>, click the child table, then the parent — the FK column and constraint appear automatically. Need a many-to-many? Press <kbd>M</kbd> and click both tables — PgDesigner creates the junction table with a composite PK and both FKs.</p>
 
 <h3>Keyboard Shortcuts</h3>
 

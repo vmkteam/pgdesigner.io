@@ -3,18 +3,20 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
 ---
 <FeatureLayout
   title="PgDesigner CLI for CI/CD"
-  description="Single binary CLI for PostgreSQL schema management: generate DDL, diff schemas, lint with 69 rules, generate test data, import from any source. Zero dependencies."
+  description="Single binary CLI for PostgreSQL schema management: generate DDL, diff schemas, lint with 69 rules, generate test data, merge and import schemas. Zero dependencies."
   subtitle="Single binary, zero dependencies. Lint, diff, generate, and seed — all from your terminal or CI pipeline."
 >
 
-<h2>Six commands, one binary</h2>
+<h2>Seven commands, one binary</h2>
 
 <pre><code>pgdesigner schema.pgd                           # open in browser UI
 pgdesigner generate -o schema.sql schema.pgd    # DDL to file
 pgdesigner diff old.pgd new.pgd                 # ALTER SQL to stdout
 pgdesigner lint -f json schema.pgd              # lint with JSON output
 pgdesigner testdata -seed 42 schema.pgd         # reproducible test data
-pgdesigner convert schema.pdd -o project.pgd    # import from other formats</code></pre>
+pgdesigner convert -o project.pgd schema.pdd    # import from other formats
+pgdesigner merge -o all.pgd core.pgd billing.pgd  # merge schemas into one
+pgdesigner version                              # print version</code></pre>
 
 <p>Every command accepts <code>.pgd</code>, <code>.pdd</code>, <code>.dbs</code>, <code>.dm2</code>, <code>.sql</code>, or a PostgreSQL connection string as input.</p>
 
@@ -32,8 +34,9 @@ pgdesigner convert schema.pdd -o project.pgd    # import from other formats</cod
     <p class="text-xs font-semibold text-accent-text mb-2">Generate migration on schema change</p>
 <pre class="text-sm"><code>- name: Generate migration
   run: |
-    pgdesigner diff -o migration.sql old.pgd new.pgd
-    cat migration.sql</code></pre>
+    git show origin/main:schema.pgd &gt; /tmp/old.pgd
+    pgdesigner diff /tmp/old.pgd schema.pgd | tee migration.sql</code></pre>
+    <p class="text-xs text-muted mt-2">Exit code is 0 with or without changes. With <code>-o</code>, the file is not written when there are no changes.</p>
   </div>
 
   <div class="rounded-lg bg-surface-alt border border-border-default p-4">
@@ -53,10 +56,11 @@ pgdesigner convert schema.pdd -o project.pgd    # import from other formats</cod
   </thead>
   <tbody>
     <tr><td><code>generate</code></td><td><code>-o</code></td><td>Full DDL to stdout or file</td></tr>
-    <tr><td><code>diff</code></td><td><code>-f sql|json</code></td><td>Compare two schemas → ALTER SQL or JSON</td></tr>
+    <tr><td><code>diff</code></td><td><code>-f sql|json</code>, <code>-o</code></td><td>Compare two schemas → ALTER SQL or JSON</td></tr>
     <tr><td><code>lint</code></td><td><code>-f text|json</code>, <code>-s</code>, <code>-fix</code></td><td>Validate schema, auto-fix issues</td></tr>
     <tr><td><code>testdata</code></td><td><code>-seed</code>, <code>-rows</code>, <code>-tables</code>, <code>-o</code></td><td>Generate realistic INSERT statements</td></tr>
-    <tr><td><code>convert</code></td><td><code>-o</code></td><td>Import from .pdd/.dbs/.dm2/.sql/DSN</td></tr>
+    <tr><td><code>convert</code></td><td><code>-o</code>, <code>-schema</code>, <code>-full</code></td><td>Import from .pdd/.dbs/.dm2/.sql/DSN</td></tr>
+    <tr><td><code>merge</code></td><td><code>-o</code>, <code>-layout both|base|overlay</code>, <code>-name</code></td><td>Merge several schemas into one .pgd; later files win on conflicts</td></tr>
   </tbody>
 </table>
 
@@ -67,11 +71,23 @@ pgdesigner convert schema.pdd -o project.pgd    # import from other formats</cod
     <tr><th style="text-align:center">Code</th><th>Meaning</th></tr>
   </thead>
   <tbody>
-    <tr><td style="text-align:center"><code>0</code></td><td>Success (no lint errors, no diff changes)</td></tr>
-    <tr><td style="text-align:center"><code>1</code></td><td>Lint errors found or diff has changes</td></tr>
-    <tr><td style="text-align:center"><code>2</code></td><td>File not found or parse error</td></tr>
+    <tr><td style="text-align:center"><code>0</code></td><td>Success, including a diff with changes</td></tr>
+    <tr><td style="text-align:center"><code>1</code></td><td>Lint errors found, missing arguments, file not found or parse error</td></tr>
+    <tr><td style="text-align:center"><code>2</code></td><td>Unknown flag</td></tr>
   </tbody>
 </table>
+
+<h2>Visual editor flags</h2>
+
+<p>Without a command, <code>pgdesigner</code> starts a local server and opens the editor in your browser:</p>
+
+<pre><code>pgdesigner schema.pgd              # open a model
+pgdesigner postgres://localhost/app # reverse-engineer a live database
+pgdesigner -app schema.pgd         # Chrome/Chromium app window, no address bar
+pgdesigner -port 8080 schema.pgd   # fixed port instead of a random one
+pgdesigner -read-only schema.pgd   # disable every write operation</code></pre>
+
+<p><code>-read-only</code> is how the public <a href="https://demo.pgdesigner.io">demo</a> runs. For a live database, <code>-schema</code> and <code>-full</code> work the same as in <code>convert</code>.</p>
 
 <h2>Cross-platform, zero dependencies</h2>
 
@@ -80,7 +96,7 @@ pgdesigner convert schema.pdd -o project.pgd    # import from other formats</cod
 <ul>
   <li><strong>macOS</strong> — amd64 + arm64, signed and notarized</li>
   <li><strong>Linux</strong> — amd64 + arm64</li>
-  <li><strong>Windows</strong> — amd64</li>
+  <li><strong>Windows</strong> — amd64 + arm64</li>
 </ul>
 
 <pre><code>curl -L https://github.com/vmkteam/pgdesigner/releases/latest/download/pgdesigner-linux-amd64.tar.gz | tar xz

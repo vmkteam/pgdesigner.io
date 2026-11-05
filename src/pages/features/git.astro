@@ -3,32 +3,39 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
 ---
 <FeatureLayout
   title="Git-Friendly Schema Format"
-  description="The .pgd XML format produces clean single-line git diffs when you add or change columns. Split-model option for large schemas eliminates merge conflicts."
-  subtitle="Review schema changes like code — clean diffs, meaningful context, near-zero merge conflicts."
+  description="The .pgd XML format produces clean single-line git diffs when you add or change columns. Turn two versions from git history into an ALTER migration with pgdesigner diff."
+  subtitle="Review schema changes like code — clean diffs, meaningful context, migrations straight from git history."
 >
 
 <h2>The problem with other tools</h2>
 
-<p>When you save a schema in pgModeler, the XML reorders elements and changes hundreds of lines. DrawDB dumps everything into a single JSON blob. dbdiagram.io doesn't even give you a local file. Reviewing these diffs in a pull request is impossible.</p>
+<p>pgModeler keeps the whole model in one large XML file (split models are a paid Plus feature). DrawDB dumps everything into a single JSON blob. dbdiagram.io doesn't even give you a local file. Reviewing these diffs in a pull request is painful.</p>
 
 <h2>One column = one line in the diff</h2>
 
-<p>PgDesigner's <code>.pgd</code> format is XML designed specifically for version control. Each column is a single self-closing element with all attributes inline:</p>
+<p>PgDesigner's <code>.pgd</code> format is XML designed specifically for version control. Each column is one line with all attributes inline, and tables are written in a stable order:</p>
 
-<pre><code>&lt;table name="users" schema="public"&gt;
-  &lt;column name="id" type="bigint" nullable="false"/&gt;
-  &lt;column name="email" type="varchar(255)" nullable="false"/&gt;
-  &lt;column name="created_at" type="timestamptz" default="now()"/&gt;
-  &lt;primary-key&gt;
-    &lt;column name="id"/&gt;
-  &lt;/primary-key&gt;
-&lt;/table&gt;</code></pre>
+<pre><code>&lt;schema name="public"&gt;
+  &lt;table name="orders"&gt;
+    &lt;column name="id" type="bigint"&gt;
+      &lt;identity generated="by-default"&gt;&lt;/identity&gt;
+    &lt;/column&gt;
+    &lt;column name="user_id" type="bigint" nullable="false"&gt;&lt;/column&gt;
+    &lt;column name="total" type="numeric" precision="10" scale="2" nullable="false"&gt;&lt;/column&gt;
+    &lt;pk name="orders_pkey"&gt;
+      &lt;column name="id"&gt;&lt;/column&gt;
+    &lt;/pk&gt;
+    &lt;fk name="fk_orders_user_id" to-table="users" on-delete="no action" on-update="no action"&gt;
+      &lt;column name="user_id" references="id"&gt;&lt;/column&gt;
+    &lt;/fk&gt;
+  &lt;/table&gt;
+&lt;/schema&gt;</code></pre>
 
 <p>Adding a column produces exactly one line in <code>git diff</code>:</p>
 
-<pre><code>  &lt;column name="email" type="varchar(255)" nullable="false"/&gt;
-+ &lt;column name="phone" type="varchar(20)"/&gt;
-  &lt;column name="created_at" type="timestamptz" default="now()"/&gt;</code></pre>
+<pre><code>    &lt;column name="user_id" type="bigint" nullable="false"&gt;&lt;/column&gt;
++   &lt;column name="status" type="varchar" length="20"&gt;&lt;/column&gt;
+    &lt;column name="total" type="numeric" precision="10" scale="2" nullable="false"&gt;&lt;/column&gt;</code></pre>
 
 <p>Closing tags like <code>&lt;/table&gt;</code> give context in diffs — you always know which table was changed, unlike JSON's anonymous closing braces.</p>
 
@@ -37,7 +44,7 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
 <div class="not-prose grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 mb-8">
   <div class="rounded-lg bg-surface-alt border border-border-default p-4">
     <h3 class="text-sm font-semibold text-heading mb-1">vs pgModeler XML</h3>
-    <p class="text-sm text-muted">Monolithic file, element order changes on every save. Diffs are unreadable.</p>
+    <p class="text-sm text-muted">One large file per model; splitting it requires the paid Plus edition.</p>
   </div>
   <div class="rounded-lg bg-surface-alt border border-border-default p-4">
     <h3 class="text-sm font-semibold text-heading mb-1">vs DrawDB JSON</h3>
@@ -53,22 +60,14 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
   </div>
 </div>
 
-<h2>Split-model for large schemas</h2>
+<h2>From git history to a migration</h2>
 
-<p>For schemas with 50+ tables, enable split-model. Each object gets its own file — merge conflicts drop to nearly zero because different developers edit different files:</p>
+<p>Because the model lives in git, any two commits are two schemas. Feed them to <code>pgdesigner diff</code> and you get the <code>ALTER</code> script between them, with hazard warnings:</p>
 
-<pre><code>project/
-  project.pgd           # metadata, layouts, settings
-  tables/
-    users.pgd
-    orders.pgd
-    products.pgd
-  views/
-    order_summary.pgd
-  functions/
-    calculate_total.pgd</code></pre>
+<pre><code>git show main:schema.pgd &gt; /tmp/main.pgd
+pgdesigner diff /tmp/main.pgd schema.pgd -o migration.sql</code></pre>
 
-<p>The visual editor works identically — you open <code>project.pgd</code> and see everything. The split is transparent.</p>
+<p>Run <code>pgdesigner lint schema.pgd</code> in the same pipeline — it exits with code <code>1</code> when the schema has errors.</p>
 
 <div class="not-prose mt-12 pt-8 border-t border-border-default">
   <p class="text-sm font-semibold text-heading mb-3">Related</p>

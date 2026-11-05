@@ -3,7 +3,7 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
 ---
 <FeatureLayout
   title="PostgreSQL Sample Data Generator"
-  description="Generate realistic, FK-aware sample data for PostgreSQL. 30 name heuristics, 35+ type mappings, seeded reproducibility, circular FK handling. CLI and API. Free download."
+  description="Generate realistic, FK-aware sample data for PostgreSQL. 30+ name heuristics, CHECK and UNIQUE aware, seeded reproducibility, circular FK handling. CLI and UI. Free download."
   subtitle="Populate your dev database in one command — realistic values, correct FK order, reproducible with seed."
 >
 
@@ -11,11 +11,11 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
   <div class="rounded-xl overflow-hidden border border-border-default shadow-2xl img-zoom">
     <picture class="hidden dark:block">
       <source srcset="/images/sampledata-dark.webp" type="image/webp" />
-      <img src="/images/sampledata-dark.png" alt="PgDesigner sample data generation dialog showing INSERT statements with realistic values in dark theme" loading="eager" width="1280" height="800" class="w-full" />
+      <img src="/images/sampledata-dark.png" alt="PgDesigner sample data generation dialog showing INSERT statements with realistic values in dark theme" loading="eager" width="1280" height="847" class="w-full" />
     </picture>
     <picture class="block dark:hidden">
       <source srcset="/images/sampledata-light.webp" type="image/webp" />
-      <img src="/images/sampledata-light.png" alt="PgDesigner sample data generation dialog showing INSERT statements with realistic values in light theme" loading="eager" width="1280" height="800" class="w-full" />
+      <img src="/images/sampledata-light.png" alt="PgDesigner sample data generation dialog showing INSERT statements with realistic values in light theme" loading="lazy" width="1280" height="847" class="w-full" />
     </picture>
   </div>
 </div>
@@ -32,8 +32,8 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
     <p class="text-sm text-muted">Kahn's topological sort on the FK graph. Parent tables are always populated first. Deterministic ordering with lexicographic tie-breaking.</p>
   </div>
   <div class="rounded-lg bg-surface-alt border border-border-default p-4">
-    <h3 class="text-sm font-semibold text-heading mb-1">3-level column mapping</h3>
-    <p class="text-sm text-muted">Per-column override → name heuristic (30 patterns) → type fallback (35+ types). The first match wins.</p>
+    <h3 class="text-sm font-semibold text-heading mb-1">Layered column mapping</h3>
+    <p class="text-sm text-muted">Constraints first, then name heuristic (30+ patterns), then type fallback. The first match wins. Per-column overrides are available in the Go API.</p>
   </div>
   <div class="rounded-lg bg-surface-alt border border-border-default p-4">
     <h3 class="text-sm font-semibold text-heading mb-1">Circular FK handling</h3>
@@ -43,9 +43,13 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
     <h3 class="text-sm font-semibold text-heading mb-1">Batch INSERT</h3>
     <p class="text-sm text-muted">100-row batches by default. Wrapped in BEGIN/COMMIT transaction. OVERRIDING SYSTEM VALUE for identity columns.</p>
   </div>
+  <div class="rounded-lg bg-surface-alt border border-border-default p-4 sm:col-span-2">
+    <h3 class="text-sm font-semibold text-heading mb-1">Constraint-aware</h3>
+    <p class="text-sm text-muted"><code>CHECK (status IN (…))</code> picks from the allowed values, <code>CHECK (col &gt;= N AND col &lt;= M)</code> stays in range, single and composite UNIQUE constraints are never violated, and partitioned tables get values inside the partition bounds.</p>
+  </div>
 </div>
 
-<h2>30 name heuristics — realistic values from column names</h2>
+<h2>30+ name heuristics — realistic values from column names</h2>
 
 <p>Column named <code>email</code>? You get <code>john.doe@example.com</code>. Column named <code>price</code>? You get <code>29.99</code>. Timestamps are coherent: <code>updated_at</code> is always after <code>created_at</code> within the same row.</p>
 
@@ -76,9 +80,9 @@ import FeatureLayout from "@/layouts/FeatureLayout.astro";
 
 <p>Status tables (<code>statuses</code>, <code>*_status</code>) get well-known values: <code>1=enabled</code>, <code>2=disabled</code>, <code>3=deleted</code>.</p>
 
-<h2>35+ type mappings</h2>
+<h2>Type fallbacks</h2>
 
-<p>Every PostgreSQL type gets a sensible default: <code>uuid</code> → UUID v4, <code>jsonb</code> → <code>'{"{}"}'</code>, <code>inet</code> → IP address, <code>point</code> → coordinates, <code>int4range</code> → range literal, <code>tsvector</code> → text search vector. Enums pick a random label. Domains resolve to their base type. Arrays generate 1–3 elements.</p>
+<p>Every PostgreSQL type gets a sensible default: <code>uuid</code> → UUID v4, <code>jsonb</code> → <code>'&#123;"key_1": "word"&#125;'</code>, <code>inet</code> → IP address, <code>point</code> → coordinates, <code>int4range</code> → range literal, <code>tsvector</code> → text search vector. Enums pick a random label. Domains resolve to their base type. Arrays generate 1–3 elements.</p>
 
 <p>Partition-aware: for <code>PARTITION BY RANGE</code> and <code>PARTITION BY LIST</code>, generated values fall within valid partition bounds.</p>
 
