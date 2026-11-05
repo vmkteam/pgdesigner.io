@@ -8,7 +8,7 @@ import { comparePages } from "@/data/navigation";
 
 <Layout
   title="PgDesigner vs dbdiagram.io — Comparison"
-  description="Compare PgDesigner and dbdiagram.io for PostgreSQL schema design. Offline-first vs SaaS. Free and open source vs $9/mo. Diff engine, 69 lint rules, sample data vs DBML cloud diagrams.">
+  description="Compare PgDesigner and dbdiagram.io for PostgreSQL schema design. Offline-first vs SaaS. Free and open source vs $8/mo. Diff engine, 69 lint rules, sample data vs DBML cloud diagrams.">
 
   <Subnav items={comparePages} />
 
@@ -44,15 +44,15 @@ import { comparePages } from "@/data/navigation";
           </thead>
           <tbody>
             <tr><td>Offline / local</td><td style="text-align:center">Yes (single binary)</td><td style="text-align:center">No (SaaS, cloud storage)</td></tr>
-            <tr><td>Database focus</td><td style="text-align:center">PostgreSQL only</td><td style="text-align:center">PG, MySQL (generic DBML)</td></tr>
+            <tr><td>Database focus</td><td style="text-align:center">PostgreSQL only</td><td style="text-align:center">Generic DBML (PG, MySQL, SQL Server, Oracle)</td></tr>
             <tr><td>Schema format</td><td style="text-align:center">.pgd XML (git-friendly)</td><td style="text-align:center">DBML (text DSL)</td></tr>
             <tr><td>Visual ERD editor</td><td style="text-align:center">Yes (drag & drop)</td><td style="text-align:center">Yes (code → diagram)</td></tr>
-            <tr><td>Diff/ALTER engine</td><td style="text-align:center">Yes (10 hazard codes)</td><td style="text-align:center">No</td></tr>
-            <tr><td>Schema lint</td><td style="text-align:center">69 rules, 15 autofix</td><td style="text-align:center">No</td></tr>
-            <tr><td>Sample data generator</td><td style="text-align:center">Yes (30 heuristics)</td><td style="text-align:center">No</td></tr>
+            <tr><td>Diff/ALTER engine</td><td style="text-align:center">Yes (10 hazard codes)</td><td style="text-align:center">No ALTER; schema changelog for published docs</td></tr>
+            <tr><td>Schema lint</td><td style="text-align:center">69 rules, 15 autofix</td><td style="text-align:center">DBML syntax validation</td></tr>
+            <tr><td>Sample data generator</td><td style="text-align:center">Yes (FK-aware, 30+ heuristics)</td><td style="text-align:center">Example rows you enter → INSERTs</td></tr>
             <tr><td>Import SQL scripts</td><td style="text-align:center">Yes (PG parser + live DB)</td><td style="text-align:center">Yes (PG, MySQL scripts)</td></tr>
-            <tr><td>Export SQL</td><td style="text-align:center">Yes (15-phase DDL)</td><td style="text-align:center">Yes (basic DDL)</td></tr>
-            <tr><td>CLI for CI/CD</td><td style="text-align:center">Yes</td><td style="text-align:center">No</td></tr>
+            <tr><td>Export SQL</td><td style="text-align:center">Yes (dependency-ordered DDL)</td><td style="text-align:center">Yes (basic DDL)</td></tr>
+            <tr><td>CLI for CI/CD</td><td style="text-align:center">Yes (lint, diff, generate, testdata)</td><td style="text-align:center">Yes (sync diagrams, publish docs)</td></tr>
             <tr><td>VS Code extension</td><td style="text-align:center">No</td><td style="text-align:center">Yes (DBML preview)</td></tr>
             <tr><td>Data stays local</td><td style="text-align:center">Yes (your disk)</td><td style="text-align:center">No (their servers)</td></tr>
           </tbody>
@@ -69,14 +69,14 @@ import { comparePages } from "@/data/navigation";
             </tr>
           </thead>
           <tbody>
-            <tr><td>Free tier</td><td style="text-align:center">Everything, Apache-2.0</td><td style="text-align:center">10 diagrams (<strong>public only</strong>)</td></tr>
-            <tr><td>Individual</td><td style="text-align:center"><strong>Free</strong></td><td style="text-align:center">$9/mo ($108/yr)</td></tr>
-            <tr><td>Team</td><td style="text-align:center"><strong>Free</strong> (any size)</td><td style="text-align:center">$9/mo per user</td></tr>
-            <tr><td>1 year cost (5 devs)</td><td style="text-align:center">$0</td><td style="text-align:center">$540</td></tr>
+            <tr><td>Free tier</td><td style="text-align:center">Everything, Apache-2.0</td><td style="text-align:center">10 diagrams, single editor</td></tr>
+            <tr><td>Individual</td><td style="text-align:center"><strong>Free</strong></td><td style="text-align:center">Personal Pro: $8/mo billed yearly ($96/yr), $14 month-to-month</td></tr>
+            <tr><td>Team</td><td style="text-align:center"><strong>Free</strong> (any size)</td><td style="text-align:center">$75/mo for 3 editors + $5/mo per extra editor (yearly)</td></tr>
+            <tr><td>1 year cost (5 devs)</td><td style="text-align:center">$0</td><td style="text-align:center">$1,020</td></tr>
           </tbody>
         </table>
 
-        <p><strong>Important:</strong> dbdiagram.io free-tier diagrams are public — anyone with the link can see your schema. Private diagrams require a paid plan.</p>
+        <p class="text-sm">dbdiagram.io prices as listed on <a href="https://dbdiagram.io/pricing">dbdiagram.io/pricing</a> in November 2026.</p>
 
         <h2>Where dbdiagram.io is stronger</h2>
 
@@ -85,20 +85,21 @@ import { comparePages } from "@/data/navigation";
           <li><strong>DBML format</strong> — text-based DSL that's easy to type, version, and share. VS Code extension for inline preview</li>
           <li><strong>Quick prototyping</strong> — fastest way to sketch a schema for a new project</li>
           <li><strong>Team collaboration</strong> — real-time cloud editing with shared diagrams</li>
-          <li><strong>Export options</strong> — SQL, PDF, PNG for documentation</li>
+          <li><strong>Export options</strong> — SQL, PDF, PNG, SVG for documentation</li>
+          <li><strong>Published docs</strong> — dbdocs pages with a schema changelog, synced from CI by the dbdiagram CLI</li>
         </ul>
 
         <h2>Where PgDesigner is stronger</h2>
 
         <ul>
           <li><strong>Data stays local</strong> — your schema never leaves your machine. Critical for security/compliance</li>
-          <li><strong>Diff & migrations</strong> — compare schemas → safe ALTER SQL with hazard warnings. dbdiagram.io has no diff engine</li>
-          <li><strong>69 lint rules</strong> — structural errors, best practices, antipatterns with autofix. dbdiagram.io has no validation</li>
-          <li><strong>Sample data generator</strong> — FK-aware, 30 heuristics, seeded. Not available in dbdiagram.io</li>
+          <li><strong>Diff & migrations</strong> — compare schemas → safe ALTER SQL with hazard warnings. dbdiagram.io doesn't generate migrations</li>
+          <li><strong>69 lint rules</strong> — structural errors, best practices, antipatterns with autofix. dbdiagram.io validates DBML syntax only</li>
+          <li><strong>Sample data generator</strong> — FK-aware, 30+ heuristics, seeded, for the whole schema. dbdiagram.io turns example rows you type in into INSERTs</li>
           <li><strong>PostgreSQL depth</strong> — 70+ types, partitions, IDENTITY, domains, temporal. DBML supports basic types only</li>
-          <li><strong>Free and open source</strong> — Apache-2.0, no per-seat fees, private by default. dbdiagram.io Pro is $108/yr per user</li>
-          <li><strong>CLI for CI/CD</strong> — lint, diff, generate in your pipeline. dbdiagram.io is UI-only</li>
-          <li><strong>Live DB reverse engineering</strong> — connect to PostgreSQL, extract full schema. dbdiagram.io imports SQL text only</li>
+          <li><strong>Free and open source</strong> — Apache-2.0, no per-seat fees, private by default. dbdiagram.io Personal Pro is $96/yr, Team starts at $900/yr</li>
+          <li><strong>CLI for CI/CD</strong> — lint, diff, generate in your pipeline. The dbdiagram CLI syncs diagrams and publishes docs, but doesn't lint or generate migrations</li>
+          <li><strong>Live DB reverse engineering</strong> — connect to PostgreSQL from the app or CLI: tables, indexes, constraints, partitions, plus views, functions and triggers with <code>-full</code></li>
         </ul>
 
         <h2>Honest assessment</h2>

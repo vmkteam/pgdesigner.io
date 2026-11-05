@@ -3,13 +3,13 @@ import Container from "@/components/container.astro";
 
 const rows = [
   { feature: "PG-specialized", pg: true, pgm: true, draw: false, atlas: false },
-  { feature: "Git-friendly format", pg: true, pgm: false, draw: false, atlas: true },
-  { feature: "Diff/ALTER engine", pg: true, pgm: true, draw: false, atlas: "Partial" },
-  { feature: "Hazard detection", pg: true, pgm: false, draw: false, atlas: "Partial" },
-  { feature: "69 lint rules", pg: true, pgm: "Basic", draw: false, atlas: "3 rules" },
+  { feature: "Git-friendly format", pg: true, pgm: "Plus (split model)", draw: false, atlas: true },
+  { feature: "Diff/ALTER engine", pg: true, pgm: "Plus", draw: "Basic", atlas: true },
+  { feature: "Hazard detection", pg: true, pgm: false, draw: false, atlas: "Pro (migration lint)" },
+  { feature: "Schema lint", pg: "69 rules", pgm: "Model validation", draw: false, atlas: "Pro (migration lint)" },
   { feature: "Sample data generator", pg: true, pgm: false, draw: false, atlas: false },
-  { feature: "Visual ERD", pg: true, pgm: "Partial", draw: true, atlas: false },
-  { feature: "Price (individual)", pg: "Free (Apache-2.0)", pgm: "$49.90", draw: "Free", atlas: "$9/dev/mo" },
+  { feature: "Visual ERD", pg: true, pgm: true, draw: true, atlas: "Pro (cloud)" },
+  { feature: "Price (individual)", pg: "Free (Apache-2.0)", pgm: "Plus from $65.90 / 6 mo", draw: "Free", atlas: "Pro $9/dev/mo" },
 ];
 
 function renderCell(val: boolean | string) {
@@ -25,18 +25,18 @@ function renderCell(val: boolean | string) {
       How PgDesigner Compares
     </h2>
     <p class="text-center text-muted mb-10 max-w-lg mx-auto">
-      The only tool that combines PG specialization, git-friendly format, diff engine, and modern visual UI.
+      PG specialization, a git-friendly format, a diff engine with hazard detection, and a visual editor — with no paid edition.
     </p>
     <div class="overflow-x-auto rounded-xl border border-border-default">
       <table class="w-full text-sm">
-        <caption class="sr-only">Feature comparison: PgDesigner vs pgModeler, DrawDB, and Atlas CE</caption>
+        <caption class="sr-only">Feature comparison: PgDesigner vs pgModeler, DrawDB, and Atlas</caption>
         <thead>
           <tr class="bg-surface-alt">
             <th class="py-3.5 px-5 text-left font-semibold text-heading">Feature</th>
             <th class="py-3.5 px-5 text-center font-semibold text-accent-text">PgDesigner</th>
             <th class="py-3.5 px-5 text-center font-semibold text-muted">pgModeler</th>
             <th class="py-3.5 px-5 text-center font-semibold text-muted">DrawDB</th>
-            <th class="py-3.5 px-5 text-center font-semibold text-muted">Atlas CE</th>
+            <th class="py-3.5 px-5 text-center font-semibold text-muted">Atlas</th>
           </tr>
         </thead>
         <tbody>

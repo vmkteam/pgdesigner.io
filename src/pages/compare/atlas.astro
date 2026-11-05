@@ -44,13 +44,13 @@ import { comparePages } from "@/data/navigation";
             </tr>
           </thead>
           <tbody>
-            <tr><td>Visual ERD editor</td><td style="text-align:center">Yes</td><td style="text-align:center">No (CLI only)</td><td style="text-align:center">No</td></tr>
-            <tr><td>Database focus</td><td style="text-align:center">PostgreSQL only</td><td style="text-align:center">PG, MySQL, SQLite, MSSQL</td><td style="text-align:center">15+ databases</td></tr>
+            <tr><td>Visual ERD editor</td><td style="text-align:center">Yes</td><td style="text-align:center">No (CLI only)</td><td style="text-align:center">Read-only ERD in Atlas Cloud</td></tr>
+            <tr><td>Database focus</td><td style="text-align:center">PostgreSQL only</td><td style="text-align:center">PG, MySQL, MariaDB, SQLite</td><td style="text-align:center">15+ databases</td></tr>
             <tr><td>Schema format</td><td style="text-align:center">.pgd XML (visual)</td><td style="text-align:center">HCL / SQL</td><td style="text-align:center">HCL / SQL / ORM</td></tr>
             <tr><td>Diff/ALTER engine</td><td style="text-align:center">Yes</td><td style="text-align:center">Yes</td><td style="text-align:center">Yes</td></tr>
-            <tr><td>Hazard detection</td><td style="text-align:center">6 codes</td><td style="text-align:center">Basic</td><td style="text-align:center">Migration linting</td></tr>
-            <tr><td>Schema lint rules</td><td style="text-align:center">69 (15 autofix)</td><td style="text-align:center">Limited</td><td style="text-align:center">Policy & governance</td></tr>
-            <tr><td>Sample data generator</td><td style="text-align:center">Yes (30 heuristics)</td><td style="text-align:center">No</td><td style="text-align:center">Seed data (v1.1+)</td></tr>
+            <tr><td>Hazard detection</td><td style="text-align:center">10 hazard codes</td><td style="text-align:center">No (<code>migrate lint</code> not in CE)</td><td style="text-align:center">Migration linting, incl. PG lock/rewrite checks</td></tr>
+            <tr><td>Schema lint rules</td><td style="text-align:center">69 (15 autofix)</td><td style="text-align:center">No</td><td style="text-align:center">Policy & governance</td></tr>
+            <tr><td>Sample data generator</td><td style="text-align:center">Yes (30+ heuristics)</td><td style="text-align:center">No</td><td style="text-align:center">Seed data (v1.1+)</td></tr>
             <tr><td>Security as Code (RLS)</td><td style="text-align:center">DDL generation</td><td style="text-align:center">No</td><td style="text-align:center">Yes (v1.1+)</td></tr>
             <tr><td>CI/CD integration</td><td style="text-align:center">CLI + scripts</td><td style="text-align:center">CLI</td><td style="text-align:center">Native (GitHub, GitLab)</td></tr>
             <tr><td>Drift detection</td><td style="text-align:center">No</td><td style="text-align:center">No</td><td style="text-align:center">Yes</td></tr>
@@ -71,7 +71,7 @@ import { comparePages } from "@/data/navigation";
           <tbody>
             <tr><td>Individual</td><td style="text-align:center"><strong>Free</strong> (Apache-2.0)</td><td style="text-align:center">$9/dev/mo</td></tr>
             <tr><td>CI/CD</td><td style="text-align:center">Included</td><td style="text-align:center">$59/project/mo</td></tr>
-            <tr><td>Per database</td><td style="text-align:center">Included</td><td style="text-align:center">$39/DB/mo (3+ DBs)</td></tr>
+            <tr><td>Per database</td><td style="text-align:center">Included</td><td style="text-align:center">$39/DB/mo beyond 2 per project</td></tr>
             <tr><td>Team of 5, 1yr</td><td style="text-align:center"><strong>$0</strong></td><td style="text-align:center">$540+/yr minimum</td></tr>
             <tr><td>Free tier</td><td style="text-align:center">Everything, Apache-2.0</td><td style="text-align:center">Starter (limited)</td></tr>
           </tbody>
@@ -98,10 +98,10 @@ import { comparePages } from "@/data/navigation";
         <h2>Where PgDesigner is stronger</h2>
 
         <ul>
-          <li><strong>Visual ERD</strong> — interactive canvas, auto-layout, minimap. Atlas has no visual editor</li>
-          <li><strong>Price</strong> — free and open source (Apache-2.0) vs $9/dev/mo + $59/CI/mo + $39/DB/mo. For a team of 5 with 1 CI project: $0 vs $540+/yr</li>
-          <li><strong>69 lint rules</strong> — structural errors, best practices, antipatterns. All in the open-source build. Atlas CE has limited linting</li>
-          <li><strong>Sample data generator</strong> — FK-aware, 30 heuristics, seeded. Atlas has no equivalent in CE</li>
+          <li><strong>Visual ERD</strong> — interactive canvas, auto-layout, minimap. Atlas renders read-only ERDs in its cloud, but has no visual editor</li>
+          <li><strong>Price</strong> — free and open source (Apache-2.0) vs $9/dev/mo + $59/CI/mo + $39/DB/mo. For a team of 5 with 1 CI project: $0 vs $1,248/yr ($540 for seats + $708 for CI)</li>
+          <li><strong>69 lint rules and hazard codes</strong> — structural errors, best practices, antipatterns, risky ALTERs. All in the open-source build. In Atlas, migration linting is a Pro feature; Community Edition has none</li>
+          <li><strong>Sample data generator</strong> — FK-aware, 30+ heuristics, seeded. Atlas has no equivalent in CE</li>
           <li><strong>PostgreSQL depth</strong> — 70+ types, partitions, temporal, IDENTITY, domains. Atlas abstracts PG behind multi-DB HCL</li>
           <li><strong>Import from legacy tools</strong> — MicroOLAP .pdd, DbSchema .dbs, Toad .dm2</li>
           <li><strong>No vendor lock-in</strong> — .pgd is XML, readable by any text editor. No cloud account required</li>

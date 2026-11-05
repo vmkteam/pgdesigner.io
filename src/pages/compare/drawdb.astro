@@ -18,7 +18,7 @@ import { comparePages } from "@/data/navigation";
       <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-heading">
         PgDesigner vs DrawDB
       </h1>
-      <p class="mt-4 text-lg text-body">DrawDB is a popular open-source browser-based ERD editor with 37k+ GitHub stars. It's free, fast to start, and supports 4 databases. Here's how PgDesigner differs.</p>
+      <p class="mt-4 text-lg text-body">DrawDB is a popular open-source browser-based ERD editor with 40k+ GitHub stars. It's free, fast to start, and supports 6 databases. Here's how PgDesigner differs.</p>
 
       <div class="mt-12 prose max-w-none
         prose-headings:text-heading prose-headings:font-semibold
@@ -43,18 +43,18 @@ import { comparePages } from "@/data/navigation";
             </tr>
           </thead>
           <tbody>
-            <tr><td>Database focus</td><td style="text-align:center">PostgreSQL only</td><td style="text-align:center">MySQL, PG, SQLite, MSSQL</td></tr>
+            <tr><td>Database focus</td><td style="text-align:center">PostgreSQL only</td><td style="text-align:center">MySQL, MariaDB, PG, SQLite, SQL Server, Oracle</td></tr>
             <tr><td>Visual ERD editor</td><td style="text-align:center">Yes</td><td style="text-align:center">Yes</td></tr>
-            <tr><td>DDL export</td><td style="text-align:center">Yes (15-phase sort)</td><td style="text-align:center">Yes (multi-dialect)</td></tr>
-            <tr><td>Diff/ALTER engine</td><td style="text-align:center">Yes (10 hazard codes)</td><td style="text-align:center">No</td></tr>
+            <tr><td>DDL export</td><td style="text-align:center">Yes (19-step dependency order)</td><td style="text-align:center">Yes (multi-dialect)</td></tr>
+            <tr><td>Diff/ALTER engine</td><td style="text-align:center">Yes — models, git versions, live DB; 10 hazard codes</td><td style="text-align:center">Beta, paid Pro — between saved diagram versions, no hazard checks</td></tr>
             <tr><td>Schema lint</td><td style="text-align:center">69 rules, 15 autofix</td><td style="text-align:center">Basic validation</td></tr>
-            <tr><td>Sample data generator</td><td style="text-align:center">Yes (30 heuristics)</td><td style="text-align:center">No</td></tr>
+            <tr><td>Sample data generator</td><td style="text-align:center">Yes (30+ heuristics)</td><td style="text-align:center">No</td></tr>
             <tr><td>Reverse engineering</td><td style="text-align:center">Yes (live DB + SQL import)</td><td style="text-align:center">DDL import only</td></tr>
-            <tr><td>Git-friendly format</td><td style="text-align:center">Yes (.pgd XML, split-model)</td><td style="text-align:center">No (JSON blob)</td></tr>
+            <tr><td>Git-friendly format</td><td style="text-align:center">Yes (.pgd XML, one attribute change per line)</td><td style="text-align:center">No (JSON blob)</td></tr>
             <tr><td>PG-specific types</td><td style="text-align:center">70+ types, partitions, IDENTITY, temporal</td><td style="text-align:center">Basic PG types</td></tr>
             <tr><td>CLI for CI/CD</td><td style="text-align:center">Yes</td><td style="text-align:center">No</td></tr>
             <tr><td>Offline / self-hosted</td><td style="text-align:center">Yes (single binary)</td><td style="text-align:center">Yes (Docker / static)</td></tr>
-            <tr><td>Price</td><td style="text-align:center">Free (Apache-2.0)</td><td style="text-align:center">Free (AGPL-3.0)</td></tr>
+            <tr><td>Price</td><td style="text-align:center">Free (Apache-2.0)</td><td style="text-align:center">Free (AGPL-3.0); cloud Pro plans paid</td></tr>
           </tbody>
         </table>
 
@@ -65,9 +65,10 @@ import { comparePages } from "@/data/navigation";
         <h2>Where DrawDB is stronger</h2>
 
         <ul>
-          <li><strong>Multi-database</strong> — supports MySQL, PostgreSQL, SQLite, and MSSQL in one tool</li>
+          <li><strong>Multi-database</strong> — supports MySQL, MariaDB, PostgreSQL, SQLite, SQL Server, and Oracle in one tool</li>
           <li><strong>Zero friction start</strong> — open the browser, start designing. No download, no account</li>
-          <li><strong>37k+ GitHub stars</strong> — large community, active development</li>
+          <li><strong>40k+ GitHub stars</strong> — large community, active development</li>
+          <li><strong>Cloud collaboration</strong> — Pro adds cloud sync, live collaboration and version history with migration scripts</li>
           <li><strong>Real-time validation</strong> — detects circular references, orphaned tables, duplicate columns as you design</li>
           <li><strong>Templates</strong> — pre-built schema templates to start faster</li>
         </ul>
@@ -76,18 +77,18 @@ import { comparePages } from "@/data/navigation";
 
         <ul>
           <li><strong>PostgreSQL depth</strong> — 70+ types, partitions (RANGE/LIST/HASH), temporal constraints, virtual generated columns, IDENTITY, domains, composite types. DrawDB supports basic PG types</li>
-          <li><strong>Diff & migrations</strong> — compare two schemas → safe ALTER SQL with 10 hazard warnings. DrawDB has no diff engine</li>
+          <li><strong>Diff & migrations</strong> — compare any two schemas (files, git versions or a live database) → safe ALTER SQL with 10 hazard codes, free and in the CLI. DrawDB generates migrations only between saved versions of a cloud diagram, in paid Pro, in beta</li>
           <li><strong>69 lint rules</strong> — FK type mismatches, missing indexes, naming conventions, antipatterns. 15 with autofix. DrawDB has basic validation</li>
-          <li><strong>Sample data generator</strong> — FK-aware, 30 name heuristics, seeded. DrawDB has no data generation</li>
-          <li><strong>Live database reverse engineering</strong> — connect via pg_catalog, extract full schema. DrawDB imports DDL text only</li>
-          <li><strong>Git-friendly format</strong> — single-line diffs, split-model. DrawDB's JSON blob changes entirely on every save</li>
+          <li><strong>Sample data generator</strong> — FK-aware, 30+ name heuristics, seeded. DrawDB has no data generation</li>
+          <li><strong>Live database reverse engineering</strong> — read tables, indexes, constraints and partitions from pg_catalog; views, functions and triggers with <code>-full</code>. DrawDB imports DDL text only</li>
+          <li><strong>Git-friendly format</strong> — readable single-line diffs in pull requests. DrawDB's JSON blob changes entirely on every save</li>
           <li><strong>CLI for CI/CD</strong> — lint, diff, generate, testdata in your pipeline. DrawDB is UI-only</li>
           <li><strong>Round-trip tested</strong> — 99.7% fidelity on 630+ tables. DrawDB doesn't publish accuracy metrics</li>
         </ul>
 
         <h2>Honest assessment</h2>
 
-        <p>If you need a quick, free ERD editor that works with MySQL and PostgreSQL — DrawDB is excellent. If your production database is PostgreSQL and you need migrations, linting, and a CI/CD workflow — PgDesigner is purpose-built for that. Both are free — PgDesigner adds the depth: diff engine, hazard detection, 69 lint rules, and sample data generation that DrawDB doesn't offer.</p>
+        <p>If you need a quick, free ERD editor that works with MySQL and PostgreSQL — DrawDB is excellent. If your production database is PostgreSQL and you need migrations, linting, and a CI/CD workflow — PgDesigner is purpose-built for that. Both are free — PgDesigner adds the PostgreSQL depth: a free diff engine with hazard detection, 69 lint rules, and sample data generation.</p>
 
       </div>
 
