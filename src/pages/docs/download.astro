@@ -3,7 +3,7 @@ import DocsLayout from "@/layouts/DocsLayout.astro";
 ---
 <DocsLayout
   title="Download PgDesigner — PostgreSQL Schema Designer"
-  description="Download PgDesigner for macOS, Linux, or Windows. Single statically-linked binary, zero dependencies. Install via Homebrew or download from GitHub Releases. Free and open source (Apache-2.0).">
+  description="Download PgDesigner for macOS, Linux or Windows: a single static binary via Homebrew, GitHub Releases or Docker. Free and open source (Apache-2.0).">
 
 <h2>Homebrew (macOS / Linux)</h2>
 
@@ -45,34 +45,37 @@ pgdesigner --version</code></pre>
 
 <h2>Docker</h2>
 
-<p>Run PgDesigner in a container — useful for CI/CD pipelines and headless environments:</p>
+<p>The image runs the CLI — useful for CI/CD pipelines. Mount your project to <code>/work</code>, the working directory:</p>
 
-<pre><code># Pull the latest image
-docker pull ghcr.io/vmkteam/pgdesigner:latest
+<pre><code># Lint (exit code 1 on errors)
+docker run --rm -v "$(pwd)":/work ghcr.io/vmkteam/pgdesigner:latest lint -s error schema.pgd
 
-# Run with a local project directory
-docker run --rm -v $(pwd):/work -p 8080:8080 ghcr.io/vmkteam/pgdesigner:latest
+# Migration between two versions of the model
+docker run --rm -v "$(pwd)":/work ghcr.io/vmkteam/pgdesigner:latest diff old.pgd schema.pgd
 
-# Lint only (no UI)
-docker run --rm -v $(pwd):/work ghcr.io/vmkteam/pgdesigner:latest lint /work/schema.pgd</code></pre>
+# DDL
+docker run --rm -v "$(pwd)":/work ghcr.io/vmkteam/pgdesigner:latest generate -o schema.sql schema.pgd</code></pre>
 
-<p>Available tags: <code>latest</code>, <code>x.y.z</code> (specific version). Images are published for <code>linux/amd64</code> and <code>linux/arm64</code>.</p>
+<p>The visual editor binds to <code>127.0.0.1</code> and opens your browser, so run it from a native install rather than the container.</p>
+
+<p>Available tags: <code>latest</code>, <code>vX.Y.Z</code> (specific version). Images are published for <code>linux/amd64</code> and <code>linux/arm64</code>.</p>
 
 <h2>Build from source</h2>
 
-<p>Requires Go 1.24+ and pnpm:</p>
+<p>Requires Go 1.25+, Node.js and pnpm. The frontend is embedded into the binary, so build it first:</p>
 
 <pre><code>git clone https://github.com/vmkteam/pgdesigner.git
 cd pgdesigner
-make build</code></pre>
+(cd frontend &amp;&amp; pnpm install)
+make build-full</code></pre>
 
-<p>The binary is at <code>./bin/pgdesigner</code>. PgDesigner is open source under the <a href="https://github.com/vmkteam/pgdesigner/blob/master/LICENSE">Apache License 2.0</a> — free for any use, including commercial.</p>
+<p>The binary is at <code>./pgdesigner</code>. PgDesigner is open source under the <a href="https://github.com/vmkteam/pgdesigner/blob/master/LICENSE">Apache License 2.0</a> — free for any use, including commercial.</p>
 
 <h2>System requirements</h2>
 
 <ul>
   <li><strong>OS:</strong> macOS 12+, Linux (any — static binary, no glibc dependency), Windows 10+</li>
-  <li><strong>Disk:</strong> ~30 MB for the binary</li>
+  <li><strong>Disk:</strong> ~25 MB for the binary</li>
   <li><strong>Browser:</strong> Chrome, Firefox, Safari, Edge (for the UI)</li>
   <li><strong>Dependencies:</strong> None — single statically-linked binary</li>
 </ul>

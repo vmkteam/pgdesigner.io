@@ -3,17 +3,17 @@ import DocsLayout from "@/layouts/DocsLayout.astro";
 ---
 <DocsLayout
   title="Lint Rules Reference — PostgreSQL Schema Validation"
-  description="Complete reference for all 69 PgDesigner lint rules: 33 errors, 23 warnings, 13 info checks. Every rule code, description, and autofix status. FK mismatches, missing indexes, naming conventions, antipatterns.">
+  description="All 69 PgDesigner lint rules: 33 errors, 23 warnings, 13 info checks, with codes, descriptions and autofix status. FK mismatches, missing indexes, naming.">
 
   <p>
     PgDesigner validates your schema against 69 built-in lint rules grouped into three severity levels.
-    <strong>Errors</strong> block DDL generation. <strong>Warnings</strong> indicate valid but likely
+    <strong>Errors</strong> mark an invalid model — broken references, duplicates, constructs PostgreSQL rejects; <code>pgdesigner lint</code> exits with code 1 when it finds one, so they fail CI. <strong>Warnings</strong> indicate valid but likely
     problematic constructs. <strong>Info</strong> rules are suggestions for best practices. Rules marked
     as fixable can be resolved automatically using the autofix action.
   </p>
 
   <h2>Errors (E)</h2>
-  <p>33 rules — block DDL generation.</p>
+  <p>33 rules — the model is invalid; <code>lint</code> exits with code 1.</p>
   <table>
     <thead>
       <tr>
@@ -55,7 +55,7 @@ import DocsLayout from "@/layouts/DocsLayout.astro";
       <tr><td>E030</td><td>view has no query</td><td>—</td></tr>
       <tr><td>E031</td><td>table has multiple identity columns (PG allows only one)</td><td>—</td></tr>
       <tr><td>E032</td><td>PK/UNIQUE must include all partition key columns</td><td>—</td></tr>
-      <tr><td>E033</td><td>generated column has an empty expression</td><td>—</td></tr>
+      <tr><td>E033</td><td>generated column has an empty expression attribute</td><td>—</td></tr>
     </tbody>
   </table>
 
@@ -92,7 +92,7 @@ import DocsLayout from "@/layouts/DocsLayout.astro";
       <tr><td>W021</td><td>feature requires newer PostgreSQL version</td><td>—</td></tr>
       <tr><td>W022</td><td>partition bound overlaps with sibling</td><td>—</td></tr>
       <tr><td>W023</td><td>index expression holds several comma-separated keys</td><td>—</td></tr>
-      <tr><td>W024</td><td>column type from a non-public schema written without the schema</td><td>—</td></tr>
+      <tr><td>W024</td><td>column type is defined only in a non-public schema and is written without it</td><td>—</td></tr>
     </tbody>
   </table>
 

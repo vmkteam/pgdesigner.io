@@ -3,7 +3,7 @@ import DocsLayout from "@/layouts/DocsLayout.astro";
 ---
 <DocsLayout
   title="CLI Reference — PgDesigner PostgreSQL Tools"
-  description="Complete PgDesigner CLI reference: generate DDL, diff schemas, lint with 69 rules, generate test data, import from .pdd/.dbs/.dm2/.sql. All commands, flags, exit codes, and examples.">
+  description="PgDesigner CLI reference: generate DDL, diff schemas, lint with 69 rules, merge models, generate test data, import .pdd/.dbs/.dm2/.sql. All flags and exit codes.">
 
 <h2>Usage</h2>
 
@@ -15,9 +15,23 @@ import DocsLayout from "@/layouts/DocsLayout.astro";
 
 <h3>pgdesigner (no command)</h3>
 
-<p>Opens the visual editor in your default browser.</p>
+<p>Starts a local server on <code>127.0.0.1</code> and opens the visual editor in your default browser. Without a file it shows the Welcome Screen with sample schemas, recent files and import. The server stops when the browser tab closes.</p>
 
-<pre><code>pgdesigner schema.pgd</code></pre>
+<pre><code>pgdesigner
+pgdesigner schema.pgd
+pgdesigner "postgres://localhost/mydb" -schema public -full
+pgdesigner -read-only -port 8080 schema.pgd</code></pre>
+
+<table>
+  <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>-port</code></td><td>random</td><td>Fixed port for the local server</td></tr>
+    <tr><td><code>-read-only</code></td><td><code>false</code></td><td>Disable all write operations (the public demo runs in this mode)</td></tr>
+    <tr><td><code>-app</code></td><td><code>false</code></td><td>Open in Chrome/Chromium app mode, without the address bar</td></tr>
+    <tr><td><code>-schema</code></td><td>all</td><td>Schemas to read when opening a database (comma-separated)</td></tr>
+    <tr><td><code>-full</code></td><td><code>false</code></td><td>Also read views, functions, triggers and types when opening a database</td></tr>
+  </tbody>
+</table>
 
 <h3>generate</h3>
 
@@ -107,12 +121,32 @@ pgdesigner convert "postgres://localhost/mydb" -schema public,billing -full</cod
 
 <p>Supported inputs: <code>.pdd</code> (MicroOLAP), <code>.dbs</code> (DbSchema), <code>.dm2</code> (Toad), <code>.sql</code> (pg_dump), PostgreSQL connection string.</p>
 
+<h3>merge</h3>
+
+<p>Merge two or more schemas into one <code>.pgd</code> — for example, combine models of separate services, or a model with a fresh import from the database. Inputs can be any supported format; files are merged left to right, and the later file wins on conflicts.</p>
+
+<pre><code>pgdesigner merge -o merged.pgd base.pgd overlay.pgd
+pgdesigner merge -o all.pgd -layout base users.pgd billing.sql orders.pdd</code></pre>
+
+<table>
+  <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>-o</code></td><td><code>merged.pgd</code></td><td>Output .pgd file</td></tr>
+    <tr><td><code>-layout</code></td><td><code>both</code></td><td>Where diagram positions come from: <code>both</code>, <code>base</code> or <code>overlay</code></td></tr>
+    <tr><td><code>-name</code></td><td>last file's name</td><td>Project name of the result</td></tr>
+  </tbody>
+</table>
+
+<h3>version</h3>
+
+<pre><code>pgdesigner version</code></pre>
+
 <h2>Exit codes</h2>
 
 <table>
   <thead><tr><th style="text-align:center">Code</th><th>Meaning</th></tr></thead>
   <tbody>
-    <tr><td style="text-align:center"><code>0</code></td><td>Success, including a diff with changes</td></tr>
+    <tr><td style="text-align:center"><code>0</code></td><td>Success, including a diff with changes and lint with only warnings or info</td></tr>
     <tr><td style="text-align:center"><code>1</code></td><td>Lint errors found, missing arguments, file not found or parse error</td></tr>
     <tr><td style="text-align:center"><code>2</code></td><td>Unknown flag</td></tr>
   </tbody>
@@ -125,7 +159,7 @@ pgdesigner convert "postgres://localhost/mydb" -schema public,billing -full</cod
 <ul>
   <li>macOS amd64 + arm64 (signed, notarized)</li>
   <li>Linux amd64 + arm64</li>
-  <li>Windows amd64</li>
+  <li>Windows amd64 + arm64</li>
 </ul>
 
 <div class="not-prose mt-10 pt-6 border-t border-border-default">
