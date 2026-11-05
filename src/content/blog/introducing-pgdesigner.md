@@ -60,6 +60,8 @@ No other tool has all four. pgModeler has 3/4 (no hazard detection, poor git dif
 
 ## Pricing
 
+> **Update (November 2026):** PgDesigner is now open source under Apache-2.0 — free for any use, including commercial. See [PgDesigner is now open source](/blog/pgdesigner-is-now-open-source) and [support plans](/pricing).
+
 Free for non-commercial use — forever. All features, no time limit, no feature gates.
 
 Commercial licenses start at $19 one-time for individuals. That's less than a lunch with your team, and less than half what pgModeler charges.

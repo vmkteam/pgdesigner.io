@@ -3,11 +3,11 @@ import Layout from "@/layouts/Layout.astro";
 import Container from "@/components/container.astro";
 ---
 
-<Layout title="Terms of Service" description="Terms of Service for PgDesigner — visual PostgreSQL schema designer by vmkteam.">
+<Layout title="Terms of Service" description="Terms of Service for PgDesigner — open-source visual PostgreSQL schema designer by vmkteam, and its paid support subscriptions.">
   <Container>
     <div class="max-w-3xl mx-auto pt-16 pb-24 prose-custom">
       <h1 class="text-4xl font-bold tracking-tight text-heading">Terms of Service</h1>
-      <p class="mt-2 text-sm text-muted">Last updated: April 3, 2026</p>
+      <p class="mt-2 text-sm text-muted">Last updated: November 5, 2026</p>
 
       <div class="mt-10 space-y-8 text-body text-sm leading-relaxed">
         <section>
@@ -22,50 +22,49 @@ import Container from "@/components/container.astro";
             All references to "vmkteam" on this Website and in related materials refer to MyShows Inc.
           </p>
           <p class="mt-2">
-            By downloading, installing, or using the Software, or by purchasing a license, you agree to these Terms.
-            If you do not agree, do not use the Software.
+            By using the Website or by purchasing a support subscription, you agree to these Terms.
+            Your use of the Software itself is governed by its open-source license (Section 2).
           </p>
         </section>
 
         <section>
           <h2 class="text-lg font-semibold text-heading mb-3">2. License</h2>
-          <h3 class="text-base font-semibold text-heading mb-2">2.1 Free (Non-Commercial) Use</h3>
           <p>
-            The Software source code is available under the
-            <a href="https://polyformproject.org/licenses/noncommercial/1.0.0/" target="_blank" rel="noopener" class="text-accent-text hover:underline">PolyForm Noncommercial License 1.0.0</a>.
-            You may use, copy, and modify the Software free of charge for personal, educational, research, non-profit, and other non-commercial purposes.
+            The Software is open source and licensed under the
+            <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener" class="text-accent-text hover:underline">Apache License, Version 2.0</a>.
+            You may use, copy, modify, and distribute the Software free of charge for any purpose, including commercial use,
+            under the terms of that license. This applies to all releases of the Software, including releases previously
+            distributed under the PolyForm Noncommercial License 1.0.0.
           </p>
-
-          <h3 class="text-base font-semibold text-heading mt-4 mb-2">2.2 Commercial Use</h3>
-          <p>
-            Any use of the Software in a commercial context — including use by for-profit companies, freelancers billing clients,
-            or any activity that generates revenue — requires a paid commercial license purchased through our Website or authorized reseller.
-          </p>
-          <p class="mt-2">Commercial licenses are available in the following tiers:</p>
-          <ul class="mt-2 ml-4 list-disc space-y-1">
-            <li><strong>Individual</strong> — $19 one-time, 1 developer, 1 year of updates. Optional renewal: $9/year.</li>
-            <li><strong>Team</strong> — $49 one-time, up to 5 developers, 1 year of updates. Optional renewal: $29/year.</li>
-            <li><strong>Enterprise</strong> — $149/year, unlimited developers, continuous updates, priority support</li>
-          </ul>
           <p class="mt-2">
-            See the <a href="/pricing" class="text-accent-text hover:underline">Pricing page</a> for full details.
-          </p>
-
-          <h3 class="text-base font-semibold text-heading mt-4 mb-2">2.3 License Scope</h3>
-          <p>
-            Commercial licenses are perpetual for the version purchased. After the included update period expires,
-            you may continue using your current version indefinitely. Renewal is optional and grants access to new releases.
+            If these Terms conflict with the Apache License 2.0 regarding your rights to the Software, the Apache License 2.0 prevails.
           </p>
         </section>
 
         <section>
-          <h2 class="text-lg font-semibold text-heading mb-3">3. Purchases and Payments</h2>
+          <h2 class="text-lg font-semibold text-heading mb-3">3. Support Subscriptions</h2>
           <p>
+            We offer optional paid support subscriptions. A subscription buys access to our support services; it is not required
+            to use the Software and does not change the license of the Software.
+          </p>
+          <ul class="mt-2 ml-4 list-disc space-y-1">
+            <li><strong>Priority Support</strong> — $149/year per company: private email support with a response within 2 business days,
+              priority handling of bugs reported by your team, and help with migrating existing models.</li>
+            <li><strong>Enterprise Support</strong> — from $990/year, by agreement: response within 1 business day, a private chat channel,
+              an onboarding call, and payment by invoice or purchase order.</li>
+          </ul>
+          <p class="mt-2">
+            Response times are targets measured in business days and do not guarantee a fix within that time.
+            Sponsored development of new features is available on a separate quote.
+            See the <a href="/pricing" class="text-accent-text hover:underline">Pricing page</a> for current details.
+          </p>
+          <p class="mt-2">
+            Subscriptions renew annually until cancelled. You can cancel at any time; support continues until the end of the paid period.
+          </p>
+          <p class="mt-2">
             Payments are processed by <a href="https://stripe.com" target="_blank" rel="noopener" class="text-accent-text hover:underline">Stripe</a>.
             By making a purchase, you also agree to
             <a href="https://stripe.com/legal/consumer" target="_blank" rel="noopener" class="text-accent-text hover:underline">Stripe's Consumer Terms</a>.
-          </p>
-          <p class="mt-2">
             Prices are listed in USD and may be subject to applicable taxes depending on your jurisdiction.
           </p>
         </section>
@@ -73,19 +72,20 @@ import Container from "@/components/container.astro";
         <section>
           <h2 class="text-lg font-semibold text-heading mb-3">4. Refund Policy</h2>
           <p>
-            We offer a <strong>30-day money-back guarantee</strong> on all commercial license purchases.
-            If PgDesigner does not meet your needs, contact us at
+            We offer a <strong>30-day money-back guarantee</strong> on support subscriptions.
+            If the subscription does not meet your needs, contact us at
             <a href="mailto:support@pgdesigner.io" class="text-accent-text hover:underline">support@pgdesigner.io</a>
-            within 30 days of purchase for a full refund — no questions asked.
+            within 30 days of payment for a full refund — no questions asked.
           </p>
         </section>
 
         <section>
           <h2 class="text-lg font-semibold text-heading mb-3">5. Intellectual Property</h2>
           <p>
-            The Software, its name, logo, documentation, and website content are the intellectual property of MyShows Inc.
-            Your license grants you the right to use the Software according to the applicable license terms.
-            It does not transfer ownership of any intellectual property.
+            The Software is licensed to you under the Apache License 2.0. The PgDesigner name and logo, documentation, and
+            website content remain the intellectual property of MyShows Inc. The Apache License 2.0 does not grant permission
+            to use the PgDesigner name or logo, except as required for reasonable and customary use in describing the origin
+            of the Software. Forks and derived works should use a different name.
           </p>
         </section>
 
@@ -119,7 +119,7 @@ import Container from "@/components/container.astro";
             use of the Software, even if we have been advised of the possibility of such damages.
           </p>
           <p class="mt-2">
-            Our total liability for any claim arising from these Terms shall not exceed the amount you paid for the Software
+            Our total liability for any claim arising from these Terms shall not exceed the amount you paid us for support subscriptions
             in the twelve (12) months preceding the claim.
           </p>
         </section>
@@ -128,7 +128,7 @@ import Container from "@/components/container.astro";
           <h2 class="text-lg font-semibold text-heading mb-3">9. Changes to These Terms</h2>
           <p>
             We may update these Terms from time to time. The updated version will be posted on this page with a revised
-            "Last updated" date. Continued use of the Software after changes constitutes acceptance of the new Terms.
+            "Last updated" date. Continued use of the Website or support services after changes constitutes acceptance of the new Terms.
           </p>
         </section>
 

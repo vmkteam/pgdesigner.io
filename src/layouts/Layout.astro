@@ -23,7 +23,7 @@ const makeTitle = title
   ? title + " | PgDesigner"
   : "PgDesigner — Visual PostgreSQL Schema Designer";
 
-const seoDescription = description || "Design PostgreSQL schemas visually. Generate production-ready SQL. Compare schemas with safe ALTER migrations. 69 lint rules. Free for non-commercial use.";
+const seoDescription = description || "Design PostgreSQL schemas visually. Generate production-ready SQL. Compare schemas with safe ALTER migrations. 69 lint rules. Free and open source (Apache-2.0).";
 ---
 
 <!doctype html>
@@ -85,22 +85,15 @@ const seoDescription = description || "Design PostgreSQL schemas visually. Gener
         "operatingSystem": "macOS, Windows, Linux",
         "description": "Visual PostgreSQL schema designer with ERD editor, DDL generation, schema diff, ALTER migrations, 69 lint rules, and CLI.",
         "url": "https://pgdesigner.io",
-        "offers": [
-          {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD",
-            "description": "Free for non-commercial use"
-          },
-          {
-            "@type": "Offer",
-            "price": "19",
-            "priceCurrency": "USD",
-            "description": "Individual license, one-time payment"
-          }
-        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "Free and open source under Apache-2.0"
+        },
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
         "screenshot": "https://pgdesigner.io/images/light.png",
-        "softwareVersion": "0.0.6",
+        "softwareVersion": "0.1.0",
         "author": {
           "@type": "Organization",
           "name": "vmkteam",

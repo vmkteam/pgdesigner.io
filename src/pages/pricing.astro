@@ -4,113 +4,102 @@ import Container from "@/components/container.astro";
 
 const plans = [
   {
-    name: "Free",
+    name: "Community",
     price: "$0",
     period: "forever",
-    description: "Non-commercial, personal, education, research, open-source.",
+    description: "Open source under Apache-2.0. Free for any use, including commercial.",
     features: [
       "All features — no limits",
-      "Non-commercial use only",
-      "Build from source (Go + pnpm)",
-      "Community support (GitHub Issues)",
+      "Commercial use included",
+      "Signed binaries via Homebrew & GitHub Releases",
+      "Community support (GitHub Issues & Discussions)",
     ],
     cta: { text: "Download Free", href: "/docs/download" },
     highlight: false,
   },
   {
-    name: "Individual",
-    price: "$19",
-    period: "one-time",
-    description: "Commercial use for a single developer.",
+    name: "Priority Support",
+    price: "$149",
+    period: "/yr per company",
+    description: "For teams that rely on PgDesigner at work.",
     popular: true,
     features: [
-      "All features — no limits",
-      "Commercial use licensed",
-      "Signed binaries (macOS notarized)",
-      "1 year of updates included",
-      "Renewal: $9/yr (optional)",
+      "Private email support",
+      "Response within 2 business days",
+      "Your team's bugs go first in the queue",
+      "Help migrating from pgModeler, MicroOLAP, DbSchema",
+      "Invoice for your accounting",
     ],
-    cta: { text: "Buy License", href: "https://buy.stripe.com/3cIeVebKad9De9k75R33W00" },
+    cta: { text: "Get Priority Support", href: "https://buy.stripe.com/8x200keWm5Hbe9k61N33W01" },
     highlight: true,
   },
   {
-    name: "Team",
-    price: "$49",
-    period: "one-time",
-    description: "Commercial use for up to 5 developers.",
-    features: [
-      "All features — no limits",
-      "Commercial use (up to 5 devs)",
-      "Signed binaries",
-      "1 year of updates included",
-      "Renewal: $29/yr (optional)",
-    ],
-    cta: { text: "Buy License", href: "https://buy.stripe.com/dRmdRa01sb1v5CO4XJ33W02" },
-    highlight: false,
-  },
-  {
-    name: "Enterprise",
-    price: "$149",
+    name: "Enterprise Support",
+    price: "from $990",
     period: "/yr",
-    description: "Unlimited developers, priority support.",
+    description: "For companies that need guaranteed response times.",
     features: [
-      "All features — no limits",
-      "Unlimited developers",
-      "Signed binaries",
-      "Continuous updates",
-      "Priority email support",
+      "Response within 1 business day",
+      "Private chat channel",
+      "Onboarding call for your team",
+      "Priority on the roadmap",
+      "Pay by invoice / PO",
     ],
-    cta: { text: "Buy License", href: "https://buy.stripe.com/8x200keWm5Hbe9k61N33W01" },
+    cta: { text: "Contact Us", href: "mailto:support@pgdesigner.io?subject=Enterprise%20Support" },
     highlight: false,
   },
 ];
 
 const faqs = [
   {
-    q: "What counts as commercial use?",
-    a: "Any use in a company or organization that generates revenue. Freelancers billing clients also need a commercial license. Non-profits and educational institutions can use the Free tier.",
+    q: "Is PgDesigner really free for commercial use?",
+    a: "Yes. PgDesigner is open source under the Apache License 2.0. Use it at work, in CI, for client projects, or in your own product — no license key, no seat count, no registration.",
   },
   {
-    q: "What if I don't renew updates?",
-    a: "Your current version works forever — no lock-out, no time-bomb, no license expiry. You just won't receive new releases. When you're ready, renew and get all updates since your last renewal.",
+    q: "What does Priority Support include?",
+    a: "A private email channel with a response within 2 business days, bugs reported by your team handled first, and help with migrating existing models from pgModeler, MicroOLAP Database Designer, or DbSchema. You get an invoice for your accounting.",
   },
   {
-    q: "Can I build from source for free?",
-    a: "Yes. The source code is available under PolyForm Noncommercial. You need Go 1.22+ and pnpm to build. The $19 license is about convenience (signed binaries, brew install) and commercial rights.",
+    q: "Why pay if the software is free?",
+    a: "You pay for our time, not for the right to use the software: guaranteed responses, faster fixes for the issues that block your team, and a say in what we build next. It also funds PgDesigner's development.",
   },
   {
-    q: "Is there a trial?",
-    a: "The Free tier IS the trial — all features, no time limit, no feature gates. The only restriction is commercial use. Try it for as long as you want.",
+    q: "Can you build a feature we need?",
+    a: "Yes. Sponsored development is available on a custom quote — for example, a new import format or a lint rule specific to your conventions. Sponsored features ship in the open-source release. Email support@pgdesigner.io.",
   },
   {
-    q: "How does this compare to competitors?",
-    a: "pgModeler: from $49.90 per version. Atlas Pro: $9/dev/mo + $59/CI/mo. dbdiagram.io Pro: $9/mo per user. DbSchema: $147 perpetual. PgDesigner: $19 once.",
+    q: "I used PgDesigner under the PolyForm Noncommercial license. What changes?",
+    a: "Nothing you need to do. Every release, including all earlier versions, is now available under Apache-2.0.",
+  },
+  {
+    q: "Can I build from source?",
+    a: "Yes. You need Go and pnpm — see the download page. Prebuilt, signed binaries are available via Homebrew and GitHub Releases.",
   },
   {
     q: "Do you offer refunds?",
-    a: "Yes, 30-day money-back guarantee. If PgDesigner doesn't work for your use case, email us and we'll refund — no questions asked.",
+    a: "Yes, 30-day money-back guarantee on support subscriptions. If it doesn't work out, email us and we'll refund — no questions asked.",
   },
   {
     q: "Where is my data stored?",
-    a: "On your machine. PgDesigner is offline-first — no cloud account, no telemetry, no phone-home. Your .pgd files live in your git repository.",
+    a: "On your machine. PgDesigner is offline-first — no cloud account, no telemetry. Your .pgd files live in your git repository.",
   },
 ];
 ---
 
-<Layout title="Pricing — PostgreSQL Schema Designer" description="PgDesigner pricing: free for non-commercial use forever. $19 one-time for individuals, $49 for teams. All features in every plan. No subscriptions, no feature gates.">
+<Layout title="Pricing — Free & Open Source, Paid Support" description="PgDesigner is free and open source under Apache-2.0 — for any use, including commercial. All features included. Optional Priority Support from $149/year per company.">
   <Container>
     <div class="max-w-5xl mx-auto pt-16 pb-24">
       <div class="text-center">
         <h1 class="text-4xl lg:text-5xl font-bold tracking-tight text-heading">
-          Simple, honest pricing
+          Free and open source. Paid support.
         </h1>
         <p class="mt-4 text-lg text-body max-w-2xl mx-auto">
-          Every plan includes all features — 69 lint rules, diff engine, sample data, CLI. Pay only for commercial use.
+          PgDesigner is open source under Apache-2.0 — every feature, for any use, including commercial. Companies that rely on it can buy priority support.
         </p>
       </div>
 
       <!-- Plans grid -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-14">
+      <div id="support" class="grid md:grid-cols-3 gap-5 mt-14 max-w-4xl mx-auto scroll-mt-24">
         {plans.map((plan) => (
           <div class:list={[
             "rounded-xl p-6 flex flex-col relative",
@@ -120,7 +109,7 @@ const faqs = [
           ]}>
             {plan.popular && (
               <span class="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] font-bold uppercase tracking-wider bg-blue-600 text-white px-3 py-0.5 rounded-full">
-                Most popular
+                Recommended
               </span>
             )}
             <div>
@@ -168,8 +157,8 @@ const faqs = [
             <tbody class="text-body">
               <tr class="border-b border-border-default bg-blue-600/5">
                 <td class="py-2.5 px-4 font-semibold text-heading">PgDesigner</td>
-                <td class="py-2.5 px-4 text-center font-semibold text-heading">$19 once</td>
-                <td class="py-2.5 px-4 text-center font-semibold text-heading">$49 once</td>
+                <td class="py-2.5 px-4 text-center font-semibold text-heading">Free</td>
+                <td class="py-2.5 px-4 text-center font-semibold text-heading">Free (open source)</td>
               </tr>
               <tr class="border-b border-border-default">
                 <td class="py-2.5 px-4">pgModeler</td>
@@ -199,12 +188,12 @@ const faqs = [
       <!-- Trust signals -->
       <div class="mt-16 grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
         <div class="text-center">
-          <p class="text-2xl font-bold text-heading">No subscriptions</p>
-          <p class="text-sm text-muted mt-1">Pay once. Use forever. Renew updates only when you want to.</p>
+          <p class="text-2xl font-bold text-heading">Apache-2.0</p>
+          <p class="text-sm text-muted mt-1">Free for any use, including commercial. Source on GitHub.</p>
         </div>
         <div class="text-center">
-          <p class="text-2xl font-bold text-heading">No feature gates</p>
-          <p class="text-sm text-muted mt-1">Free tier has the same features as paid. Only commercial use requires a license.</p>
+          <p class="text-2xl font-bold text-heading">No paid edition</p>
+          <p class="text-sm text-muted mt-1">Every feature is in the open-source build. Support plans buy our time, not features.</p>
         </div>
         <div class="text-center">
           <p class="text-2xl font-bold text-heading">Your data, your machine</p>

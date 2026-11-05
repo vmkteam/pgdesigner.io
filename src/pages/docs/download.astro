@@ -3,7 +3,7 @@ import DocsLayout from "@/layouts/DocsLayout.astro";
 ---
 <DocsLayout
   title="Download PgDesigner — PostgreSQL Schema Designer"
-  description="Download PgDesigner for macOS, Linux, or Windows. Single statically-linked binary, zero dependencies. Install via Homebrew or download from GitHub Releases. Free for non-commercial use.">
+  description="Download PgDesigner for macOS, Linux, or Windows. Single statically-linked binary, zero dependencies. Install via Homebrew or download from GitHub Releases. Free and open source (Apache-2.0).">
 
 <h2>Homebrew (macOS / Linux)</h2>
 
@@ -66,7 +66,7 @@ docker run --rm -v $(pwd):/work ghcr.io/vmkteam/pgdesigner:latest lint /work/sch
 cd pgdesigner
 make build</code></pre>
 
-<p>The binary is at <code>./bin/pgdesigner</code>. Source builds are licensed under PolyForm Noncommercial — commercial use requires a <a href="/pricing">purchased license</a>.</p>
+<p>The binary is at <code>./bin/pgdesigner</code>. PgDesigner is open source under the <a href="https://github.com/vmkteam/pgdesigner/blob/master/LICENSE">Apache License 2.0</a> — free for any use, including commercial.</p>
 
 <h2>System requirements</h2>
 
@@ -79,7 +79,7 @@ make build</code></pre>
 
 <h2>macOS Gatekeeper</h2>
 
-<p>Purchased binaries are signed and notarized by Apple — they open without warnings. If you build from source, macOS may show "unidentified developer". To allow:</p>
+<p>Release binaries (Homebrew and GitHub Releases) are signed and notarized by Apple — they open without warnings. If you build from source, macOS may show "unidentified developer". To allow:</p>
 
 <pre><code>xattr -d com.apple.quarantine pgdesigner</code></pre>
 
@@ -89,7 +89,7 @@ make build</code></pre>
   <p class="text-sm font-semibold text-heading mb-2">See also</p>
   <ul class="text-sm space-y-1">
     <li><a href="/docs/quickstart" class="text-accent-text hover:underline">Quickstart guide</a></li>
-    <li><a href="/pricing" class="text-accent-text hover:underline">Pricing & licenses</a></li>
+    <li><a href="/pricing" class="text-accent-text hover:underline">Pricing & support</a></li>
   </ul>
 </div>
 </DocsLayout>

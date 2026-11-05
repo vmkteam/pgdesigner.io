@@ -82,7 +82,7 @@ From now on, every schema change produces clean single-line diffs in your pull r
 | Git-friendly diffs | Poor | Single-line XML diffs |
 | CLI for CI/CD | No | Yes |
 | Cross-platform | Windows only | macOS, Linux, Windows |
-| Price | From $124.95 | $19 (free non-commercial) |
+| Price | From $124.95 | Free (Apache-2.0) |
 
 ## What if my .pdd file has issues?
 
