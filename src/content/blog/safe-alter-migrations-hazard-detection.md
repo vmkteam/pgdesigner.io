@@ -19,7 +19,7 @@ tags: [postgresql, migrations, alter, diff, hazard-detection]
 
 Every DBA has a horror story about an ALTER statement that locked a table for 20 minutes, or a DROP COLUMN that deleted production data. PgDesigner's diff engine is designed to prevent these incidents.
 
-![PgDesigner diff dialog showing unsaved changes with DROP, ADD, ALTER badges and hazard warnings](/images/diff-dark.png)
+![PgDesigner diff dialog showing unsaved changes with DROP, ADD, ALTER badges and hazard warnings](/images/diff-dark.webp)
 
 ## The problem with manual ALTER scripts
 

@@ -84,9 +84,20 @@ const faqs = [
     a: "On your machine. PgDesigner is offline-first — no cloud account, no telemetry. Your .pgd files live in your git repository.",
   },
 ];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(({ q, a }) => ({
+    "@type": "Question",
+    "name": q,
+    "acceptedAnswer": { "@type": "Answer", "text": a },
+  })),
+};
 ---
 
 <Layout title="Pricing — Free & Open Source, Paid Support" description="PgDesigner is free and open source under Apache-2.0 — for any use, including commercial. All features included. Optional Priority Support from $149/year per company.">
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} />
   <Container>
     <div class="max-w-5xl mx-auto pt-16 pb-24">
       <div class="text-center">

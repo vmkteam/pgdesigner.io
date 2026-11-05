@@ -8,7 +8,11 @@ import icon from "astro-icon";
 export default defineConfig({
   site: "https://pgdesigner.io",
   trailingSlash: "never",
-  integrations: [mdx(), sitemap(), icon()],
+  integrations: [
+    mdx(),
+    sitemap({ filter: (page) => !/\/(thanks|404)\/?$/.test(page) }),
+    icon(),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

@@ -8,20 +8,23 @@ import "../styles/global.css";
 export interface Props {
   title: string;
   description?: string;
+  image?: string;
+  type?: "website" | "article";
+  noindex?: boolean;
 }
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site).toString();
 
-const resolvedImageWithDomain = new URL(
-  "/opengraph.jpg",
-  Astro.site
-).toString();
+const { title, description, image = "/opengraph.jpg", type = "website", noindex = false } = Astro.props;
 
-const { title, description } = Astro.props;
+const resolvedImageWithDomain = new URL(image, Astro.site).toString();
 
-const makeTitle = title
-  ? title + " | PgDesigner"
-  : "PgDesigner — Visual PostgreSQL Schema Designer";
+// Don't repeat the brand when the page title already has it.
+const makeTitle = !title
+  ? "PgDesigner — Visual PostgreSQL Schema Designer"
+  : title.includes("PgDesigner")
+    ? title
+    : title + " | PgDesigner";
 
 const seoDescription = description || "Design PostgreSQL schemas visually. Generate production-ready SQL. Compare schemas with safe ALTER migrations. 69 lint rules. Free and open source (Apache-2.0).";
 ---
@@ -30,7 +33,7 @@ const seoDescription = description || "Design PostgreSQL schemas visually. Gener
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
@@ -53,6 +56,7 @@ const seoDescription = description || "Design PostgreSQL schemas visually. Gener
       title={makeTitle}
       description={seoDescription}
       canonical={canonicalURL}
+      noindex={noindex}
       twitter={{
         card: "summary_large_image",
         title: makeTitle,
@@ -63,7 +67,7 @@ const seoDescription = description || "Design PostgreSQL schemas visually. Gener
       openGraph={{
         basic: {
           url: canonicalURL,
-          type: "website",
+          type,
           title: makeTitle,
           image: resolvedImageWithDomain,
         },
@@ -109,14 +113,18 @@ const seoDescription = description || "Design PostgreSQL schemas visually. Gener
       }
     ]
     </script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFQ9KWZNVN" is:inline></script>
-    <script is:inline>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HFQ9KWZNVN');
-    </script>
+    {import.meta.env.PROD && (
+      <Fragment>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-HFQ9KWZNVN" is:inline></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-HFQ9KWZNVN');
+        </script>
+      </Fragment>
+    )}
   </head>
   <body class="bg-surface text-body antialiased">
     <Navbar />
@@ -142,7 +150,7 @@ const seoDescription = description || "Design PostgreSQL schemas visually. Gener
         if (!img) return;
         const overlay = document.createElement('div');
         overlay.className = 'img-zoom-overlay';
-        overlay.innerHTML = '<img src="' + img.src + '" alt="' + (img.alt || '') + '">';
+        overlay.innerHTML = '<img src="' + (img.currentSrc || img.src) + '" alt="' + (img.alt || '') + '">';
         function esc(e) {
           if (e.key === 'Escape') close();
         }

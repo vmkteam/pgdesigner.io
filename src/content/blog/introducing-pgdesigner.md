@@ -19,7 +19,7 @@ tags: [postgresql, schema-design, erd, release]
 
 Today we're releasing PgDesigner — a visual PostgreSQL schema designer built for teams that treat their database schema as seriously as their application code.
 
-![PgDesigner ERD canvas showing the AdventureWorks database with 68 tables and foreign key relationships](/images/erd-dark.png)
+![PgDesigner ERD canvas showing the AdventureWorks database with 68 tables and foreign key relationships](/images/erd-dark.webp)
 
 ## Why we built PgDesigner
 
