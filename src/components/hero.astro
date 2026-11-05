@@ -5,15 +5,29 @@ import Container from "@/components/container.astro";
 <Container>
   <main class="grid lg:grid-cols-2 place-items-center pt-16 pb-8 md:pt-12 md:pb-24 gap-8">
     <div>
+      <a
+        href="/blog/pgdesigner-is-now-open-source"
+        class="inline-flex items-center gap-2 mb-5 rounded-full border border-blue-500/40 bg-blue-600/10 px-3 py-1 text-xs font-medium text-accent-text hover:bg-blue-600/20 transition-colors">
+        <span class="rounded-full bg-blue-600 px-1.5 py-px text-[10px] font-bold uppercase tracking-wider text-white">New</span>
+        Now open source under Apache-2.0 &rarr;
+      </a>
       <h1 class="text-4xl lg:text-5xl xl:text-6xl font-bold lg:tracking-tight xl:tracking-tighter text-heading">
         Visual PostgreSQL Schema Designer
       </h1>
       <p class="text-lg mt-4 text-muted max-w-xl">
         Visual ERD diagrams, DDL generation, schema diff &amp; safe ALTER migrations for PostgreSQL.
       </p>
-      <p class="text-sm mt-2 text-faint max-w-lg">
-        Visual ERD editor with production-ready DDL generation, schema diff, safe ALTER migrations, and 69 lint rules.
-      </p>
+      <div class="mt-4 inline-flex items-center gap-3 rounded-lg border border-border-default bg-surface-alt px-4 py-2 font-mono text-sm text-body">
+        <span class="select-none text-faint">$</span>
+        <code id="install-cmd">brew install vmkteam/tap/pgdesigner</code>
+        <button
+          type="button"
+          data-copy="install-cmd"
+          class="text-faint hover:text-heading transition-colors"
+          aria-label="Copy install command">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 17.25v3.375c0 .621-.504 1.125-1.125 1.125h-9.75a1.125 1.125 0 0 1-1.125-1.125V7.875c0-.621.504-1.125 1.125-1.125H6.75a9.06 9.06 0 0 1 1.5.124m7.5 10.376h3.375c.621 0 1.125-.504 1.125-1.125V11.25c0-4.46-3.243-8.161-7.5-9.376h-1.5a1.125 1.125 0 0 0-1.125 1.125v3.375m9.375 3.375-.002.375m.002-.375h-3.375a1.125 1.125 0 0 1-1.125-1.125V6.75m4.5 4.5V8.625c0-1.036-.84-1.875-1.875-1.875h-.75"/></svg>
+        </button>
+      </div>
       <div class="mt-6 flex flex-col sm:flex-row gap-3">
         <a
           href="/docs/download"
@@ -82,11 +96,21 @@ import Container from "@/components/container.astro";
             class="w-full h-auto"
             width="1109"
             height="857"
-            loading="eager"
-            fetchpriority="high"
+            loading="lazy"
           />
         </picture>
       </div>
     </div>
   </main>
 </Container>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>("[data-copy]").forEach((btn) =>
+    btn.addEventListener("click", async () => {
+      const text = document.getElementById(btn.dataset.copy!)?.textContent ?? "";
+      await navigator.clipboard.writeText(text);
+      btn.classList.add("text-positive");
+      setTimeout(() => btn.classList.remove("text-positive"), 1200);
+    }),
+  );
+</script>

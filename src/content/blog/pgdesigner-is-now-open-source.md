@@ -3,8 +3,8 @@ draft: false
 title: "PgDesigner Is Now Open Source (Apache-2.0)"
 snippet: "Starting with v0.1.0, PgDesigner is licensed under Apache-2.0 — free for any use, including commercial. All earlier releases are covered too. Here's why, and how we fund development."
 image:
-  src: "/images/dark.png"
-  alt: "PgDesigner visual ERD editor — now open source under Apache-2.0"
+  src: "/opengraph.jpg"
+  alt: "PgDesigner — Visual PostgreSQL Schema Designer, open source under Apache-2.0"
 thumb:
   src: "/images/blog/thumb-dark.webp"
   alt: "PgDesigner visual ERD editor — now open source under Apache-2.0"
